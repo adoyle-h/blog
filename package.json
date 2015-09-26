@@ -1,0 +1,23 @@
+{
+  "name": "blog",
+  "version": "0.0.1",
+  "private": true,
+  "hexo": {
+    "version": "3.1.1"
+  },
+  "dependencies": {
+    "hexo": "^3.1.0",
+    "hexo-deployer-git": "0.0.4",
+    "hexo-generator-archive": "^0.1.2",
+    "hexo-generator-category": "^0.1.2",
+    "hexo-generator-feed": "^1.0.3",
+    "hexo-generator-index": "^0.1.2",
+    "hexo-generator-tag": "^0.1.1",
+    "hexo-hey": "nihgwu/hexo-hey",
+    "hexo-renderer-ejs": "^0.1.0",
+    "hexo-renderer-markdown-it": "^3.4.0",
+    "hexo-renderer-stylus": "^0.3.0",
+    "hexo-server": "^0.1.2",
+    "hexo-toc": "0.0.5"
+  }
+}
