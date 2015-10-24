@@ -49,7 +49,7 @@ titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
 filename_case: 0
 render_drafts: false
-post_asset_folder: true
+post_asset_folder: false
 relative_link: false
 future: false
 highlight:
@@ -69,6 +69,8 @@ category_map:
   产品: product
   管理: cooperation
   翻译: translation
+  前端: fe
+  后端: server
 tag_map:
 
 # Date / Time format
@@ -110,13 +112,6 @@ feed:
   type: atom
   path: atom.xml
   limit: 20
-
-admin:
-    name: hexo
-    password: hexo
-    secret: hey_hexo
-    expire: 60*1
-    # cors: http://localhost:3000
 
 markdown:
   render:
