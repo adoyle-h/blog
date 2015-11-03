@@ -131,3 +131,6 @@ markdown:
     permalink: false
     permalinkClass: header-anchor
     permalinkSymbol: ¶
+
+sitemap:
+    path: sitemap.xml
