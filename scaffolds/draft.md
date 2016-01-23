@@ -1,3 +1,4 @@
+---
 title: {{ title }}
 author: 'ADoyle <adoyle.h@gmail.com>'
 tags: []
