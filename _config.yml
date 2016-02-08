@@ -71,6 +71,8 @@ category_map:
   翻译: translation
   前端: fe
   后端: server
+  经验: exp
+  杂谈: ramb
 tag_map:
 
 # Date / Time format
