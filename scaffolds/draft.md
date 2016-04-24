@@ -6,17 +6,18 @@ categories: []
 copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/blog/copyright.html)'
 ---
 
-## 概览(Overview)/前言(Intro)
+## 概览 (Overview)
+## 前言 (Intro)
 
 
 <!-- more -->
 
 
 
-## 参考(Bibliographies)
+## 参考 (Bibliographies)
 - [][B1]
 
-## 引用(References)
+## 引用 (References)
 [^1]: [][R1]
 
 
@@ -25,3 +26,4 @@ copyright: '未经授权，不得全文转载。转载前请先阅读[本站版�
 [R1]: <url> "备注"
 
 [B1]: <url> "备注"
+
