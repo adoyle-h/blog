@@ -26,6 +26,21 @@ copyright: '未经授权，不得全文转载。转载前请先阅读[本站版�
 - [poedit]
 
 ## 编译工具
+
+`brew install gettext`
+
+```
+ln -s /usr/local/opt/gettext/bin/msgfmt /usr/local/bin
+ln -s /usr/local/opt/gettext/bin/msgunfmt /usr/local/bin
+ln -s /usr/local/opt/gettext/bin/gettext /usr/local/bin
+ln -s /usr/local/opt/gettext/bin/xgettext /usr/local/bin
+```
+
+```
+msgunfmt xxx.mo -o xxx.po
+msgfmt xxx.po -o xxx.mo
+```
+
 - [Sphinx]
 
 ### gettext
