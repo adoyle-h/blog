@@ -56,7 +56,6 @@ highlight:
   enable: true
   line_number: true
   auto_detect: true
-  tab_replace: 4
 
 # Category & Tag
 default_category: unclassified
@@ -136,3 +135,4 @@ markdown:
 
 sitemap:
     path: sitemap.xml
+
