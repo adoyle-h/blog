@@ -1,0 +1,770 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Promise,JS,silent-fail," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言(Intro)
+当运行下面一段代码，会发生什么？
+123Promise.resolve().then(function() &amp;#123;    throw new Error(&apos;Ouch!&apos;);&amp;#125;);
+恩，你看不到任何错误信息。
+沉默的失败非常可怕。当发生错误时，你无法获知任何当时上下文的信息，仅有的线索只有程序没按正常的流程走。你甚至可能都没有机会察觉到发生了错误。
+也许这是一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise 吞掉报错信息的问题">
+<meta property="og:url" content="http://adoyle.me/blog/silent-fail-in-promise.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="前言(Intro)
+当运行下面一段代码，会发生什么？
+123Promise.resolve().then(function() &amp;#123;    throw new Error(&apos;Ouch!&apos;);&amp;#125;);
+恩，你看不到任何错误信息。
+沉默的失败非常可怕。当发生错误时，你无法获知任何当时上下文的信息，仅有的线索只有程序没按正常的流程走。你甚至可能都没有机会察觉到发生了错误。
+也许这是一个">
+<meta property="og:updated_time" content="2016-05-14T11:57:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Promise 吞掉报错信息的问题">
+<meta name="twitter:description" content="前言(Intro)
+当运行下面一段代码，会发生什么？
+123Promise.resolve().then(function() &amp;#123;    throw new Error(&apos;Ouch!&apos;);&amp;#125;);
+恩，你看不到任何错误信息。
+沉默的失败非常可怕。当发生错误时，你无法获知任何当时上下文的信息，仅有的线索只有程序没按正常的流程走。你甚至可能都没有机会察觉到发生了错误。
+也许这是一个">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/silent-fail-in-promise.html"/>
+
+
+  <title> Promise 吞掉报错信息的问题 | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Promise 吞掉报错信息的问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T16:29:40+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/silent-fail-in-promise.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="silent-fail-in-promise.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/Promise/" rel="tag">#Promise</a>
+              
+                <a href="/blog/tags/JS/" rel="tag">#JS</a>
+              
+                <a href="/blog/tags/silent-fail/" rel="tag">#silent-fail</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
+<p>&#x5F53;&#x8FD0;&#x884C;&#x4E0B;&#x9762;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&apos;Ouch!&apos;</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x6069;&#xFF0C;&#x4F60;&#x770B;&#x4E0D;&#x5230;&#x4EFB;&#x4F55;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x3002;<br>
+&#x6C89;&#x9ED8;&#x7684;&#x5931;&#x8D25;&#x975E;&#x5E38;&#x53EF;&#x6015;&#x3002;&#x5F53;&#x53D1;&#x751F;&#x9519;&#x8BEF;&#x65F6;&#xFF0C;&#x4F60;&#x65E0;&#x6CD5;&#x83B7;&#x77E5;&#x4EFB;&#x4F55;&#x5F53;&#x65F6;&#x4E0A;&#x4E0B;&#x6587;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x4EC5;&#x6709;&#x7684;&#x7EBF;&#x7D22;&#x53EA;&#x6709;&#x7A0B;&#x5E8F;&#x6CA1;&#x6309;&#x6B63;&#x5E38;&#x7684;&#x6D41;&#x7A0B;&#x8D70;&#x3002;&#x4F60;&#x751A;&#x81F3;&#x53EF;&#x80FD;&#x90FD;&#x6CA1;&#x6709;&#x673A;&#x4F1A;&#x5BDF;&#x89C9;&#x5230;&#x53D1;&#x751F;&#x4E86;&#x9519;&#x8BEF;&#x3002;</p>
+<p>&#x4E5F;&#x8BB8;&#x8FD9;&#x662F;&#x4E00;&#x4E2A; Feature&#xFF0C;&#x800C;&#x975E; Bug&#x3002;&#x4F46;&#x6211;&#x89C9;&#x5F97;&#x8FD9;&#x662F;&#x4E00;&#x5927;&#x9690;&#x60A3;&#xFF0C;&#x6240;&#x5E78;&#x6709;&#x4E9B;&#x4EBA;&#x4E5F;&#x6CE8;&#x610F;&#x5230;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x5E76;&#x5DF2;&#x7ECF;&#x5728;&#x4FEE;&#x6B63;&#x4E86;&#x3002;&#x770B;&#x770B;&#x8FD9;&#x4E2A;<a href="https://gist.github.com/benjamingr/0237932cee84712951a2" target="_blank" rel="external">&#x63D0;&#x6848;</a>&#x3002;</p>
+<p><a href="https://github.com/nodejs/node/pull/758" target="_blank" rel="external">&#x5728; nodejs 1.x &#x8D77;</a>&#xFF0C;process &#x52A0;&#x5165;&#x4E86;&#x4E24;&#x4E2A;&#x4E8B;&#x4EF6; <code>rejectionHandled</code> &#x548C; <code>unhandledRejection</code>&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x5927;&#x90E8;&#x5206;&#x4E3B;&#x6D41; Promise &#x5E93;&#x4E2D;&#x4E5F;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x6837;&#x7684;&#x7279;&#x6027;&#x3002;&#x4E3A;&#x4E86;&#x6355;&#x83B7;&#x6CA1;&#x6709;&#x5904;&#x7406;&#x7684; rejected promise&#x3002;</p>
+<a id="more"></a>
+<h2 id="rejectionhandled-&#x548C;-unhandledrejection"><code>rejectionHandled</code> &#x548C; <code>unhandledRejection</code></h2>
+<p>&#x5177;&#x4F53;&#x8BF4;&#x660E;&#x53EF;&#x53C2;&#x89C1; <a href="https://nodejs.org/dist/latest-v5.x/docs/api/process.html#process_event_unhandledrejection" target="_blank" rel="external">NodeJS &#x7684; process API &#x6587;&#x6863;</a>&#x3002;</p>
+<h3 id="&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;">&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50; &#x1F330;</h3>
+<p>&#x5982;&#x4F55;&#x4F7F;&#x7528; <code>unhandledRejection</code>&#xFF0C;&#x6BD4;&#x5982;&#x6539;&#x5199;&#x524D;&#x8A00;&#x91CC;&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&apos;Ouch!&apos;</span>);</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line">process.on(<span class="string">&apos;unhandledRejection&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;[unhandledRejection]&apos;</span>, <span class="built_in">arguments</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x88AB;&#x541E;&#x7684;&#x9519;&#x8BEF;&#x7EC8;&#x4E8E;&#x5410;&#x51FA;&#x6765;&#x4E86;&#x3002;</p>
+<p>&#x518D;&#x770B; <code>rejectionHandled</code> &#x7684;&#x7EC6;&#x8282;&#xFF1A;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&apos;Ouch!&apos;</span>);</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="built_in">Promise</span>.reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&apos;WTF&apos;</span>));</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;before hello&apos;</span>);</span><br><span class="line">    p.catch(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&apos;hello?&apos;</span>);</span><br><span class="line">    });</span><br><span class="line">}, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line">process.on(<span class="string">&apos;unhandledRejection&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;[unhandledRejection]&apos;</span>, <span class="built_in">arguments</span>);</span><br><span class="line">});</span><br><span class="line"></span><br><span class="line">process.on(<span class="string">&apos;rejectionHandled&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&apos;[rejectionHandled]&apos;</span>, <span class="built_in">arguments</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x8F93;&#x51FA;</p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="name">unhandledRejection</span>] { <span class="symbol">&apos;0</span><span class="symbol">&apos;:</span> [<span class="name">Error:</span> WTF], <span class="symbol">&apos;1</span><span class="symbol">&apos;:</span> Promise { &lt;rejected&gt; [<span class="name">Error:</span> WTF] } }</span><br><span class="line">[<span class="name">unhandledRejection</span>] { <span class="symbol">&apos;0</span><span class="symbol">&apos;:</span> [<span class="name">Error:</span> Ouch!],</span><br><span class="line">  <span class="symbol">&apos;1</span><span class="symbol">&apos;:</span> Promise { &lt;rejected&gt; [<span class="name">Error:</span> Ouch!] } }</span><br><span class="line">before hello</span><br><span class="line">[<span class="name">rejectionHandled</span>] { <span class="symbol">&apos;0</span><span class="symbol">&apos;:</span> Promise { &lt;rejected&gt; [<span class="name">Error:</span> WTF] } }</span><br><span class="line">hello?</span><br></pre></td></tr></table></figure>
+<p><code>rejectionHandled</code> &#x662F;&#x5728; 1000 &#x6BEB;&#x79D2;&#x4EE5;&#x540E;&#x624D;&#x89E6;&#x53D1;&#x7684;&#x3002;&#x6CE8;&#x610F;&#x4E0A;&#x9762;&#x7684;&#x4EE3;&#x7801;&#xFF0C;1000 &#x6BEB;&#x79D2;&#x4EE5;&#x540E; p.catch &#x624D;&#x6267;&#x884C;&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x6B63;&#x662F;&#x5728; p.catch &#x6267;&#x884C;&#x7684;&#x65F6;&#x5019;&#x624D;&#x89E6;&#x53D1;&#x4E86; <code>rejectionHandled</code> &#x4E8B;&#x4EF6;&#x3002;<br>
+<code>rejectionHandled</code> &#x4E3B;&#x8981;&#x662F;&#x4E3A;&#x4E86;&#x83B7;&#x77E5;&#x672A;&#x6355;&#x6349;&#x7684; rejected promise &#x4F55;&#x65F6;&#x88AB;&#x6355;&#x6349;&#x7684;&#xFF08;&#x5F02;&#x6B65; catch&#xFF09;&#x3002;</p>
+<h2 id="&#x61D2;&#x4EBA;&#x5305;">&#x61D2;&#x4EBA;&#x5305;</h2>
+<p><a href="https://github.com/sindresorhus/loud-rejection" target="_blank" rel="external">sindresorhus/loud-rejection</a> &#x5C01;&#x88C5;&#x4E86; <code>rejectionHandled</code> &#x548C; <code>unhandledRejection</code> &#x7684;&#x5904;&#x7406;&#x3002;<br>
+&#x4F60;&#x53EA;&#x8981; <code>require(&apos;loud-rejection&apos;)();</code> &#x8FD9;&#x4E48;&#x8C03;&#x7528;&#x4E00;&#x4E0B;&#x5C31;&#x4F1A;&#x628A;&#x672A;&#x6355;&#x6349;&#x7684; promise &#x91CC;&#x7684;&#x9519;&#x8BEF;&#x6253;&#x5370;&#x51FA;&#x6765;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
+<ul>
+<li><a href="https://gist.github.com/benjamingr/0237932cee84712951a2" target="_blank" rel="external">benjamingr - Possibly Unhandled Rejection NodeJS Promise Hook</a></li>
+<li><a href="https://nodejs.org/dist/latest-v5.x/docs/api/process.html" target="_blank" rel="external">Node.js Documentation</a></li>
+</ul>
+<h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/how-csrf-works.html" rel="next" title="CSRF 攻击原理">
+                <i class="fa fa-chevron-left"></i> CSRF 攻击原理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/trap-in-makefile.html" rel="prev" title="Makefile 的一个陷阱">
+                Makefile 的一个陷阱 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言intro"><span class="nav-number">1.</span> <span class="nav-text">前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rejectionhandled-和-unhandledrejection"><span class="nav-number">2.</span> <span class="nav-text">rejectionHandled 和 unhandledRejection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个例子"><span class="nav-number">2.1.</span> <span class="nav-text">举个例子 🌰</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#懒人包"><span class="nav-number">3.</span> <span class="nav-text">懒人包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">4.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">5.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2016 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'silent-fail-in-promise.html';
+      var disqus_title = "Promise 吞掉报错信息的问题";
+      var disqus_url = 'http://adoyle.me/blog/blog/silent-fail-in-promise.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,842 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="nginx,apache," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="本文翻译自 DigitalOcean 的《Apache vs Nginx: Practical Considerations》。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache 与 Nginx 实际比较">
+<meta property="og:url" content="http://adoyle.me/blog/apache-vs-nginx-practical-considerations.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="本文翻译自 DigitalOcean 的《Apache vs Nginx: Practical Considerations》。">
+<meta property="og:image" content="http://ww2.sinaimg.cn/large/006aQyYMgw1excaa6aeflj30ku0afwis.jpg">
+<meta property="og:updated_time" content="2016-05-14T11:57:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apache 与 Nginx 实际比较">
+<meta name="twitter:description" content="本文翻译自 DigitalOcean 的《Apache vs Nginx: Practical Considerations》。">
+<meta name="twitter:image" content="http://ww2.sinaimg.cn/large/006aQyYMgw1excaa6aeflj30ku0afwis.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/apache-vs-nginx-practical-considerations.html"/>
+
+
+  <title> Apache 与 Nginx 实际比较 | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Apache 与 Nginx 实际比较
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-10-26T21:47:57+08:00" content="2015-10-26">
+              2015-10-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/translation/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/translation/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/apache-vs-nginx-practical-considerations.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="apache-vs-nginx-practical-considerations.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/nginx/" rel="tag">#nginx</a>
+              
+                <a href="/blog/tags/apache/" rel="tag">#apache</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <p><img src="http://ww2.sinaimg.cn/large/006aQyYMgw1excaa6aeflj30ku0afwis.jpg" alt="Apache vs Nginx"></p>
+<blockquote>
+<p>&#x672C;&#x6587;&#x7FFB;&#x8BD1;&#x81EA; DigitalOcean &#x7684;<a href="https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations" target="_blank" rel="external">&#x300A;Apache vs Nginx: Practical Considerations&#x300B;</a>&#x3002;</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="&#x4ECB;&#x7ECD;">&#x4ECB;&#x7ECD;</h2>
+<p>Apache &#x548C; Nginx &#x662F;&#x4E16;&#x754C;&#x4E0A;&#x6700;&#x901A;&#x7528;&#x7684;&#x4E24;&#x5927;&#x5F00;&#x6E90; Web &#x670D;&#x52A1;&#x5668;&#x3002;&#x4ED6;&#x4EEC;&#x6B63;&#x4E3A;&#x8D85;&#x8FC7; 50% &#x4E92;&#x8054;&#x7F51;&#x6D41;&#x91CF;&#x4F20;&#x8F93;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x3002;&#x4E24;&#x79CD;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x90FD;&#x80FD;&#x5904;&#x7406;&#x5404;&#x79CD;&#x7684;&#x5DE5;&#x4F5C;&#x573A;&#x666F;&#xFF0C;&#x5E76;&#x4E0E;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x534F;&#x540C;&#x5DE5;&#x4F5C;&#xFF0C;&#x4ECE;&#x800C;&#x63D0;&#x4F9B;&#x5B8C;&#x5584;&#x7684; Web &#x6280;&#x672F;&#x6808;&#x3002;</p>
+<p>&#x5C3D;&#x7BA1; Apache &#x548C; Nginx &#x6709;&#x8BB8;&#x591A;&#x5171;&#x901A;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x5E76;&#x4E0D;&#x80FD;&#x5C06;&#x5B83;&#x4EEC;&#x89C6;&#x4E3A;&#x53EF;&#x4EE5;&#x5B8C;&#x5168;&#x76F8;&#x4E92;&#x66FF;&#x4EE3;&#x7684;&#x3002;&#x5B83;&#x4EEC;&#x5404;&#x6709;&#x6240;&#x957F;&#x3002;&#x4E86;&#x89E3;&#x4F7F;&#x7528;&#x573A;&#x666F;&#x5BF9;&#x4F60;&#x91CD;&#x65B0;&#x8BC4;&#x4F30;&#x9009;&#x62E9;&#x4F60;&#x7684; web &#x670D;&#x52A1;&#x5668;&#x975E;&#x5E38;&#x91CD;&#x8981;&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x5C06;&#x4E13;&#x6CE8;&#x4E8E;&#x8BA8;&#x8BBA;&#x4E24;&#x79CD;&#x670D;&#x52A1;&#x5668;&#x5982;&#x4F55;&#x5E94;&#x5BF9;&#x4E0D;&#x540C;&#x573A;&#x666F;&#x3002;</p>
+<h2 id="&#x6982;&#x89C8;">&#x6982;&#x89C8;</h2>
+<p>&#x5728;&#x6DF1;&#x5165;&#x6BD4;&#x8F83; Apache &#x548C; Nginx &#x4E4B;&#x524D;&#xFF0C;&#x8BA9;&#x6211;&#x4EEC;&#x5FEB;&#x901F;&#x6D4F;&#x89C8;&#x4E00;&#x4E0B;&#x8FD9;&#x4E24;&#x4E2A;&#x9879;&#x76EE;&#x5404;&#x81EA;&#x7684;&#x80CC;&#x666F;&#x548C;&#x7279;&#x70B9;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>Apache HTTP &#x670D;&#x52A1;&#x5668;&#x7531; Robert McCool &#x5728; 1995 &#x5E74;&#x521B;&#x5EFA;&#xFF0C;&#x5E76;&#x4ECE; 1999 &#x5E74;&#x5F00;&#x59CB;&#x5728; Apache &#x8F6F;&#x4EF6;&#x57FA;&#x91D1;&#x4F1A;&#x7684;&#x6307;&#x6325;&#x4E0B;&#x8FDB;&#x884C;&#x5F00;&#x53D1;&#x3002;&#x7531;&#x4E8E;&#x8FD9;&#x4E2A; HTTP web &#x670D;&#x52A1;&#x5668;&#x662F;&#x57FA;&#x91D1;&#x4F1A;&#x7684;&#x539F;&#x59CB;&#x9879;&#x76EE;&#xFF0C;&#x5E76;&#x4E14;&#x5230;&#x76EE;&#x524D;&#x4E3A;&#x6B62;&#x4E5F;&#x662F;&#x4ED6;&#x4EEC;&#x6700;&#x6D41;&#x884C;&#x7684;&#x8F6F;&#x4EF6;&#x4E4B;&#x4E00;&#xFF0C;&#x4E8E;&#x662F;&#x5E38;&#x5E38;&#x5C06;&#x5B83;&#x7B80;&#x79F0;&#x4E3A;&#x201C;Apache&#x201D;&#x3002;</p>
+<p>&#x81EA;&#x4ECE; 1996 &#x5E74;&#xFF0C; Apache web &#x670D;&#x52A1;&#x5668;&#x5C31;&#x5DF2;&#x7ECF;&#x662F;&#x4E92;&#x8054;&#x7F51;&#x4E0A;&#x6700;&#x6D41;&#x884C;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4E86;&#x3002;&#x6B63;&#x56E0;&#x4E3A;&#x5982;&#x6B64;&#x666E;&#x53CA;&#xFF0C;Apache &#x4ECE;&#x4E30;&#x5BCC;&#x7684;&#x6587;&#x7AE0;&#x4E2D;&#x53D7;&#x76CA;&#xFF0C;&#x5E76;&#x88AB;&#x8BB8;&#x591A;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x9879;&#x76EE;&#x96C6;&#x6210;&#x652F;&#x6301;&#x3002;</p>
+<p>&#x4E4B;&#x6240;&#x4EE5;&#x7BA1;&#x7406;&#x5458;&#x4EEC;&#x9009;&#x62E9;&#x4F7F;&#x7528; Apache&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x7075;&#x6D3B;&#x3001;&#x9AD8;&#x6548;&#x4EE5;&#x53CA;&#x5E7F;&#x6CDB;&#x7684;&#x652F;&#x6301;&#x3002;&#x5B83;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x7CFB;&#x7EDF;&#x6765;&#x5B9E;&#x73B0;&#x53EF;&#x6269;&#x5C55;&#xFF0C;&#x5E76;&#x4E14;&#x80FD;&#x5728;&#x4E0D;&#x8FDE;&#x63A5;&#x5916;&#x90E8;&#x8F6F;&#x4EF6;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x72EC;&#x81EA;&#x5904;&#x7406;&#x5927;&#x91CF;&#x89E3;&#x91CA;&#x578B;&#x8BED;&#x8A00;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>&#x5728; 2002 &#x5E74;&#xFF0C;Igor Sysoev &#x5F00;&#x59CB;&#x7814;&#x53D1; Nginx &#x6765;&#x89E3;&#x51B3; C10K &#x95EE;&#x9898;&#x2014;&#x2014;&#x5728;&#x5F53;&#x65F6;&#x9700;&#x8981; web &#x670D;&#x52A1;&#x5668;&#x540C;&#x65F6;&#x5904;&#x7406;&#x4E00;&#x4E07;&#x4E2A;&#x8FDE;&#x63A5;&#x4EE5;&#x5E94;&#x5BF9;&#x73B0;&#x4EE3;&#x7F51;&#x7EDC;&#x7684;&#x9700;&#x6C42;&#x2014;&#x2014;&#x8FD9;&#x662F;&#x4E00;&#x4E2A;&#x8270;&#x96BE;&#x7684;&#x6311;&#x6218;&#x3002;&#x5B83;&#x7684;&#x9996;&#x4E2A;&#x516C;&#x5F00;&#x7248;&#x672C;&#x53D1;&#x5E03;&#x662F;&#x5728; 2004 &#x5E74;&#xFF0C;&#x901A;&#x8FC7;&#x5F02;&#x6B65;&#x7684;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x67B6;&#x6784;&#x5F97;&#x4EE5;&#x5B9E;&#x73B0;&#x76EE;&#x6807;&#x3002;</p>
+<p>&#x5F97;&#x76CA;&#x4E8E;&#x5B83;&#x7684;&#x8F7B;&#x91CF;&#x7EA7;&#x8D44;&#x6E90;&#x5229;&#x7528;&#xFF0C;&#x548C;&#x5B83;&#x5728;&#x7B80;&#x5355;&#x786C;&#x4EF6;&#x8BBE;&#x65BD;&#x4E0A;&#x7684;&#x6269;&#x5C55;&#x80FD;&#x529B;&#xFF0C;Nginx &#x81EA;&#x4ECE;&#x53D1;&#x5E03;&#x540E;&#x65E5;&#x76CA;&#x6D41;&#x884C;&#x3002;Nginx &#x64C5;&#x957F;&#x4E8E;&#x5FEB;&#x901F;&#x5904;&#x7406;&#x9759;&#x6001;&#x5185;&#x5BB9;&#xFF0C;&#x5E76;&#x4E14;&#x5B83;&#x88AB;&#x8BBE;&#x8BA1;&#x4E3A;&#x53EF;&#x5411;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x4F20;&#x9012;&#x52A8;&#x6001;&#x8BF7;&#x6C42;&#xFF0C;&#x8FD9;&#x66F4;&#x7B26;&#x5408;&#x5B83;&#x7684;&#x5F00;&#x53D1;&#x76EE;&#x7684;&#x3002;</p>
+<p>&#x4E4B;&#x6240;&#x4EE5;&#x7BA1;&#x7406;&#x5458;&#x4EEC;&#x9009;&#x62E9;&#x4F7F;&#x7528; Nginx&#xFF0C;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x8D44;&#x6E90;&#x5229;&#x7528;&#x5EA6;&#x4EE5;&#x53CA;&#x8D1F;&#x8F7D;&#x65F6;&#x7684;&#x54CD;&#x5E94;&#x80FD;&#x529B;&#x3002;Nginx &#x7684;&#x62E5;&#x62A4;&#x8005;&#x6B23;&#x8D4F;&#x5B83;&#x4E13;&#x6CE8;&#x4E8E; web &#x670D;&#x52A1;&#x5668;&#x7684;&#x6838;&#x5FC3;&#x4EE5;&#x53CA;&#x5B83;&#x7684;&#x4EE3;&#x7406;&#x7279;&#x6027;&#x3002;</p>
+<h2 id="&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x67B6;&#x6784;">&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x67B6;&#x6784;</h2>
+<p>Apache &#x548C; Nginx &#x6700;&#x5927;&#x7684;&#x4E0D;&#x540C;&#x5728;&#x4E8E;&#x5B83;&#x4EEC;&#x5BF9;&#x8FDE;&#x63A5;&#x548C;&#x6D41;&#x91CF;&#x4F20;&#x8F93;&#x5904;&#x7406;&#x7684;&#x65B9;&#x5F0F;&#x3002;&#x4E0B;&#x6587;&#x5C06;&#x8BBA;&#x8FF0;&#x5F53;&#x5B83;&#x4EEC;&#x54CD;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x6D41;&#x91CF;&#x72B6;&#x51B5;&#x65F6;&#xFF0C;&#x8868;&#x73B0;&#x51FA;&#x7684;&#x6700;&#x5173;&#x952E;&#x7684;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>Apache &#x63D0;&#x4F9B;&#x4E00;&#x7CFB;&#x5217;&#x591A;&#x8DEF;&#x5904;&#x7406;&#x6A21;&#x5757;&#xFF08;Apache &#x79F0;&#x8FD9;&#x4E9B;&#x4E3A; MPMs&#xFF09;&#xFF0C;&#x7528;&#x4E8E;&#x6307;&#x793A;&#x5982;&#x4F55;&#x5904;&#x7406;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x3002;&#x5927;&#x81F4;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x7BA1;&#x7406;&#x5458;&#x8F7B;&#x677E;&#x5730;&#x66F4;&#x6362;&#x5B83;&#x7684;&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x67B6;&#x6784;&#x3002;&#x6A21;&#x5757;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>
+<p><strong>mpm_prefork</strong>&#xFF1A;&#x8FD9;&#x4E2A;&#x5904;&#x7406;&#x6A21;&#x5757;&#x4EA7;&#x751F;&#x8BB8;&#x591A;&#x5355;&#x4E00;&#x7EBF;&#x7A0B;&#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x7528;&#x6765;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x3002;&#x6BCF;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x6BCF;&#x6B21;&#x5904;&#x7406;&#x4E00;&#x4E2A;&#x5BA2;&#x6237;&#x7AEF;&#x8FDE;&#x63A5;&#x3002;&#x53EA;&#x8981;&#x8BF7;&#x6C42;&#x6570;&#x5C0F;&#x4E8E;&#x8FDB;&#x7A0B;&#x6570;&#xFF0C;MPM &#x662F;&#x975E;&#x5E38;&#x5FEB;&#x7684;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x5F53;&#x8BF7;&#x6C42;&#x6570;&#x5927;&#x4E8E;&#x8FDB;&#x7A0B;&#x6570;&#x65F6;&#xFF0C;&#x6027;&#x80FD;&#x4F1A;&#x4E0B;&#x964D;&#x5F97;&#x975E;&#x5E38;&#x5FEB;&#x3002;&#x4E8E;&#x662F;&#x5728;&#x5F88;&#x591A;&#x573A;&#x666F;&#x4E0B;&#xFF0C;&#x8FD9;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x597D;&#x7684;&#x9009;&#x62E9;&#x3002;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x4F1A;&#x4E25;&#x91CD;&#x5F71;&#x54CD;&#x5230;&#x5185;&#x5B58;&#x7684;&#x6D88;&#x8017;&#xFF0C;&#x56E0;&#x6B64; MPM &#x4E0D;&#x5229;&#x4E8E;&#x6709;&#x6548;&#x6269;&#x5C55;&#x3002;&#x5982;&#x679C;&#x7ED3;&#x5408;&#x5176;&#x4ED6;&#x4E0D;&#x662F;&#x8FD0;&#x884C;&#x5728;&#x7EBF;&#x7A0B;&#x4E0A;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x4E0D;&#x9519;&#x7684;&#x3002;&#x6BD4;&#x5982;&#xFF0C;PHP &#x662F;&#x975E;&#x7EBF;&#x7A0B;&#x5B89;&#x5168;&#x7684;&#xFF0C;&#x4E8E;&#x662F;&#x591A;&#x8DEF;&#x5904;&#x7406;&#x6A21;&#x5757;&#x63A8;&#x8350;&#x552F;&#x4E00;&#x5B89;&#x5168;&#x7684;&#x65B9;&#x6CD5;&#x662F;&#x4F7F;&#x7528; <code>mod_php</code> &#x6A21;&#x5757;&#x6765;&#x5904;&#x7406;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x3002;</p>
+</li>
+<li>
+<p><strong>mpm_worker</strong>&#xFF1A;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x4EA7;&#x751F;&#x8BB8;&#x591A;&#x53EF;&#x7BA1;&#x7406;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x8FDB;&#x7A0B;&#x3002;&#x6BCF;&#x4E2A;&#x7EBF;&#x7A0B;&#x80FD;&#x5904;&#x7406;&#x5355;&#x4E2A;&#x8FDE;&#x63A5;&#x3002;&#x8FD9;&#x4E9B;&#x7EBF;&#x7A0B;&#x6BD4;&#x8FDB;&#x7A0B;&#x66F4;&#x9AD8;&#x6548;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740;&#x8FD9;&#x4E2A; MPM &#x6269;&#x5C55;&#x6027;&#x8981;&#x597D;&#x4E8E; mpm_prefork&#x3002;&#x56E0;&#x4E3A;&#x7EBF;&#x7A0B;&#x6570;&#x8981;&#x591A;&#x4E8E;&#x8FDB;&#x7A0B;&#x6570;&#x91CF;&#xFF0C;&#x8FD9;&#x4E5F;&#x5C31;&#x610F;&#x5473;&#x7740;&#x65B0;&#x7684;&#x8FDE;&#x63A5;&#x80FD;&#x7ACB;&#x523B;&#x5F97;&#x5230;&#x4E00;&#x4E2A;&#x7A7A;&#x95F2;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x7B49;&#x5F85;&#x8FDB;&#x7A0B;&#x7A7A;&#x95F2;&#x3002;</p>
+</li>
+<li>
+<p><strong>mpm_event</strong>&#xFF1A;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x5728;&#x5927;&#x591A;&#x6570;&#x573A;&#x666F;&#x4E0B;&#x8DDF; mpm_worker &#x6A21;&#x5757;&#x5F88;&#x76F8;&#x4F3C;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x80FD;&#x9009;&#x62E9;&#x662F;&#x5426;&#x5904;&#x7406;&#x957F;&#x8FDE;&#x63A5;(keep-alive connection)&#x3002;&#x5F53;&#x4F7F;&#x7528; mpm_worker &#x6A21;&#x5757;&#xFF0C;&#x4E3A;&#x4E86;&#x4FDD;&#x6301;&#x8FDE;&#x63A5;&#x957F;&#x65F6;&#x95F4;&#x53EF;&#x7528;&#xFF0C;&#x4E8E;&#x662F;&#x65E0;&#x8BBA;&#x8BF7;&#x6C42;&#x662F;&#x5426;&#x662F;&#x6D3B;&#x8DC3;&#x7684;&#xFF0C;&#x5176;&#x7EBF;&#x7A0B;&#x4F1A;&#x4E00;&#x76F4;&#x88AB;&#x8FD9;&#x4E2A;&#x8FDE;&#x63A5;&#x5360;&#x7528;&#x3002;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x4FDD;&#x8BC1;&#x6A21;&#x5757;&#x80FD;&#x8131;&#x79BB;&#x957F;&#x8FDE;&#x63A5;&#x8BF7;&#x6C42;&#x7684;&#x675F;&#x7F1A;&#xFF0C;&#x4ECE;&#x800C;&#x66F4;&#x5FEB;&#x7684;&#x6267;&#x884C;&#x3002;&#x5728; Apache 2.4 &#x7248;&#x672C;&#x4E2D;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x88AB;&#x6807;&#x8BB0;&#x4E3A;&#x7A33;&#x5B9A;&#x7684;&#x3002;</p>
+</li>
+</ul>
+<p>&#x6B63;&#x5982;&#x4F60;&#x6240;&#x89C1;&#xFF0C;Apache &#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x7075;&#x6D3B;&#x7684;&#x67B6;&#x6784;&#xFF0C;&#x80FD;&#x591F;&#x9009;&#x62E9;&#x4E0D;&#x540C;&#x7684;&#x8FDE;&#x63A5;&#x548C;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#x7B97;&#x6CD5;&#x3002;&#x8FD9;&#x4E9B;&#x5907;&#x9009;&#x9879;&#x4E3B;&#x8981;&#x662F;&#x968F;&#x7740;&#x670D;&#x52A1;&#x5668;&#x6F14;&#x53D8;&#xFF0C;&#x968F;&#x7740;&#x56E0;&#x4E92;&#x8054;&#x7F51;&#x89C4;&#x6A21;&#x7684;&#x6539;&#x53D8;&#x5BFC;&#x81F4;&#x8BF7;&#x6C42;&#x5E76;&#x53D1;&#x91CF;&#x7684;&#x9700;&#x6C42;&#x589E;&#x957F;&#x800C;&#x4EA7;&#x751F;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>Nginx &#x5728; Apache &#x4E4B;&#x540E;&#x8FDB;&#x5165;&#x5927;&#x4F17;&#x89C6;&#x91CE;&#xFF0C;&#x5B83;&#x96C6;&#x4E2D;&#x89E3;&#x51B3;&#x5E76;&#x53D1;&#x95EE;&#x9898;&#xFF0C;&#x4E13;&#x6CE8;&#x4E8E;&#x7F51;&#x7AD9;&#x6269;&#x5C55;&#x6027;&#x3002;&#x968F;&#x7740;&#x77E5;&#x8BC6;&#x8FDB;&#x6B65;&#xFF0C;Nginx &#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x79CD;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x975E;&#x963B;&#x585E;&#x7684;&#xFF0C;&#x4E8B;&#x4EF6;&#x9A71;&#x52A8;&#x7684;&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x5168;&#x65B0;&#x8BBE;&#x8BA1;&#x3002;</p>
+<p>Nginx &#x4EA7;&#x751F;&#x8BB8;&#x591A;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#xFF0C;&#x6BCF;&#x4E2A;&#x8FDB;&#x7A0B;&#x5904;&#x7406;&#x4E0A;&#x5343;&#x4E2A;&#x8FDE;&#x63A5;&#x3002;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x901A;&#x8FC7;&#x5B9E;&#x73B0;&#x4E00;&#x79CD;&#x5FEB;&#x901F;&#x904D;&#x5386;&#x673A;&#x5236;&#x6765;&#x6301;&#x7EED;&#x4E0D;&#x65AD;&#x5730;&#x68C0;&#x67E5;&#x548C;&#x5904;&#x7406;&#x4E8B;&#x4EF6;&#xFF0C;&#x4EE5;&#x6B64;&#x6765;&#x5B8C;&#x6210;&#x5DE5;&#x4F5C;&#x3002;&#x628A;&#x5B9E;&#x9645;&#x5DE5;&#x4F5C;&#x4ECE;&#x8FDE;&#x63A5;&#x4E2D;&#x5206;&#x79BB;&#x51FA;&#x6765;&#xFF0C;&#x4F7F;&#x5F97;&#x6BCF;&#x4E2A;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x53EA;&#x9700;&#x8003;&#x8651;&#x5B83;&#x81EA;&#x8EAB;&#x4E0E;&#x4ECE;&#x65B0;&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5F97;&#x5230;&#x7684;&#x65B0;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x6BCF;&#x4E2A;&#x8FDE;&#x63A5;&#x88AB;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x5904;&#x7406;&#xFF0C;&#x7136;&#x540E;&#x8DDF;&#x5176;&#x4ED6;&#x8FDE;&#x63A5;&#x4E00;&#x6837;&#x88AB;&#x653E;&#x7F6E;&#x5230;&#x4E8B;&#x4EF6;&#x5FAA;&#x73AF;&#x4E2D;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x5FAA;&#x73AF;&#x91CC;&#xFF0C;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x662F;&#x5F02;&#x6B65;&#x7684;&#xFF0C;&#x5DE5;&#x4F5C;&#x662F;&#x4EE5;&#x4E00;&#x79CD;&#x975E;&#x963B;&#x585E;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x7684;&#x3002;&#x5F53;&#x8FDE;&#x63A5;&#x5173;&#x95ED;&#xFF0C;&#x5B83;&#x5C31;&#x88AB;&#x79FB;&#x51FA;&#x4E86;&#x5FAA;&#x73AF;&#x3002;</p>
+<p>&#x8FD9;&#x79CD;&#x8FDE;&#x63A5;&#x5904;&#x7406;&#x98CE;&#x683C;&#x81F4;&#x4F7F; Nginx &#x53EF;&#x4EE5;&#x7528;&#x6709;&#x9650;&#x7684;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x60CA;&#x4EBA;&#x5730;&#x6269;&#x5C55;&#x3002;&#x56E0;&#x4E3A; Nginx &#x670D;&#x52A1;&#x5668;&#x662F;&#x5355;&#x7EBF;&#x7A0B;&#x7684;&#xFF0C;&#x5E76;&#x4E14;&#x8FDB;&#x7A0B;&#x4E0D;&#x4F1A;&#x4EA7;&#x751F;&#x5B50;&#x8FDB;&#x7A0B;&#x53BB;&#x5904;&#x7406;&#x65B0;&#x7684;&#x8FDE;&#x63A5;&#xFF0C;&#x6240;&#x4EE5;&#x5185;&#x5B58;&#x548C; CPU &#x5360;&#x7528;&#x4F1A;&#x76F8;&#x5BF9;&#x7A33;&#x5B9A;&#xFF0C;&#x5373;&#x4F7F;&#x662F;&#x5728;&#x9AD8;&#x8D1F;&#x8F7D;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x3002;</p>
+<h2 id="&#x9759;&#x6001;&#x4E0E;&#x52A8;&#x6001;&#x5185;&#x5BB9;">&#x9759;&#x6001;&#x4E0E;&#x52A8;&#x6001;&#x5185;&#x5BB9;</h2>
+<p>&#x4EE5;&#x771F;&#x5B9E;&#x4E16;&#x754C;&#x7684;&#x6848;&#x4F8B;&#x6765;&#x8BF4;&#xFF0C;&#x6700;&#x901A;&#x5E38;&#x6BD4;&#x8F83;&#x7684;&#x662F; Apache &#x548C; Nginx &#x5982;&#x4F55;&#x5904;&#x7406;&#x9759;&#x6001;&#x548C;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#x7684;&#x8BF7;&#x6C42;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>Apache &#x670D;&#x52A1;&#x5668;&#x4F7F;&#x7528;&#x4F20;&#x7EDF;&#x7684;&#x57FA;&#x4E8E;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x6CD5;&#x6765;&#x5904;&#x7406;&#x9759;&#x6001;&#x5185;&#x5BB9;&#x3002;&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x7684;&#x6027;&#x80FD;&#x4E3B;&#x8981;&#x4F9D;&#x8D56;&#x4E0A;&#x6587;&#x63D0;&#x5230;&#x7684; MPM &#x65B9;&#x6CD5;&#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<p>Apache &#x4E5F;&#x80FD;&#x591F;&#x5904;&#x7406;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#xFF0C;&#x901A;&#x8FC7;&#x5728;&#x5B83;&#x7684;&#x6BCF;&#x4E2A;&#x5DE5;&#x4F5C;&#x5B9E;&#x4F8B;&#x5D4C;&#x5165;&#x76F8;&#x5173;&#x8BED;&#x8A00;&#x7684;&#x5904;&#x7406;&#x5668;&#x3002;&#x8FD9;&#x4F7F;&#x5B83;&#x53EF;&#x4EE5;&#x5728; web &#x670D;&#x52A1;&#x5668;&#x5185;&#x90E8;&#x6267;&#x884C;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x4F9D;&#x8D56;&#x5916;&#x90E8;&#x7EC4;&#x4EF6;&#x3002;&#x8FD9;&#x4E9B;&#x52A8;&#x6001;&#x5904;&#x7406;&#x5668;&#x80FD;&#x591F;&#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x52A8;&#x6001;&#x8F7D;&#x5165;&#x6A21;&#x5757;&#x6765;&#x542F;&#x52A8;&#x3002;</p>
+<p>Apache &#x7684;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#x5904;&#x7406;&#x80FD;&#x529B;&#x610F;&#x5473;&#x7740;&#x914D;&#x7F6E;&#x52A8;&#x6001;&#x5904;&#x7406;&#x66F4;&#x7B80;&#x5355;&#x4E86;&#x3002;&#x901A;&#x4FE1;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x989D;&#x5916;&#x8F6F;&#x4EF6;&#xFF0C;&#x800C;&#x4E14;&#x5982;&#x679C;&#x5185;&#x5BB9;&#x9700;&#x6C42;&#x6709;&#x53D8;&#x5316;&#xFF0C;&#x6A21;&#x5757;&#x53EF;&#x4EE5;&#x5F88;&#x5BB9;&#x6613;&#x5730;&#x66F4;&#x6362;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>Nginx &#x672C;&#x8EAB;&#x6CA1;&#x6709;&#x5904;&#x7406;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#x7684;&#x80FD;&#x529B;&#x3002;&#x4E3A;&#x4E86;&#x5904;&#x7406; PHP &#x4EE5;&#x53CA;&#x5176;&#x4ED6;&#x751F;&#x6210;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;Nginx &#x5FC5;&#x987B;&#x4F20;&#x9012;&#x4FE1;&#x606F;&#x7ED9;&#x5916;&#x90E8;&#x5904;&#x7406;&#x5668;&#x6765;&#x6267;&#x884C;&#xFF0C;&#x5E76;&#x4E14;&#x7B49;&#x5F85;&#x6E32;&#x67D3;&#x5185;&#x5BB9;&#x88AB;&#x4F20;&#x8F93;&#x56DE;&#x6765;&#x3002;&#x6700;&#x7EC8;&#x7ED3;&#x679C;&#x5C06;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x7BA1;&#x7406;&#x5458;&#xFF0C;&#x8FD9;&#x610F;&#x5473;&#x7740; Nginx &#x4E0E;&#x5904;&#x7406;&#x5668;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x5FC5;&#x987B;&#x914D;&#x7F6E;&#x6210; Nginx &#x6240;&#x77E5;&#x7684;&#x534F;&#x8BAE;&#xFF08;&#x5982; http&#xFF0C;FastCGI&#xFF0C;SCGI&#xFF0C;uWSGI&#xFF0C;memcache&#xFF09;&#x3002;&#x8FD9;&#x4F1A;&#x8BA9;&#x4E8B;&#x60C5;&#x53D8;&#x5F97;&#x7565;&#x4E3A;&#x590D;&#x6742;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x5F53;&#x4F60;&#x60F3;&#x8981;&#x9884;&#x6D4B;&#x6700;&#x5927;&#x8FDE;&#x63A5;&#x6570;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD8;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x989D;&#x5916;&#x7684;&#x7528;&#x4E8E;&#x8C03;&#x7528;&#x5904;&#x7406;&#x5668;&#x7684;&#x8FDE;&#x63A5;&#x3002;</p>
+<p>&#x7136;&#x800C;&#xFF0C;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x4E5F;&#x6709;&#x4E00;&#x4E9B;&#x4F18;&#x70B9;&#x3002;&#x56E0;&#x4E3A;&#x52A8;&#x6001;&#x89E3;&#x91CA;&#x5668;&#x4E0D;&#x5185;&#x5D4C;&#x5728;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x91CC;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x7684;&#x4E0A;&#x6E38;&#x53EA;&#x4EE3;&#x8868;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#x3002;&#x9759;&#x6001;&#x5185;&#x5BB9;&#x4F1A;&#x88AB;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#xFF0C;&#x6240;&#x4EE5;&#x89E3;&#x91CA;&#x5668;&#x53EA;&#x4F1A;&#x5728;&#x9700;&#x8981;&#x7684;&#x65F6;&#x5019;&#x624D;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x3002;Apache &#x4E5F;&#x80FD;&#x591F;&#x5B9E;&#x73B0;&#x8FD9;&#x79CD;&#x505A;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x4E3A;&#x4E86;&#x505A;&#x5230;&#x8FD9;&#x6837;&#x5C06;&#x635F;&#x5931;&#x4E0A;&#x6587;&#x63D0;&#x5230;&#x7684;&#x90A3;&#x4E9B;&#x597D;&#x5904;&#x3002;</p>
+<h2 id="&#x5206;&#x5E03;&#x5F0F;&#x4E0E;&#x4E2D;&#x5FC3;&#x5316;&#x914D;&#x7F6E;">&#x5206;&#x5E03;&#x5F0F;&#x4E0E;&#x4E2D;&#x5FC3;&#x5316;&#x914D;&#x7F6E;</h2>
+<p>&#x5BF9;&#x4E8E;&#x7BA1;&#x7406;&#x5458;&#xFF0C;&#x4E24;&#x4E2A;&#x8F6F;&#x4EF6;&#x95F4;&#x6700;&#x663E;&#x800C;&#x6613;&#x89C1;&#x7684;&#x4E0D;&#x540C;&#x662F;&#x5185;&#x5BB9;&#x76EE;&#x5F55;&#x4E2D;&#x662F;&#x5426;&#x5141;&#x8BB8;&#x76EE;&#x5F55;&#x7EA7;&#x522B;&#x7684;&#x914D;&#x7F6E;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>Apache &#x6709;&#x4E00;&#x4E2A;&#x9009;&#x9879;&#xFF0C;&#x5141;&#x8BB8;&#x6BCF;&#x4E2A;&#x76EE;&#x5F55;&#x5305;&#x542B;&#x989D;&#x5916;&#x7684;&#x914D;&#x7F6E;&#x3002;&#x5B83;&#x4ECE;&#x4E2D;&#x81EA;&#x52A8;&#x68C0;&#x67E5;&#x5E76;&#x89E3;&#x6790;&#x9690;&#x85CF;&#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x6307;&#x4EE4;&#x3002;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x88AB;&#x53EB;&#x505A; <code>.htaccess</code>&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x5C5E;&#x4E8E;&#x6BCF;&#x4E2A;&#x5185;&#x5BB9;&#x76EE;&#x5F55;&#xFF0C;&#x6240;&#x4EE5;&#x5F53;&#x5904;&#x7406;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;Apache &#x4F1A;&#x68C0;&#x67E5;&#x8BF7;&#x6C42;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x90E8;&#x5206;&#xFF0C;&#x4E3A;&#x4E86;&#x6267;&#x884C; <code>.htaccess</code> &#x6587;&#x4EF6;&#x91CC;&#x9762;&#x7684;&#x6307;&#x4EE4;&#x3002;&#x8FD9;&#x4F7F; web &#x670D;&#x52A1;&#x5668;&#x6709;&#x6548;&#x8FDB;&#x884C;&#x53BB;&#x4E2D;&#x5FC3;&#x5316;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x901A;&#x5E38;&#x88AB;&#x7528;&#x6765;&#x5B9E;&#x73B0;&#x4FEE;&#x6539; URL&#xFF0C;&#x8BBF;&#x95EE;&#x9650;&#x5236;&#xFF0C;&#x6388;&#x6743;&#x548C;&#x9A8C;&#x8BC1;&#xFF0C;&#x751A;&#x81F3;&#x7F13;&#x5B58;&#x7B56;&#x7565;&#x3002;</p>
+<p>&#x7136;&#x800C;&#x4EE5;&#x4E0A;&#x6240;&#x8BF4;&#x7684;&#x53EF;&#x4EE5;&#x5168;&#x90E8;&#x5199;&#x5728; Apache &#x7684;&#x4E3B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;<code>.htaccess</code> &#x6587;&#x4EF6;&#x6709;&#x8BB8;&#x591A;&#x91CD;&#x8981;&#x7684;&#x7279;&#x6027;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x7531;&#x4E8E;&#x5B83;&#x6BCF;&#x6B21;&#x6839;&#x636E;&#x8BF7;&#x6C42;&#x8DEF;&#x5F84;&#x6765;&#x89E3;&#x6790;&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x65E0;&#x9700;&#x91CD;&#x542F;&#x670D;&#x52A1;&#x5668;&#x5C31;&#x53EF;&#x4EE5;&#x7ACB;&#x523B;&#x751F;&#x6548;&#x914D;&#x7F6E;&#x3002;&#x5176;&#x6B21;&#xFF0C;&#x5B83;&#x5141;&#x8BB8;&#x672A;&#x6388;&#x6743;&#x7528;&#x6237;&#x90E8;&#x5206;&#x63A7;&#x5236;&#x4ED6;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x7F51;&#x7EDC;&#x5185;&#x5BB9;&#xFF0C;&#x800C;&#x65E0;&#x9700;&#x7ED9;&#x4ED6;&#x4EEC;&#x64CD;&#x4F5C;&#x6574;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x6743;&#x9650;&#x3002;</p>
+<p>&#x8FD9;&#x5BF9;&#x4E8E;&#x4E00;&#x4E9B;&#x7F51;&#x7EDC;&#x8F6F;&#x4EF6;&#x6765;&#x8BF4;&#x662F;&#x4E2A;&#x5F88;&#x8F7B;&#x677E;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x6BD4;&#x5982;&#x5185;&#x5BB9;&#x63A7;&#x5236;&#x7CFB;&#x7EDF;(CMS)&#xFF0C;&#x65E0;&#x9700;&#x8BBF;&#x95EE;&#x4E2D;&#x5FC3;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5C31;&#x80FD;&#x591F;&#x8C03;&#x6574;&#x5B83;&#x4EEC;&#x7684;&#x73AF;&#x5883;&#x914D;&#x7F6E;&#x3002;&#x8FD9;&#x4E5F;&#x80FD;&#x8BA9;&#x5171;&#x4EAB;&#x4E3B;&#x673A;&#x63D0;&#x4F9B;&#x5546;&#x4FDD;&#x7559;&#x4E3B;&#x914D;&#x7F6E;&#x7684;&#x63A7;&#x5236;&#x6743;&#x7684;&#x540C;&#x65F6;&#xFF0C;&#x8BA9;&#x5BA2;&#x6237;&#x53BB;&#x64CD;&#x4F5C;&#x4ED6;&#x4EEC;&#x81EA;&#x5DF1;&#x7684;&#x72EC;&#x7ACB;&#x76EE;&#x5F55;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>Nginx &#x4E0D;&#x4F1A;&#x89E3;&#x6790; <code>.htaccess</code> &#x6587;&#x4EF6;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x63D0;&#x4F9B;&#x7C7B;&#x4F3C;&#x673A;&#x5236;&#x53BB;&#x5904;&#x7406;&#x8131;&#x79BB;&#x4E3B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x5404;&#x4E2A;&#x76EE;&#x5F55;&#x914D;&#x7F6E;&#x3002;&#x76F8;&#x6BD4; Apache &#x6A21;&#x578B;&#x8FD9;&#x6837;&#x5C11;&#x4E86;&#x5F88;&#x591A;&#x7075;&#x6D3B;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x6709;&#x81EA;&#x5DF1;&#x7684;&#x4F18;&#x52BF;&#x3002;</p>
+<p>&#x76F8;&#x5BF9;&#x4E8E; <code>.htaccess</code> &#x7CFB;&#x7EDF;&#x7684;&#x76EE;&#x5F55;&#x7EA7;&#x522B;&#x914D;&#x7F6E;&#xFF0C;Nginx &#x6700;&#x503C;&#x5F97;&#x6CE8;&#x610F;&#x7684;&#x6539;&#x8FDB;&#x662F;&#x6027;&#x80FD;&#x63D0;&#x5347;&#x3002;&#x4F20;&#x7EDF;&#x7684; Apache &#x670D;&#x52A1;&#x5668;&#x8BBE;&#x7F6E;&#x5141;&#x8BB8;&#x5728;&#x4E8E;&#x4EFB;&#x4F55;&#x76EE;&#x5F55;&#x4E0B;&#x8BBE;&#x7F6E; <code>.htaccess</code> &#x6587;&#x4EF6;&#x3002;&#x4E8E;&#x662F;&#x6BCF;&#x6B21;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x670D;&#x52A1;&#x5668;&#x4F1A;&#x5728;&#x88AB;&#x8BF7;&#x6C42;&#x6587;&#x4EF6;&#x7684;<em>&#x6BCF;&#x4E2A;</em>&#x7236;&#x76EE;&#x5F55;&#x4E0B;&#x67E5;&#x627E;&#x8FD9;&#x4E9B;&#x6587;&#x4EF6;&#x3002;&#x5982;&#x679C;&#x53D1;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x6216;&#x591A;&#x4E2A; <code>.htaccess</code> &#x6587;&#x4EF6;&#xFF0C;&#x5B83;&#x4EEC;&#x4E00;&#x5B9A;&#x4F1A;&#x88AB;&#x8BFB;&#x53D6;&#x5E76;&#x88AB;&#x89E3;&#x6790;&#x3002;&#x800C; Nginx &#x5E76;&#x4E0D;&#x5141;&#x8BB8;&#x76EE;&#x5F55;&#x8986;&#x76D6;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x5728;&#x552F;&#x4E00;&#x7684;&#x76EE;&#x5F55;&#x4E0B;&#x67E5;&#x627E;&#x5339;&#x914D;&#xFF0C;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x2014;&#x2014;&#x5047;&#x8BBE;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x662F;&#x5728;&#x4F20;&#x7EDF;&#x76EE;&#x5F55;&#x67B6;&#x6784;&#x4E0B;&#x7684;&#x2014;&#x2014;&#x6765;&#x66F4;&#x5FEB;&#x5730;&#x54CD;&#x5E94;&#x8BF7;&#x6C42;&#x3002;</p>
+<p>&#x53E6;&#x4E00;&#x4E2A;&#x4F18;&#x52BF;&#x662F;&#x76F8;&#x5BF9;&#x5B89;&#x5168;&#x3002;&#x5206;&#x5E03;&#x5F0F;&#x76EE;&#x5F55;&#x5F0F;&#x914D;&#x7F6E;&#x8BBF;&#x95EE;&#x7684;&#x540C;&#x65F6;&#x4E5F;&#x628A;&#x5B89;&#x5168;&#x804C;&#x8D23;&#x5206;&#x5E03;&#x7ED9;&#x4E86;&#x6BCF;&#x4E2A;&#x72EC;&#x7ACB;&#x7528;&#x6237;&#xFF0C;&#x8FD9;&#x4E9B;&#x7528;&#x6237;&#x4E5F;&#x8BB8;&#x4E0D;&#x80FD;&#x53EF;&#x9760;&#x5730;&#x5904;&#x7406;&#x597D;&#x4EFB;&#x52A1;&#x3002;&#x4FDD;&#x8BC1;&#x7BA1;&#x7406;&#x5458;&#x7EF4;&#x62A4;&#x6574;&#x4E2A; web &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x80FD;&#x9632;&#x6B62;&#x4E00;&#x4E9B;&#x56E0;&#x4E3A;&#x628A;&#x6743;&#x9650;&#x4EA4;&#x7ED9;&#x522B;&#x4EBA;&#x800C;&#x5F15;&#x53D1;&#x7684;&#x5B89;&#x5168;&#x758F;&#x6F0F;&#x3002;</p>
+<p>&#x8BF7;&#x8BB0;&#x4F4F;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x62C5;&#x5FC3;&#x90A3;&#x4E9B;&#x5B89;&#x5168;&#x9690;&#x60A3;&#xFF0C;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x8BA9; Apache &#x505C;&#x6B62;&#x89E3;&#x6790; <code>.htaccess</code>&#x3002;</p>
+<h2 id="&#x6587;&#x4EF6;&#x4E0E;&#x57FA;&#x4E8E;-uri-&#x7684;&#x89E3;&#x6790;">&#x6587;&#x4EF6;&#x4E0E;&#x57FA;&#x4E8E; URI &#x7684;&#x89E3;&#x6790;</h2>
+<p>Web &#x670D;&#x52A1;&#x5668;&#x5982;&#x4F55;&#x89E3;&#x6790;&#x8BF7;&#x6C42;&#x5E76;&#x5C06;&#x5B83;&#x4EEC;&#x6620;&#x5C04;&#x5230;&#x7CFB;&#x7EDF;&#x5B9E;&#x9645;&#x8D44;&#x6E90;&#xFF0C;&#x662F;&#x6BD4;&#x8F83;&#x4E24;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x91CD;&#x70B9;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>Apache &#x53EF;&#x4EE5;&#x5C06;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x89E3;&#x6790;&#x4E3A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x7269;&#x7406;&#x8D44;&#x6E90;&#xFF0C;&#x6216;&#x8005;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x66F4;&#x591A;&#x62BD;&#x8C61;&#x8BA1;&#x7B97;&#x7684; URI &#x5730;&#x5740;&#x3002;&#x901A;&#x5E38;&#x5BF9;&#x4E8E;&#x524D;&#x8005;&#xFF0C;Apache &#x4F7F;&#x7528; <code>&lt;Directory&gt;</code> &#x6216;&#x8005; <code>&lt;Files&gt;</code> &#x5757;&#xFF0C;&#x5176;&#x5229;&#x7528; <code>&lt;Location&gt;</code> &#x5757;&#x6765;&#x4EE3;&#x8868;&#x66F4;&#x591A;&#x62BD;&#x8C61;&#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x56E0;&#x4E3A; Apache &#x5B8C;&#x5168;&#x88AB;&#x8BBE;&#x8BA1;&#x6210;&#x4E00;&#x79CD; web &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x9ED8;&#x8BA4;&#x5C31;&#x662F;&#x628A;&#x8BF7;&#x6C42;&#x89E3;&#x6790;&#x4E3A;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x3002;&#x4E00;&#x5F00;&#x59CB;&#x5B83;&#x8868;&#x793A;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x6839;&#x8282;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x5176;&#x672B;&#x5C3E;&#x589E;&#x52A0;&#x8BF7;&#x6C42;&#x7684;&#x4E3B;&#x673A;&#x548C;&#x7AEF;&#x53E3;&#x90E8;&#x5206;&#xFF0C;&#x7528;&#x6765;&#x67E5;&#x8BE2;&#x4E00;&#x4E2A;&#x771F;&#x5B9E;&#x6587;&#x4EF6;&#x3002;&#x603B;&#x7684;&#x6765;&#x8BF4;&#xFF0C;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x5206;&#x5C42;&#x7ED3;&#x6784;&#x5728;&#x7F51;&#x7EDC;&#x4E0A;&#x4F53;&#x73B0;&#x4E3A;&#x4E00;&#x4E2A;&#x53EF;&#x8BBF;&#x95EE;&#x7684;&#x6587;&#x4EF6;&#x6811;&#x3002;</p>
+<p>&#x5F53;&#x8BF7;&#x6C42;&#x6CA1;&#x6709;&#x5339;&#x914D;&#x5230;&#x6587;&#x4EF6;&#xFF0C;Apache &#x63D0;&#x4F9B;&#x4E00;&#x7CFB;&#x5217;&#x53EF;&#x9009;&#x9879;&#x3002;&#x6BD4;&#x5982;&#xFF0C;<code>Alias</code> &#x547D;&#x4EE4;&#x80FD;&#x591F;&#x7528;&#x6765;&#x6620;&#x5C04;&#x5230;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x7684;&#x5730;&#x5740;&#x3002;&#x4F7F;&#x7528; <code>&lt;Location&gt;</code> &#x5757;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A; URI &#x7684;&#x8BBF;&#x95EE;&#x65B9;&#x6CD5;&#x6765;&#x4EE3;&#x66FF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x3002;&#x8FD8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x53D8;&#x4F53;&#x901A;&#x8FC7;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x8BA9;&#x914D;&#x7F6E;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x7075;&#x6D3B;&#x3002;</p>
+<p>&#x5C3D;&#x7BA1; Apache &#x6709;&#x80FD;&#x529B;&#x53BB;&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x548C;&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#xFF0C;&#x5B83;&#x8FD8;&#x662F;&#x91CD;&#x5EA6;&#x4F9D;&#x8D56;&#x4E8E;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;&#x3002;&#x8FD9;&#x5728;&#x4E00;&#x4E9B;&#x8BBE;&#x8BA1;&#x51B3;&#x7B56;&#x5F97;&#x4EE5;&#x4F53;&#x73B0;&#xFF0C;&#x5305;&#x62EC;&#x4F7F;&#x7528; <code>.htaccess</code> &#x6587;&#x4EF6;&#x6765;&#x914D;&#x7F6E;&#x6BCF;&#x4E2A;&#x76EE;&#x5F55;&#x3002;<a href="http://httpd.apache.org/docs/2.4/sections.html#whichwhen" target="_blank" rel="external">Apache &#x6587;&#x6863;</a>&#x91CC;&#x63D0;&#x9192;&#x5230;&#xFF0C;&#x5F53;&#x955C;&#x50CF;&#x8BF7;&#x6C42;&#x5E95;&#x5C42;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x65F6;&#xFF0C;&#x4F7F;&#x7528;&#x57FA;&#x4E8E; URI &#x7684;&#x5757;&#x6765;&#x9650;&#x5236;&#x8BBF;&#x95EE;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>Nginx &#x88AB;&#x8BBE;&#x8BA1;&#x4E3A; web &#x670D;&#x52A1;&#x5668;&#x548C;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x3002;&#x7531;&#x4E8E;&#x8FD9;&#x4E24;&#x4E2A;&#x67B6;&#x6784;&#x8981;&#x6C42;&#xFF0C;Nginx &#x4E3B;&#x8981;&#x4F7F;&#x7528; URI &#x5DE5;&#x4F5C;&#xFF0C;&#x5728;&#x5FC5;&#x8981;&#x65F6;&#x53EF;&#x4EE5;&#x5C06;&#x5B83;&#x6620;&#x5C04;&#x5230;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0A;&#x3002;</p>
+<p>&#x8FD9;&#x4F53;&#x73B0;&#x5728;&#x4E00;&#x4E9B; Nginx &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x6784;&#x9020;&#x4E0E;&#x89E3;&#x6790;&#x4E2D;&#x3002;Nginx &#x6CA1;&#x6709;&#x63D0;&#x4F9B;&#x53EF;&#x4EE5;&#x7ED9;&#x7279;&#x5B9A;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x7684;&#x673A;&#x5236;&#xFF1B;&#x76F8;&#x5BF9;&#x7684;&#xFF0C;&#x5B83;&#x80FD;&#x591F;&#x89E3;&#x6790; URI&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;Nginx &#x7684;&#x4E3B;&#x914D;&#x7F6E;&#x5757;&#x662F; <code>server</code> &#x548C; <code>location</code> &#x5757;&#x3002;&#x5F53; <code>location</code> &#x5757;&#x5339;&#x914D;&#x5230; URI &#x4E3B;&#x673A;&#x548C;&#x7AEF;&#x53E3;&#x540E;&#x9762;&#x7684;&#x90E8;&#x5206;&#xFF0C;<code>server</code> &#x5757;&#x5C31;&#x7528;&#x6765;&#x89E3;&#x6790;&#x88AB;&#x8BF7;&#x6C42;&#x7684;&#x4E3B;&#x673A;&#x3002;&#x5728;&#x8FD9;&#x65F6;&#xFF0C;&#x8BF7;&#x6C42;&#x88AB;&#x89E3;&#x6790;&#x4E3A; URI&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x5730;&#x5740;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x9759;&#x6001;&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#x6700;&#x7EC8;&#x4F1A;&#x88AB;&#x6620;&#x5C04;&#x5230;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E0A;&#x7684;&#x5730;&#x5740;&#x3002;&#x9996;&#x5148;&#xFF0C;Nginx &#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x548C;&#x5730;&#x5740;&#x5757;&#x6765;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x6587;&#x4EF6;&#x6839;&#x8282;&#x70B9;&#x7ED1;&#x5B9A;&#x5230;&#x8FD9;&#x4E2A; URI &#x4E0A;&#xFF0C;&#x6839;&#x636E;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6240;&#x6307;&#x793A;&#x7684;&#x4FEE;&#x6539;&#x67D0;&#x4E9B;&#x4E1C;&#x897F;&#x3002;</p>
+<p>&#x8FD9;&#x4E5F;&#x8BB8;&#x4F3C;&#x66FE;&#x76F8;&#x8BC6;&#xFF0C;&#x4E0D;&#x8FC7;&#x5374;&#x662F;&#x4E3B;&#x8981;&#x4F7F;&#x7528; URI &#x800C;&#x4E0D;&#x662F;&#x6587;&#x4EF6;&#x5730;&#x5740;&#x6765;&#x89E3;&#x6790;&#x8BF7;&#x6C42;&#xFF0C;&#x8FD9;&#x6837;&#x4F7F;&#x5F97; Nginx &#x66F4;&#x5BB9;&#x6613;&#x5B9E;&#x73B0; web &#x670D;&#x52A1;&#x5668;&#x3001;&#x90AE;&#x4EF6;&#x670D;&#x52A1;&#x5668;&#x4EE5;&#x53CA;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x7684;&#x89D2;&#x8272;&#x3002;&#x901A;&#x8FC7;&#x5217;&#x51FA;&#x5982;&#x4F55;&#x54CD;&#x5E94;&#x4E0D;&#x540C;&#x7684;&#x8BF7;&#x6C42;&#x6A21;&#x5F0F;&#xFF0C;&#x8BA9; Nginx &#x914D;&#x7F6E;&#x8D77;&#x6765;&#x5F88;&#x7B80;&#x5355;&#x3002;&#x5728; Nginx &#x51C6;&#x5907;&#x597D;&#x53BB;&#x5904;&#x7406;&#x67D0;&#x4E2A;&#x8BF7;&#x6C42;&#x524D;&#xFF0C;&#x5B83;&#x4E0D;&#x4F1A;&#x53BB;&#x68C0;&#x67E5;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;&#x8FD9;&#x89E3;&#x91CA;&#x4E86;&#x4E3A;&#x4EC0;&#x4E48;&#x5B83;&#x4E0D;&#x5B9E;&#x73B0; <code>.htaccess</code> &#x8FD9;&#x79CD;&#x5F62;&#x5F0F;&#x7684;&#x6587;&#x4EF6;&#x3002;</p>
+<h2 id="&#x6A21;&#x5757;">&#x6A21;&#x5757;</h2>
+<p>Nginx &#x548C; Apache &#x90FD;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6A21;&#x5757;&#x7CFB;&#x7EDF;&#x8FDB;&#x884C;&#x6269;&#x5C55;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4EEC;&#x7684;&#x8FD0;&#x4F5C;&#x65B9;&#x5F0F;&#x662F;&#x5B8C;&#x5168;&#x4E0D;&#x540C;&#x7684;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>Apache &#x7684;&#x6A21;&#x5757;&#x7CFB;&#x7EDF;&#x5141;&#x8BB8;&#x4F60;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x6216;&#x62C6;&#x5378;&#x6A21;&#x5757;&#xFF0C;&#x4EE5;&#x4FDD;&#x8BC1;&#x5728;&#x670D;&#x52A1;&#x5668;&#x8FD0;&#x884C;&#x65F6;&#x6EE1;&#x8DB3;&#x4F60;&#x7684;&#x9700;&#x6C42;&#x3002;&#x5F53;&#x6A21;&#x5757;&#x88AB;&#x5F00;&#x542F;&#x6216;&#x5173;&#x95ED;&#x65F6;&#xFF0C;&#x5F53;&#x9644;&#x5C5E;&#x529F;&#x80FD;&#x6302;&#x8F7D;&#x5230;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x6216;&#x8005;&#x4ECE;&#x4E3B;&#x670D;&#x52A1;&#x5668;&#x79FB;&#x9664;&#x65F6;&#xFF0C;Apache &#x5185;&#x6838;&#x662F;&#x59CB;&#x7EC8;&#x8FD0;&#x884C;&#x7740;&#x7684;&#x3002;</p>
+<p>Apache &#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x529F;&#x80FD;&#x5B9E;&#x73B0;&#x4E86;&#x5927;&#x91CF;&#x590D;&#x6742;&#x7684;&#x4EFB;&#x52A1;&#x3002;&#x56E0;&#x4E3A;&#x8FD9;&#x4E2A;&#x7CFB;&#x7EDF;&#x5DF2;&#x53D1;&#x5C55;&#x6210;&#x719F;&#xFF0C;&#x6240;&#x4EE5;&#x6709;&#x4E30;&#x5BCC;&#x7684;&#x6A21;&#x5757;&#x5E93;&#x53EF;&#x4F9B;&#x4F7F;&#x7528;&#x3002;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x6A21;&#x5757;&#x6765;&#x6539;&#x5199;&#x4E00;&#x4E9B;&#x6838;&#x5FC3;&#x529F;&#x80FD;&#xFF0C;&#x6BD4;&#x5982; <code>mod_php</code>&#xFF0C;&#x8FD9;&#x4E2A;&#x6A21;&#x5757;&#x7528;&#x6765;&#x7ED9;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x4E2D;&#x7684;&#x5DE5;&#x4F5C;&#x8FDB;&#x7A0B;&#x5185;&#x5D4C; PHP &#x89E3;&#x91CA;&#x5668;&#x3002;</p>
+<p>&#x7136;&#x800C;&#x6A21;&#x5757;&#x6CA1;&#x6709;&#x9650;&#x5236;&#x5904;&#x7406;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#x3002;&#x5728;&#x5176;&#x4ED6;&#x529F;&#x80FD;&#x4E2D;&#xFF0C;&#x5B83;&#x4EEC;&#x53EF;&#x4EE5;&#x88AB;&#x7528;&#x6765;&#x91CD;&#x5199; URL&#xFF0C;&#x9A8C;&#x8BC1;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x52A0;&#x5F3A;&#x670D;&#x52A1;&#x5668;&#xFF0C;&#x65E5;&#x5FD7;&#xFF0C;&#x7F13;&#x5B58;&#xFF0C;&#x538B;&#x7F29;&#xFF0C;&#x4EE3;&#x7406;&#xFF0C;&#x9650;&#x6D41;&#xFF0C;&#x52A0;&#x5BC6;&#x3002;&#x52A8;&#x6001;&#x6A21;&#x5757;&#x80FD;&#x6269;&#x5C55;&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x800C;&#x65E0;&#x9700;&#x987E;&#x8651;&#x592A;&#x591A;&#x989D;&#x5916;&#x5DE5;&#x4F5C;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>Nginx &#x4E5F;&#x5B9E;&#x73B0;&#x4E86;&#x6A21;&#x5757;&#x7CFB;&#x7EDF;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x4E0E; Apache &#x7CFB;&#x7EDF;&#x975E;&#x5E38;&#x4E0D;&#x4E00;&#x6837;&#x3002;&#x5728; Nginx &#x4E2D;&#xFF0C;&#x6A21;&#x5757;&#x4E0D;&#x662F;&#x52A8;&#x6001;&#x52A0;&#x8F7D;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x5FC5;&#x987B;&#x4E8B;&#x5148;&#x9009;&#x62E9;&#x597D;&#x5E76;&#x5C06;&#x5B83;&#x4EEC;&#x7F16;&#x8BD1;&#x5230;&#x6838;&#x5FC3;&#x8F6F;&#x4EF6;&#x4E2D;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x8BB8;&#x591A;&#x7528;&#x6237;&#x6765;&#x8BF4;&#xFF0C;&#x8FD9;&#x964D;&#x4F4E;&#x4E86; Nginx &#x7684;&#x7075;&#x6D3B;&#x5EA6;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x5BF9;&#x90A3;&#x4E9B;&#x4E0D;&#x8D1F;&#x8D23;&#x7F16;&#x8BD1;&#x8F6F;&#x4EF6;&#x7684;&#x7528;&#x6237;&#x6765;&#x8BF4;&#x3002;&#x56E0;&#x4E3A;&#x5206;&#x53D1;&#x7684;&#x5305;&#x901A;&#x5E38;&#x53EA;&#x5305;&#x542B;&#x901A;&#x7528;&#x7684;&#x6A21;&#x5757;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x60F3;&#x8981;&#x4F7F;&#x7528;&#x975E;&#x6807;&#x51C6;&#x7684;&#x6A21;&#x5757;&#xFF0C;&#x5C31;&#x4E0D;&#x5F97;&#x4E0D;&#x81EA;&#x5DF1;&#x7F16;&#x8BD1;&#x6E90;&#x7801;&#x6765;&#x6784;&#x5EFA;&#x670D;&#x52A1;&#x5668;&#x3002;</p>
+<p>&#x5C3D;&#x7BA1;&#x5982;&#x6B64;&#xFF0C;Nginx &#x6A21;&#x5757;&#x4F9D;&#x7136;&#x975E;&#x5E38;&#x6709;&#x7528;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x51B3;&#x5B9A;&#x5728;&#x4F60;&#x7684;&#x670D;&#x52A1;&#x5668;&#x4E4B;&#x5916;&#x52A0;&#x8F7D;&#x4EFB;&#x4F55;&#x60F3;&#x8981;&#x7684;&#x529F;&#x80FD;&#x3002;&#x6709;&#x4E9B;&#x7528;&#x6237;&#x4E5F;&#x8BB8;&#x66F4;&#x5728;&#x610F;&#x5B89;&#x5168;&#x6027;&#xFF0C;&#x56E0;&#x4E3A;&#x7EC4;&#x4EF6;&#x4E0D;&#x5E94;&#x8BE5;&#x968F;&#x610F;&#x5730;&#x6302;&#x8F7D;&#x5230;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x66FE;&#x7ECF;&#x628A;&#x670D;&#x52A1;&#x5668;&#x653E;&#x5728;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x968F;&#x610F;&#x6302;&#x8F7D;&#x7684;&#x673A;&#x5668;&#x4E0A;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x53EF;&#x80FD;&#x5DF2;&#x7ECF;&#x53D7;&#x5230;&#x4E86;&#x635F;&#x5BB3;&#x3002;</p>
+<p>Nginx &#x6A21;&#x5757;&#x62E5;&#x6709;&#x8BB8;&#x591A;&#x540C; Apache &#x6A21;&#x5757;&#x4E00;&#x6837;&#x7684;&#x80FD;&#x529B;&#x3002;&#x4F8B;&#x5982;&#xFF0C;Nginx &#x6A21;&#x5757;&#x652F;&#x6301;&#x4EE3;&#x7406;&#xFF0C;&#x538B;&#x7F29;&#xFF0C;&#x9650;&#x6D41;&#xFF0C;&#x65E5;&#x5FD7;&#xFF0C;&#x91CD;&#x5199;&#xFF0C;&#x5730;&#x7406;&#x4F4D;&#x7F6E;&#xFF0C;&#x9A8C;&#x8BC1;&#xFF0C;&#x52A0;&#x5BC6;&#xFF0C;&#x6D41;&#x5F0F;&#x5904;&#x7406;&#xFF0C;&#x4EE5;&#x53CA;&#x90AE;&#x4EF6;&#x529F;&#x80FD;&#x3002;</p>
+<h2 id="&#x6280;&#x672F;&#x652F;&#x6301;&#x517C;&#x5BB9;&#x6027;&#x751F;&#x6001;&#x7CFB;&#x7EDF;&#x4EE5;&#x53CA;&#x6587;&#x6863;">&#x6280;&#x672F;&#x652F;&#x6301;&#xFF0C;&#x517C;&#x5BB9;&#x6027;&#xFF0C;&#x751F;&#x6001;&#x7CFB;&#x7EDF;&#xFF0C;&#x4EE5;&#x53CA;&#x6587;&#x6863;</h2>
+<p>&#x91CD;&#x70B9;&#x8981;&#x8003;&#x8651;&#x7684;&#x662F;&#x542F;&#x52A8;&#x548C;&#x8FD0;&#x884C;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x7684;&#x652F;&#x6301;&#x7A0B;&#x5EA6;&#xFF0C;&#x4EE5;&#x53CA;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x591A;&#x5927;&#x5E2E;&#x52A9;&#x3002;</p>
+<h3 id="apache">Apache</h3>
+<p>&#x56E0;&#x4E3A; Apache &#x6D41;&#x884C;&#x5DF2;&#x4E45;&#xFF0C;&#x5BF9;&#x4E8E;&#x5B83;&#x7684;&#x652F;&#x6301;&#x662F;&#x76F8;&#x5F53;&#x666E;&#x904D;&#x7684;&#x3002;&#x6709;&#x5927;&#x91CF;&#x7684;&#x5B98;&#x65B9;&#x5E93;&#xFF0C;&#x6709;&#x89E3;&#x91CA;&#x670D;&#x52A1;&#x5668;&#x5185;&#x6838;&#x7684;&#x7B2C;&#x4E09;&#x65B9;&#x6587;&#x6863;&#xFF0C;&#x8FD8;&#x6709;&#x6839;&#x636E;&#x5177;&#x4F53;&#x4E1A;&#x52A1;&#x573A;&#x666F;&#x53BB;&#x7ED3;&#x5408;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x8C03;&#x7528; Apache &#x7684;&#x7B2C;&#x4E09;&#x65B9;&#x6587;&#x6863;&#x3002;</p>
+<p>&#x968F;&#x7740;&#x6587;&#x6863;&#x7684;&#x666E;&#x53CA;&#xFF0C;&#x8BB8;&#x591A;&#x5DE5;&#x5177;&#x548C; web &#x9879;&#x76EE;&#x5305;&#x542B;&#x4E86;&#x80FD;&#x5C06;&#x81EA;&#x5DF1;&#x90E8;&#x7F72;&#x5728; Apache &#x73AF;&#x5883;&#x4E0B;&#x7684;&#x542F;&#x52A8;&#x5DE5;&#x5177;&#x3002;&#x8FD9;&#x4E9B;&#x53EF;&#x80FD;&#x5C31;&#x5305;&#x542B;&#x5728;&#x9879;&#x76EE;&#x91CC;&#xFF0C;&#x4EA6;&#x6216;&#x4F60;&#x7684;&#x5206;&#x53D1;&#x6253;&#x5305;&#x56E2;&#x961F;&#x628A;&#x5B83;&#x7EF4;&#x62A4;&#x5728;&#x5DE5;&#x5177;&#x5305;&#x91CC;&#x3002;</p>
+<p>&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x5E02;&#x573A;&#x5206;&#x4EAB;&#x4EE5;&#x53CA;&#x7ECF;&#x8FC7;&#x957F;&#x65F6;&#x95F4;&#x7684;&#x8003;&#x9A8C;&#xFF0C;Apache &#x901A;&#x5E38;&#x4F1A;&#x4ECE;&#x7B2C;&#x4E09;&#x65B9;&#x9879;&#x76EE;&#x4E2D;&#x5F97;&#x5230;&#x66F4;&#x591A;&#x652F;&#x6301;&#x3002;&#x7BA1;&#x7406;&#x5458;&#x66F4;&#x613F;&#x610F;&#x9009;&#x62E9;&#x4F7F;&#x7528; Apache &#x8FDB;&#x884C;&#x5DE5;&#x4F5C;&#xFF0C;&#x4E0D;&#x4EC5;&#x4EC5;&#x662F;&#x56E0;&#x4E3A;&#x5B83;&#x7684;&#x6D41;&#x884C;&#x5EA6;&#xFF0C;&#x8FD8;&#x56E0;&#x4E3A; <code>.htaccess</code> &#x5206;&#x5E03;&#x5F0F;&#x7BA1;&#x7406;&#x7684;&#x80FD;&#x529B;&#xFF0C;&#x8BA9;&#x5F88;&#x591A;&#x4EBA;&#x5728;&#x4E00;&#x5F00;&#x59CB;&#x5C31;&#x5B8C;&#x5168;&#x4F9D;&#x8D56; Apache &#x6765;&#x5B9E;&#x73B0;&#x4E3B;&#x673A;&#x5171;&#x4EAB;&#x7684;&#x573A;&#x666F;&#x3002;</p>
+<h3 id="nginx">Nginx</h3>
+<p>&#x968F;&#x7740;&#x66F4;&#x591A;&#x7528;&#x6237;&#x8C03;&#x6574;&#x914D;&#x7F6E; Nginx &#x7684;&#x6027;&#x80FD;&#xFF0C;&#x5B83;&#x7684;&#x652F;&#x6301;&#x4F53;&#x9A8C;&#x4E5F;&#x6B63;&#x5728;&#x63D0;&#x5347;&#xFF0C;&#x4F46;&#x5728;&#x67D0;&#x4E9B;&#x9886;&#x57DF;&#x5B83;&#x4ECD;&#x6709;&#x8BB8;&#x591A;&#x4E8B;&#x60C5;&#x8981;&#x505A;&#x3002;</p>
+<p>&#x5728;&#x8FC7;&#x53BB;&#xFF0C;&#x627E;&#x4E00;&#x4E2A;&#x5168;&#x9762;&#x7684;&#x5173;&#x4E8E; Nginx &#x7684;&#x82F1;&#x6587;&#x6587;&#x6863;&#x5341;&#x5206;&#x56F0;&#x96BE;&#x3002;&#x56E0;&#x4E3A;&#x5927;&#x591A;&#x6570;&#x65E9;&#x671F;&#x5F00;&#x53D1;&#x4EE5;&#x53CA;&#x6587;&#x6863;&#x90FD;&#x662F;&#x7528;&#x4FC4;&#x8BED;&#x5B8C;&#x6210;&#x7684;&#x3002;&#x968F;&#x7740;&#x9879;&#x76EE;&#x53D7;&#x5230;&#x66F4;&#x591A;&#x5173;&#x6CE8;&#xFF0C;&#x6587;&#x6863;&#x5F97;&#x4EE5;&#x586B;&#x8865;&#xFF0C;&#x73B0;&#x5728;&#x5728; Nginx &#x5B98;&#x7F51;&#x4E0A;&#x548C;&#x7B2C;&#x4E09;&#x65B9;&#x7EC4;&#x7EC7;&#x4E0A;&#x6709;&#x8BB8;&#x591A;&#x7BA1;&#x7406;&#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x7B2C;&#x4E09;&#x65B9;&#x5E94;&#x7528;&#xFF0C;&#x6280;&#x672F;&#x652F;&#x6301;&#x548C;&#x8BF4;&#x660E;&#x6587;&#x6863;&#x6B63;&#x53D8;&#x5F97;&#x66F4;&#x52A0;&#x53EF;&#x7528;&#x3002;&#x6709;&#x4E00;&#x4E9B;&#x9879;&#x76EE;&#xFF0C;&#x5305;&#x7EF4;&#x62A4;&#x8005;&#x5F00;&#x59CB;&#x7ED9;&#x51FA;&#x4E24;&#x4E2A;&#x9009;&#x9879;&#xFF0C;&#x7528;&#x4E8E;&#x81EA;&#x52A8;&#x5316;&#x914D;&#x7F6E; Apache &#x6216;&#x8005; Nginx&#x3002;&#x5373;&#x4F7F;&#x6CA1;&#x6709;&#x652F;&#x6301;&#xFF0C;&#x53EA;&#x8981;&#x9879;&#x76EE;&#x81EA;&#x8EAB;&#x8BF4;&#x660E;&#x4E86;&#x8981;&#x6C42;&#xFF08;&#x8BB8;&#x53EF;&#xFF0C;&#x5934;&#x4FE1;&#x606F;&#x7B49;&#x7B49;&#xFF09;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x914D;&#x7F6E; Nginx &#x4E0E;&#x5176;&#x4ED6;&#x8F6F;&#x4EF6;&#x4E00;&#x8D77;&#x5DE5;&#x4F5C;&#x3002;</p>
+<h2 id="&#x540C;&#x65F6;&#x4F7F;&#x7528;-apache-&#x548C;-nginx">&#x540C;&#x65F6;&#x4F7F;&#x7528; Apache &#x548C; Nginx</h2>
+<p>&#x5728;&#x6D4F;&#x89C8;&#x8FC7; Apache &#x548C; Nginx &#x7684;&#x5404;&#x79CD;&#x4F18;&#x52BF;&#x4E0E;&#x9650;&#x5236;&#x4E4B;&#x540E;&#xFF0C;&#x4F60;&#x4E5F;&#x8BB8;&#x5BF9;&#x4F7F;&#x7528;&#x54EA;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x66F4;&#x7B26;&#x5408;&#x4F60;&#x7684;&#x9700;&#x6C42;&#x6709;&#x4E86;&#x66F4;&#x597D;&#x7684;&#x4E3B;&#x610F;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x8BB8;&#x591A;&#x7528;&#x6237;&#x53D1;&#x73B0;&#x4E5F;&#x8BB8;&#x53EF;&#x4EE5;&#x6743;&#x8861;&#x4E24;&#x8005;&#xFF0C;&#x8BA9;&#x5B83;&#x4EEC;&#x5171;&#x540C;&#x53D1;&#x6325;&#x5404;&#x81EA;&#x7684;&#x5A01;&#x529B;&#x3002;</p>
+<p>&#x4F20;&#x7EDF;&#x4F7F;&#x7528;&#x5B83;&#x4EEC;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x662F;&#x5C06; Nginx &#x4F5C;&#x4E3A;&#x53CD;&#x5411;&#x4EE3;&#x7406;&#x653E;&#x5728; Apache &#x524D;&#x9762;&#x3002;&#x8FD9;&#x5C06;&#x4F7F; Nginx &#x5904;&#x7406;&#x6240;&#x6709;&#x5BA2;&#x6237;&#x7AEF;&#x8BF7;&#x6C42;&#x3002;&#x5145;&#x5206;&#x5229;&#x7528; Nginx &#x5FEB;&#x901F;&#x54CD;&#x5E94;&#x7684;&#x4F18;&#x52BF;&#xFF0C;&#x4EE5;&#x53CA;&#x5B83;&#x5904;&#x7406;&#x5927;&#x91CF;&#x5E76;&#x53D1;&#x8FDE;&#x63A5;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x9759;&#x6001;&#x5185;&#x5BB9;&#xFF0C;Nginx &#x64C5;&#x957F;&#x5FEB;&#x901F;&#x5C06;&#x6587;&#x4EF6;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;&#x5BF9;&#x4E8E;&#x52A8;&#x6001;&#x5185;&#x5BB9;&#xFF0C;&#x6BD4;&#x5982; PHP &#x6587;&#x4EF6;&#xFF0C;Nginx &#x5C06;&#x628A;&#x8BF7;&#x6C42;&#x8F6C;&#x53D1;&#x7ED9; Apache&#xFF0C;Apache &#x5904;&#x7406;&#x597D;&#x540E;&#x628A;&#x6E32;&#x67D3;&#x597D;&#x7684;&#x9875;&#x9762;&#x8FD4;&#x56DE;&#x3002;Nginx &#x518D;&#x5C06;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;&#x5BA2;&#x6237;&#x7AEF;&#x3002;</p>
+<p>&#x8FD9;&#x79CD;&#x914D;&#x7F6E;&#x5BF9;&#x4E8E;&#x8BB8;&#x591A;&#x7528;&#x6237;&#x6765;&#x8BF4;&#x8FD0;&#x4F5C;&#x826F;&#x597D;&#x3002;&#x56E0;&#x4E3A;&#x5B83;&#x5C06; Nginx &#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x6392;&#x5E8F;&#x673A;&#x5668;&#xFF0C;&#x5904;&#x7406;&#x6240;&#x6709;&#x8BF7;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5B83;&#x672C;&#x8EAB;&#x96BE;&#x4EE5;&#x5904;&#x7406;&#x7684;&#x8BF7;&#x6C42;&#x4F20;&#x9012;&#x7ED9; Apache&#x3002;&#x901A;&#x8FC7;&#x51CF;&#x5C11;&#x7ED9; Apache &#x670D;&#x52A1;&#x5668;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x6211;&#x4EEC;&#x80FD;&#x591F;&#x7F13;&#x89E3;&#x4E00;&#x4E9B; Apache &#x8FDB;&#x7A0B;&#x6216;&#x8005;&#x7EBF;&#x7A0B;&#x53D1;&#x751F;&#x963B;&#x585E;&#x7684;&#x60C5;&#x51B5;&#x3002;</p>
+<p>&#x8FD9;&#x79CD;&#x914D;&#x7F6E;&#x8BA9;&#x4F60;&#x80FD;&#x591F;&#x901A;&#x8FC7;&#x589E;&#x52A0;&#x5FC5;&#x8981;&#x7684;&#x540E;&#x7AEF;&#x670D;&#x52A1;&#x5668;&#x6765;&#x6A2A;&#x5411;&#x6269;&#x5C55;&#x3002;Nginx &#x80FD;&#x591F;&#x8F7B;&#x677E;&#x5730;&#x914D;&#x7F6E;&#x6210;&#x4F20;&#x9012;&#x8BF7;&#x6C42;&#x7ED9;&#x670D;&#x52A1;&#x5668;&#x96C6;&#x7FA4;&#x3002;&#x4EE5;&#x6B64;&#x589E;&#x5F3A;&#x914D;&#x7F6E;&#x6765;&#x62B5;&#x5FA1;&#x6545;&#x969C;&#xFF0C;&#x63D0;&#x9AD8;&#x6027;&#x80FD;&#x3002;</p>
+<h2 id="&#x7ED3;&#x8BBA;">&#x7ED3;&#x8BBA;</h2>
+<p>&#x5982;&#x4F60;&#x6240;&#x89C1;&#xFF0C;Apache &#x548C; Nginx &#x90FD;&#x662F;&#x5F88;&#x5F3A;&#x529B;&#x3001;&#x7075;&#x6D3B;&#x3001;&#x80FD;&#x5E72;&#x7684;&#x3002;&#x51B3;&#x5B9A;&#x54EA;&#x4E2A;&#x670D;&#x52A1;&#x5668;&#x5BF9;&#x4F60;&#x6765;&#x8BF4;&#x6700;&#x597D;&#xFF0C;&#x4E3B;&#x8981;&#x53D6;&#x51B3;&#x4E8E;&#x4EC0;&#x4E48;&#x529F;&#x80FD;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#x4F60;&#x7684;&#x7279;&#x5B9A;&#x9700;&#x6C42;&#xFF0C;&#x7136;&#x540E;&#x7528;&#x4F60;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x6D4B;&#x8BD5;&#x5B83;&#x3002;</p>
+<p>&#x8FD9;&#x4E24;&#x4E2A;&#x9879;&#x76EE;&#x5728;&#x539F;&#x751F;&#x6027;&#x80FD;&#x3001;&#x529F;&#x80FD;&#xFF0C;&#x4EE5;&#x53CA;&#x542F;&#x52A8;&#x548C;&#x8FD0;&#x884C;&#x6BCF;&#x4E2A;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x6240;&#x9700;&#x7684;&#x5FC5;&#x8981;&#x65F6;&#x95F4;&#x4E0A;&#x6709;&#x975E;&#x5E38;&#x73B0;&#x5B9E;&#x7684;&#x51B2;&#x7A81;&#x3002;&#x7136;&#x800C;&#xFF0C;&#x8FD9;&#x4E9B;&#x90FD;&#x662F;&#x4E00;&#x7CFB;&#x5217;&#x53D6;&#x820D;&#x540E;&#x7684;&#x7ED3;&#x679C;&#xFF0C;&#x4E0D;&#x5E94;&#x8BE5;&#x4E0D;&#x5047;&#x601D;&#x7D22;&#x5730;&#x968F;&#x610F;&#x4F7F;&#x7528;&#x3002;&#x6700;&#x540E;&#xFF0C;&#x6CA1;&#x6709;&#x901A;&#x7528;&#x7684;&#x9002;&#x5408;&#x6240;&#x6709;&#x573A;&#x666F;&#x7684; web &#x670D;&#x52A1;&#x5668;&#xFF0C;&#x6240;&#x4EE5;&#x9009;&#x62E9;&#x6700;&#x5207;&#x5408;&#x4F60;&#x7684;&#x76EE;&#x6807;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6848;&#x5427;&#x3002;</p>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/my-basic-linux-commands-cheatsheet.html" rel="next" title="我的 Linux 基础命令速查表">
+                <i class="fa fa-chevron-left"></i> 我的 Linux 基础命令速查表
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/meet-best.html" rel="prev" title="《介绍 Famous 框架》之《相遇 BEST》">
+                《介绍 Famous 框架》之《相遇 BEST》 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概览"><span class="nav-number">2.</span> <span class="nav-text">概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">2.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">2.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接处理架构"><span class="nav-number">3.</span> <span class="nav-text">连接处理架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">3.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">3.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态与动态内容"><span class="nav-number">4.</span> <span class="nav-text">静态与动态内容</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">4.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">4.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分布式与中心化配置"><span class="nav-number">5.</span> <span class="nav-text">分布式与中心化配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">5.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">5.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件与基于-uri-的解析"><span class="nav-number">6.</span> <span class="nav-text">文件与基于 URI 的解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">6.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">6.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">7.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">7.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">7.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技术支持兼容性生态系统以及文档"><span class="nav-number">8.</span> <span class="nav-text">技术支持，兼容性，生态系统，以及文档</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#apache"><span class="nav-number">8.1.</span> <span class="nav-text">Apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx"><span class="nav-number">8.2.</span> <span class="nav-text">Nginx</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同时使用-apache-和-nginx"><span class="nav-number">9.</span> <span class="nav-text">同时使用 Apache 和 Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number">10.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2016 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'apache-vs-nginx-practical-considerations.html';
+      var disqus_title = "Apache 与 Nginx 实际比较";
+      var disqus_url = 'http://adoyle.me/blog/blog/apache-vs-nginx-practical-considerations.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>
