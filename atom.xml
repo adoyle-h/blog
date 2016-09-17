@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://adoyle.me/blog/"/>
-  <updated>2016-09-17T05:52:32.000Z</updated>
+  <updated>2016-09-17T15:41:36.000Z</updated>
   <id>http://adoyle.me/blog/</id>
   
   <author>
@@ -14,6 +14,108 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>好的开源项目是怎样的？</title>
+    <link href="http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html"/>
+    <id>http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html</id>
+    <published>2016-09-17T15:41:36.000Z</published>
+    <updated>2016-09-17T15:41:36.000Z</updated>
+    
+    <content type="html">&lt;h2 id=&quot;&amp;#x6982;&amp;#x89C8;-overview&quot;&gt;&amp;#x6982;&amp;#x89C8; (Overview)&lt;/h2&gt;
+&lt;p&gt;&amp;#x6216;&amp;#x8005;&amp;#x8BF4;&amp;#x597D;&amp;#x7684;&amp;#x5F00;&amp;#x6E90;&amp;#x9879;&amp;#x76EE;&amp;#x7684;&amp;#x7EF4;&amp;#x62A4;&amp;#x8005;&amp;#x5E94;&amp;#x8BE5;&amp;#x662F;&amp;#x600E;&amp;#x6837;&amp;#x7684;&amp;#xFF1F;&lt;/p&gt;
+&lt;p&gt;&amp;#x6211;&amp;#x89C9;&amp;#x5F97;&amp;#x5B83;&amp;#x5E94;&amp;#x8BE5;&amp;#x81F3;&amp;#x5C11;&amp;#x5305;&amp;#x542B;&amp;#x4EE5;&amp;#x4E0B;&amp;#x51E0;&amp;#x70B9;&amp;#xFF1A;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;#x89E3;&amp;#x51B3;&amp;#x95EE;&amp;#x9898;&lt;/li&gt;
+&lt;li&gt;&amp;#x5E2E;&amp;#x52A9;&amp;#x4ED6;&amp;#x4EBA;&lt;/li&gt;
+&lt;li&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x91CD;&amp;#x590D;&amp;#x522B;&amp;#x4EBA;&amp;#x6240;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&lt;/li&gt;
+&lt;li&gt;&amp;#x627F;&amp;#x62C5;&amp;#x8D23;&amp;#x4EFB;&lt;/li&gt;
+&lt;li&gt;&amp;#x6301;&amp;#x7EED;&amp;#x6539;&amp;#x8FDB;&lt;/li&gt;
+&lt;li&gt;&amp;#x9075;&amp;#x5FAA; Semver&lt;/li&gt;
+&lt;li&gt;Contributing Guide&lt;/li&gt;
+&lt;li&gt;Style Guide&lt;/li&gt;
+&lt;li&gt;&amp;#x7248;&amp;#x6743;&amp;#x5F52;&amp;#x5C5E;&lt;/li&gt;
+&lt;li&gt;&amp;#x826F;&amp;#x597D;&amp;#x7684;&amp;#x6587;&amp;#x6863;&lt;/li&gt;
+&lt;li&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x7ED9;&amp;#x8FD9;&amp;#x4E2A;&amp;#x4E16;&amp;#x754C;&amp;#x589E;&amp;#x52A0;&amp;#x5197;&amp;#x4F59;&amp;#x5EA6;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x89E3;&amp;#x51B3;&amp;#x95EE;&amp;#x9898;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x89E3;&amp;#x51B3;&amp;#x95EE;&amp;#x9898;&quot;&gt;&amp;#x89E3;&amp;#x51B3;&amp;#x95EE;&amp;#x9898;&lt;/h2&gt;
+&lt;p&gt;&amp;#x6211;&amp;#x8BA4;&amp;#x4E3A;&amp;#x4E00;&amp;#x4E2A;&amp;#x5F00;&amp;#x6E90;&amp;#x9879;&amp;#x76EE;&amp;#x5B58;&amp;#x5728;&amp;#x7684;&amp;#x6839;&amp;#x672C;&amp;#xFF0C;&amp;#x5728;&amp;#x4E8E;&amp;#x89E3;&amp;#x51B3;&amp;#x522B;&amp;#x4EBA;&amp;#x4E0D;&amp;#x80FD;&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x5B9E;&amp;#x9645;&amp;#x7684;&amp;#x6216;&amp;#x62BD;&amp;#x8C61;&amp;#x7684;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x4E0D;&amp;#x80FD;&amp;#x8F7B;&amp;#x677E;&amp;#x89E3;&amp;#x51B3;&amp;#x7684;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x521B;&amp;#x65B0;&amp;#x5730;&amp;#x89E3;&amp;#x51B3;&amp;#x67D0;&amp;#x4E2A;&amp;#x95EE;&amp;#x9898;&amp;#x3002;&lt;br&gt;
+&amp;#x62BD;&amp;#x8C61;&amp;#x7684;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x6BD4;&amp;#x5982;&amp;#x6570;&amp;#x5B66;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#xFF0C;&amp;#x4EBA;&amp;#x6587;&amp;#x76F8;&amp;#x5173;&amp;#x7684;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x4E00;&amp;#x4E2A;&amp;#x9879;&amp;#x76EE;&amp;#x65E0;&amp;#x6CD5;&amp;#x8BF4;&amp;#x6E05;&amp;#x695A;&amp;#x5B83;&amp;#x81F4;&amp;#x529B;&amp;#x4E8E;&amp;#x89E3;&amp;#x51B3;&amp;#x4EC0;&amp;#x4E48;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x90A3;&amp;#x4E48;&amp;#x5B83;&amp;#x7684;&amp;#x5B58;&amp;#x5728;&amp;#x610F;&amp;#x4E49;&amp;#x4F1A;&amp;#x5927;&amp;#x6253;&amp;#x6298;&amp;#x6263;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x5E2E;&amp;#x52A9;&amp;#x4ED6;&amp;#x4EBA;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x5E2E;&amp;#x52A9;&amp;#x4ED6;&amp;#x4EBA;&quot;&gt;&amp;#x5E2E;&amp;#x52A9;&amp;#x4ED6;&amp;#x4EBA;&lt;/h2&gt;
+&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x80FD;&amp;#x89E3;&amp;#x51B3;&amp;#x67D0;&amp;#x7C7B;&amp;#x901A;&amp;#x7528;&amp;#x7684;&amp;#x95EE;&amp;#x9898;&amp;#xFF0C;&amp;#x6216;&amp;#x8BB8;&amp;#x80FD;&amp;#x5E2E;&amp;#x52A9;&amp;#x5230;&amp;#x67D0;&amp;#x4E9B;&amp;#x4EBA;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&amp;#x5982;&amp;#x679C;&amp;#x8FD9;&amp;#x53EA;&amp;#x80FD;&amp;#x5E2E;&amp;#x52A9;&amp;#x81EA;&amp;#x5DF1;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x4E0D;&amp;#x591F;&amp;#x901A;&amp;#x7528;&amp;#xFF0C;&amp;#x5BF9;&amp;#x4ED6;&amp;#x4EBA;&amp;#x6CA1;&amp;#x4EC0;&amp;#x4E48;&amp;#x7528;&amp;#x3002;&amp;#x90A3;&amp;#x8BF4;&amp;#x660E;&amp;#x9879;&amp;#x76EE;&amp;#x8FD8;&amp;#x6CA1;&amp;#x505A;&amp;#x597D;&amp;#x5F00;&amp;#x6E90;&amp;#x7684;&amp;#x51C6;&amp;#x5907;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x4E0D;&amp;#x8981;&amp;#x91CD;&amp;#x590D;&amp;#x522B;&amp;#x4EBA;&amp;#x6240;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x4E0D;&amp;#x8981;&amp;#x91CD;&amp;#x590D;&amp;#x522B;&amp;#x4EBA;&amp;#x6240;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&quot;&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x91CD;&amp;#x590D;&amp;#x522B;&amp;#x4EBA;&amp;#x6240;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&lt;/h2&gt;
+&lt;p&gt;&amp;#x5F00;&amp;#x6E90;&amp;#x4E4B;&amp;#x524D;&amp;#xFF0C;&amp;#x751A;&amp;#x81F3;&amp;#x5199;&amp;#x9879;&amp;#x76EE;&amp;#x4E4B;&amp;#x524D;&amp;#x3002;&amp;#x53BB; google &amp;#x4E00;&amp;#x4E0B;&amp;#x8FD9;&amp;#x4E2A;&amp;#x95EE;&amp;#x9898;&amp;#x6709;&amp;#x6CA1;&amp;#x6709;&amp;#x73B0;&amp;#x6210;&amp;#x7684;&amp;#x89E3;&amp;#x51B3;&amp;#x65B9;&amp;#x6848;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x8FD9;&amp;#x4E2A;&amp;#x6280;&amp;#x672F;&amp;#x6709;&amp;#x6CA1;&amp;#x6709;&amp;#x7C7B;&amp;#x4F3C;&amp;#x7684;&amp;#x5B9E;&amp;#x73B0;&amp;#x3002;&lt;br&gt;
+&amp;#x5982;&amp;#x679C;&amp;#x6709;&amp;#xFF0C;&amp;#x5EFA;&amp;#x8BAE;&amp;#x5148;&amp;#x8003;&amp;#x8651;&amp;#x80FD;&amp;#x5426;&amp;#x6539;&amp;#x8FDB;&amp;#x73B0;&amp;#x6709;&amp;#x9879;&amp;#x76EE;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x91CD;&amp;#x590D;&amp;#x522B;&amp;#x4EBA;&amp;#x6240;&amp;#x505A;&amp;#x7684;&amp;#x4E8B;&amp;#xFF0C;&amp;#x5927;&amp;#x540C;&amp;#x5C0F;&amp;#x5F02;&amp;#x4E5F;&amp;#x662F;&amp;#x4E0D;&amp;#x597D;&amp;#x7684;&amp;#x3002;&amp;#x4E00;&amp;#x5B9A;&amp;#x8981;&amp;#x6709;&lt;strong&gt;&amp;#x521B;&amp;#x65B0;&lt;/strong&gt;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x627F;&amp;#x62C5;&amp;#x8D23;&amp;#x4EFB;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x627F;&amp;#x62C5;&amp;#x8D23;&amp;#x4EFB;&quot;&gt;&amp;#x627F;&amp;#x62C5;&amp;#x8D23;&amp;#x4EFB;&lt;/h2&gt;
+&lt;p&gt;&amp;#x4E00;&amp;#x65E6;&amp;#x5F00;&amp;#x6E90;&amp;#xFF0C;&amp;#x4F60;&amp;#x5C31;&amp;#x9700;&amp;#x8981;&amp;#x8D1F;&amp;#x8D23;&amp;#x5230;&amp;#x5E95;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x6301;&amp;#x7EED;&amp;#x6539;&amp;#x8FDB;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x6301;&amp;#x7EED;&amp;#x6539;&amp;#x8FDB;&quot;&gt;&amp;#x6301;&amp;#x7EED;&amp;#x6539;&amp;#x8FDB;&lt;/h2&gt;
+&lt;p&gt;&amp;#x6CA1;&amp;#x6709;&amp;#x5B8C;&amp;#x7F8E;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#xFF0C;&amp;#x4F60;&amp;#x7684;&amp;#x9879;&amp;#x76EE;&amp;#x9700;&amp;#x8981;&amp;#x4E00;&amp;#x76F4;&amp;#x7EF4;&amp;#x62A4;&amp;#x4E0B;&amp;#x53BB;&amp;#xFF0C;&amp;#x867D;&amp;#x7136;&amp;#x793E;&amp;#x533A;&amp;#x4F1A;&amp;#x5E2E;&amp;#x4F60;&amp;#x5F88;&amp;#x591A;&amp;#x5FD9;&amp;#xFF0C;&amp;#x4F46;&amp;#x4F60;&amp;#x662F;&amp;#x4E3B;&amp;#x8981;&amp;#x7EF4;&amp;#x62A4;&amp;#x8005;&amp;#x3002;&lt;br&gt;
+&amp;#x4E0D;&amp;#x5962;&amp;#x6C42;&amp;#x589E;&amp;#x52A0;&amp;#x65B0;&amp;#x529F;&amp;#x80FD;&amp;#xFF0C;&amp;#x4F46;&amp;#x9700;&amp;#x8981;&amp;#x4FEE;&amp;#x590D;&amp;#x65E7; Bug&amp;#x3002;&lt;br&gt;
+&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x6CA1;&amp;#x6709;&amp;#x7CBE;&amp;#x529B;&amp;#x6765;&amp;#x7EF4;&amp;#x62A4;&amp;#x9879;&amp;#x76EE;&amp;#xFF0C;&amp;#x8BF7;&amp;#x627E;&amp;#x597D;&amp;#x540E;&amp;#x7EE7;&amp;#x8005;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x7ED9;&amp;#x9879;&amp;#x76EE;&amp;#x6807;&amp;#x8BB0;&amp;#x4E3A; &lt;code&gt;Deprecated&lt;/code&gt;&amp;#x3002;&amp;#x4E0D;&amp;#x8981;&amp;#x7A81;&amp;#x7136;&amp;#x5931;&amp;#x8E2A;&amp;#xFF0C;&amp;#x6216;&amp;#x8005;&amp;#x76F4;&amp;#x63A5;&amp;#x5220;&amp;#x9664;&amp;#x9879;&amp;#x76EE;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x9075;&amp;#x5FAA;-semver&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x9075;&amp;#x5FAA;-semver&quot;&gt;&amp;#x9075;&amp;#x5FAA; &lt;a href=&quot;http://semver.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Semver&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;&amp;#x4E00;&amp;#x65E6;&amp;#x5F00;&amp;#x6E90;&amp;#xFF0C;&amp;#x522B;&amp;#x4EBA;&amp;#x6709;&amp;#x53EF;&amp;#x80FD;&amp;#x4F7F;&amp;#x7528;&amp;#x4F60;&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#xFF0C;&amp;#x5C31;&amp;#x4F1A;&amp;#x5BF9;&amp;#x4F60;&amp;#x7684;&amp;#x9879;&amp;#x76EE;&amp;#x4EA7;&amp;#x751F;&amp;#x4F9D;&amp;#x8D56;&amp;#x3002;&amp;#x7136;&amp;#x800C;&amp;#x8FD9;&amp;#x6761;&amp;#x4F9D;&amp;#x8D56;&amp;#x94FE;&amp;#x662F;&amp;#x5EFA;&amp;#x7ACB;&amp;#x5728;&amp;#x4FE1;&amp;#x4EFB;&amp;#x4E4B;&amp;#x4E0A;&amp;#xFF0C;&amp;#x5B83;&amp;#x5F02;&amp;#x5E38;&amp;#x8106;&amp;#x5F31;&amp;#x3002;&lt;br&gt;
+&amp;#x4E00;&amp;#x65E6;&amp;#x4F60;&amp;#x505A;&amp;#x4E86;&amp;#x4E0D;&amp;#x53EF;&amp;#x517C;&amp;#x5BB9;&amp;#x7684;&amp;#x4FEE;&amp;#x6539;&amp;#xFF0C;&amp;#x53C8;&amp;#x6CA1;&amp;#x6709;&amp;#x6309;&amp;#x7167;&amp;#x5408;&amp;#x9002;&amp;#x7684;&amp;#x89C4;&amp;#x5219;&amp;#x544A;&amp;#x77E5;&amp;#x7528;&amp;#x6237;&amp;#x3002;&amp;#x90A3;&amp;#x4E48;&amp;#x53EF;&amp;#x80FD;&amp;#x4F1A;&amp;#x5F15;&amp;#x8D77;&amp;#x4E00;&amp;#x7CFB;&amp;#x5217;&amp;#x707E;&amp;#x96BE;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;contributing-guide&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;contributing-guide&quot;&gt;Contributing Guide&lt;/h2&gt;
+&lt;p&gt;&amp;#x6307;&amp;#x5BFC;&amp;#x65B0;&amp;#x4EBA;&amp;#x5982;&amp;#x4F55;&amp;#x7ED9;&amp;#x9879;&amp;#x76EE;&amp;#x63D0; issue&amp;#xFF0C;&amp;#x5982;&amp;#x4F55;&amp;#x7ED9;&amp;#x9879;&amp;#x76EE;&amp;#x505A;&amp;#x8D21;&amp;#x732E;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;style-guide&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;style-guide&quot;&gt;Style Guide&lt;/h2&gt;
+&lt;p&gt;&amp;#x7EDF;&amp;#x4E00;&amp;#x4EE3;&amp;#x7801;&amp;#x98CE;&amp;#x683C;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x7248;&amp;#x6743;&amp;#x5F52;&amp;#x5C5E;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x7248;&amp;#x6743;&amp;#x5F52;&amp;#x5C5E;&quot;&gt;&amp;#x7248;&amp;#x6743;&amp;#x5F52;&amp;#x5C5E;&lt;/h2&gt;
+&lt;p&gt;&amp;#x7ED9;&amp;#x9879;&amp;#x76EE;&amp;#x5B9A;&amp;#x4E00;&amp;#x4E2A;&amp;#x7248;&amp;#x6743;&amp;#x534F;&amp;#x8BAE;&amp;#x3002;&amp;#x522B;&amp;#x4EBA;&amp;#x7528;&amp;#x5F97;&amp;#x653E;&amp;#x5FC3;&amp;#xFF0C;&amp;#x4F60;&amp;#x4E5F;&amp;#x5B89;&amp;#x5FC3;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&amp;#x7ED9;&amp;#x9879;&amp;#x76EE;&amp;#x5B9A;&amp;#x4E00;&amp;#x4E2A; CLA (Contributor License Agreement)&amp;#x3002;&amp;#x4FDD;&amp;#x969C;&amp;#x9879;&amp;#x76EE;&amp;#x8D21;&amp;#x732E;&amp;#x8005;&amp;#x7684;&amp;#x6743;&amp;#x76CA;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x826F;&amp;#x597D;&amp;#x7684;&amp;#x6587;&amp;#x6863;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x826F;&amp;#x597D;&amp;#x7684;&amp;#x6587;&amp;#x6863;&quot;&gt;&amp;#x826F;&amp;#x597D;&amp;#x7684;&amp;#x6587;&amp;#x6863;&lt;/h2&gt;
+&lt;p&gt;&amp;#x5177;&amp;#x4F53;&amp;#x53C2;&amp;#x8003;&lt;a href=&quot;http://adoyle.me/blog/what-kind-of-project-is-good.html#readme&quot;&gt;&amp;#x300A;&amp;#x597D;&amp;#x7684;&amp;#x9879;&amp;#x76EE;&amp;#x662F;&amp;#x600E;&amp;#x6837;&amp;#x7684;&amp;#xFF1F;&amp;#x300B;- README&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a name=&quot;&amp;#x4E0D;&amp;#x8981;&amp;#x7ED9;&amp;#x8FD9;&amp;#x4E2A;&amp;#x4E16;&amp;#x754C;&amp;#x589E;&amp;#x52A0;&amp;#x5197;&amp;#x4F59;&amp;#x5EA6;&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x4E0D;&amp;#x8981;&amp;#x7ED9;&amp;#x8FD9;&amp;#x4E2A;&amp;#x4E16;&amp;#x754C;&amp;#x589E;&amp;#x52A0;&amp;#x5197;&amp;#x4F59;&amp;#x5EA6;&quot;&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x7ED9;&amp;#x8FD9;&amp;#x4E2A;&amp;#x4E16;&amp;#x754C;&amp;#x589E;&amp;#x52A0;&amp;#x5197;&amp;#x4F59;&amp;#x5EA6;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x53EA;&amp;#x4E3A;&amp;#x4E86;&amp;#x70AB;&amp;#x6280;&amp;#x800C;&amp;#x5F00;&amp;#x6E90;&lt;/li&gt;
+&lt;li&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x53EA;&amp;#x4E3A;&amp;#x4E86;&amp;#x79C0;&amp;#x5B58;&amp;#x5728;&amp;#x611F;/&amp;#x5BA3;&amp;#x4F20;&amp;#x800C;&amp;#x5F00;&amp;#x6E90;&lt;/li&gt;
+&lt;li&gt;&amp;#x4E0D;&amp;#x8981;&amp;#x53EA;&amp;#x4E3A;&amp;#x4E86;&amp;#x5F00;&amp;#x6E90;&amp;#x800C;&amp;#x5F00;&amp;#x6E90;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;#x53E6;&amp;#x5916;&amp;#xFF0C;&amp;#x4E4B;&amp;#x524D;&amp;#x5199;&amp;#x8FC7;&amp;#x4E00;&amp;#x7BC7;&lt;a href=&quot;http://adoyle.me/blog/what-kind-of-project-is-good.html&quot;&gt;&amp;#x300A;&amp;#x597D;&amp;#x7684;&amp;#x9879;&amp;#x76EE;&amp;#x662F;&amp;#x600E;&amp;#x6837;&amp;#x7684;&amp;#xFF1F;&amp;#x300B;&lt;/a&gt;&amp;#xFF0C;&amp;#x6709;&amp;#x5174;&amp;#x8DA3;&amp;#x53EF;&amp;#x4EE5;&amp;#x770B;&amp;#x770B;&amp;#x3002;&lt;/p&gt;
+&lt;!-- 以下是相关链接 --&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;概览-overview&quot;&gt;概览 (Overview)&lt;/h2&gt;
+&lt;p&gt;或者说好的开源项目的维护者应该是怎样的？&lt;/p&gt;
+&lt;p&gt;我觉得它应该至少包含以下几点：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;解决问题&lt;/li&gt;
+&lt;li&gt;帮助他人&lt;/li&gt;
+&lt;li&gt;不要重复别人所做的事&lt;/li&gt;
+&lt;li&gt;承担责任&lt;/li&gt;
+&lt;li&gt;持续改进&lt;/li&gt;
+&lt;li&gt;遵循 Semver&lt;/li&gt;
+&lt;li&gt;Contributing Guide&lt;/li&gt;
+&lt;li&gt;Style Guide&lt;/li&gt;
+&lt;li&gt;版权归属&lt;/li&gt;
+&lt;li&gt;良好的文档&lt;/li&gt;
+&lt;li&gt;不要给这个世界增加冗余度&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://adoyle.me/blog/categories/tech/"/>
+    
+    
+      <category term="开源" scheme="http://adoyle.me/blog/tags/%E5%BC%80%E6%BA%90/"/>
+    
+  </entry>
   
   <entry>
     <title>告别 &#39;use-strict&#39;</title>
