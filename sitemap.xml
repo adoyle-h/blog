@@ -2,42 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://adoyle.me/blog/blog/silent-fail-in-promise.html</loc>
+    <loc>http://adoyle.me/blog/blog/implicit-strict-mode.html</loc>
     
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/apache-vs-nginx-practical-considerations.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    <lastmod>2016-09-17T05:48:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/blog/how-csrf-works.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/how-to-apply-the-apache-2-0-license-to-your-project.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/how-to-debug.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/meet-best.html</loc>
+    <loc>http://adoyle.me/blog/blog/orphaned-process-and-zombie-process-and-docker.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
@@ -51,14 +23,49 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/blog/orphaned-process-and-zombie-process-and-docker.html</loc>
+    <loc>http://adoyle.me/blog/blog/how-to-apply-the-apache-2-0-license-to-your-project.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/tags/index.html</loc>
+    <loc>http://adoyle.me/blog/blog/apache-vs-nginx-practical-considerations.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/how-to-debug.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/about/index.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/silent-fail-in-promise.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/meet-best.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/how-csrf-works.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
@@ -72,7 +79,7 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/blog/unidirectional-user-interface-architectures.html</loc>
+    <loc>http://adoyle.me/blog/blog/trap-in-makefile.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
@@ -86,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/blog/trap-in-makefile.html</loc>
+    <loc>http://adoyle.me/blog/blog/unidirectional-user-interface-architectures.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
@@ -100,7 +107,7 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/about/index.html</loc>
+    <loc>http://adoyle.me/blog/tags/index.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     

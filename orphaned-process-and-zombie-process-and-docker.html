@@ -155,8 +155,6 @@
   
 
   <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-meta ">
   
@@ -321,6 +319,19 @@
           </span>
 
           
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
+
+          
             <span class="post-category" >
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
@@ -396,7 +407,7 @@
 <p>&#x5176;&#x5B9E;&#x201C;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x662F;&#x4F1A;&#x88AB; init &#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#x7684;&#x201D;&#x5E76;&#x4E0D;&#x662F;&#x771F;&#x76F8;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x7ED3;&#x8BBA;&#x4E0A;&#x6765;&#x8BF4;&#x662F;&#x8FD9;&#x6837;&#x3002;<br>
 &#x7F51;&#x4E0A;&#x4E5F;&#x6709;&#x4EBA;&#x8BF4;&#x662F;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x4F1A;&#x88AB; pid &#x4E3A; 1 &#x7684;&#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#xFF0C;&#x800C; init &#x8FDB;&#x7A0B;&#x521A;&#x597D;&#x5C31;&#x662F;&#x90A3;&#x4E2A; pid &#x4E3A; 1 &#x7684;&#x8FDB;&#x7A0B;&#x3002;&#x8FD9;&#x8BF4;&#x7684;&#x4E0D;&#x662F;&#x5F88;&#x51C6;&#x786E;&#x3002;</p>
 <p>&#x4E0D;&#x5982;&#x76F4;&#x63A5;&#x6765;&#x770B; <a href="https://github.com/torvalds/linux/blob/eae21770b4fed5597623aad0d618190fa60426ff/kernel/exit.c#L479" target="_blank" rel="external">linux &#x5185;&#x6838;&#x6E90;&#x7801;</a></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line"> * When we die, we re-parent all our children, and try to:</span><br><span class="line"> * 1. give them to another thread in our thread group, if such a member exists</span><br><span class="line"> * 2. give it to the first ancestor process which prctl&apos;d itself as a</span><br><span class="line"> *    child_subreaper for its children (like a service manager)</span><br><span class="line"> * 3. give it to the init process (PID 1) in our pid namespace</span><br><span class="line"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">struct</span> task_struct *<span class="title">find_new_reaper</span><span class="params">(<span class="keyword">struct</span> task_struct *father,</span><br><span class="line">                       <span class="keyword">struct</span> task_struct *child_reaper)</span></span><br><span class="line"></span>{</span><br><span class="line">    <span class="keyword">struct</span> task_struct *thread, *reaper;</span><br><span class="line"></span><br><span class="line">    thread = find_alive_thread(father);</span><br><span class="line">    <span class="keyword">if</span> (thread)</span><br><span class="line">        return thread;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (father-&gt;signal-&gt;has_child_subreaper) {</span><br><span class="line">        <span class="comment">/*</span><br><span class="line">         * Find the first -&gt;is_child_subreaper ancestor in our pid_ns.</span><br><span class="line">         * We start from father to ensure we can not look into another</span><br><span class="line">         * namespace, this is safe because all its threads are dead.</span><br><span class="line">         */</span></span><br><span class="line">        <span class="keyword">for</span> (reaper = father;</span><br><span class="line">             !same_thread_group(reaper, child_reaper);</span><br><span class="line">             reaper = reaper-&gt;real_parent) {</span><br><span class="line">            <span class="comment">/* call_usermodehelper() descendants need this check */</span></span><br><span class="line">            <span class="keyword">if</span> (reaper == &amp;init_task)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span> (!reaper-&gt;signal-&gt;is_child_subreaper)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            thread = find_alive_thread(reaper);</span><br><span class="line">            <span class="keyword">if</span> (thread)</span><br><span class="line">                return thread;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    return child_reaper;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * When we die, we re-parent all our children, and try to:</div><div class="line"> * 1. give them to another thread in our thread group, if such a member exists</div><div class="line"> * 2. give it to the first ancestor process which prctl&apos;d itself as a</div><div class="line"> *    child_subreaper for its children (like a service manager)</div><div class="line"> * 3. give it to the init process (PID 1) in our pid namespace</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">struct</span> task_struct *<span class="title">find_new_reaper</span><span class="params">(<span class="keyword">struct</span> task_struct *father,</span></span></div><div class="line">                       <span class="keyword">struct</span> task_struct *child_reaper)</div><div class="line">{</div><div class="line">    <span class="keyword">struct</span> task_struct *thread, *reaper;</div><div class="line"></div><div class="line">    thread = find_alive_thread(father);</div><div class="line">    <span class="keyword">if</span> (thread)</div><div class="line">        <span class="keyword">return</span> thread;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (father-&gt;signal-&gt;has_child_subreaper) {</div><div class="line">        <span class="comment">/*</span></div><div class="line">         * Find the first -&gt;is_child_subreaper ancestor in our pid_ns.</div><div class="line">         * We start from father to ensure we can not look into another</div><div class="line">         * namespace, this is safe because all its threads are dead.</div><div class="line">         */</div><div class="line">        <span class="keyword">for</span> (reaper = father;</div><div class="line">             !same_thread_group(reaper, child_reaper);</div><div class="line">             reaper = reaper-&gt;real_parent) {</div><div class="line">            <span class="comment">/* call_usermodehelper() descendants need this check */</span></div><div class="line">            <span class="keyword">if</span> (reaper == &amp;init_task)</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">if</span> (!reaper-&gt;signal-&gt;is_child_subreaper)</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            thread = find_alive_thread(reaper);</div><div class="line">            <span class="keyword">if</span> (thread)</div><div class="line">                <span class="keyword">return</span> thread;</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">return</span> child_reaper;</div><div class="line">}</div></pre></td></tr></table></figure>
 <p>&#x63A5;&#x7BA1;&#x5206;&#x4E09;&#x6B65;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x662F;&#x627E;&#x5230;&#x76F8;&#x540C;&#x7EBF;&#x7A0B;&#x7EC4;&#x91CC;&#x5176;&#x4ED6;&#x53EF;&#x7528;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5219;&#x8FDB;&#x884C;&#x7B2C;&#x4E8C;&#x6B65;&#x3002;&#x81F3;&#x4E8E;&#x7EBF;&#x7A0B;&#x548C;&#x8FDB;&#x7A0B;&#x7684;&#x5173;&#x7CFB;&#xFF0C;<a href="http://stackoverflow.com/a/9306150/4622308" target="_blank" rel="external">&#x8FD9;&#x4E2A;&#x56DE;&#x7B54;</a>&#x975E;&#x5E38;&#x5F62;&#x8C61;&#x3002;</p>
 <p>&#x5BF9;&#x4E8E;&#x7B2C;&#x4E8C;&#x6B65;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003; <a href="http://man7.org/linux/man-pages/man2/prctl.2.html" target="_blank" rel="external">prctl &#x7684; PR_SET_CHILD_SUBREAPER &#x53C2;&#x6570;</a> &#x91CC;&#x7684;&#x63CF;&#x8FF0;&#x3002;<br>
 prctl &#x662F; linux &#x5185;&#x6838;&#x66B4;&#x9732;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x6765;&#x67E5;&#x770B;&#x6216;&#x4FEE;&#x6539;&#x8FDB;&#x7A0B;&#x548C;&#x7EBF;&#x7A0B;&#x7684;&#x4FE1;&#x606F;&#x3002;<code>PR_SET_CHILD_SUBREAPER</code> &#x53EF;&#x4EE5;&#x7ED9;&#x67D0;&#x4E2A;&#x8FDB;&#x7A0B;&#x6807;&#x8BC6;&#x4E3A; <code>child_subreaper</code>&#xFF0C;&#x5B83;&#x6709;&#x8FD9;&#x4E48;&#x4E00;&#x6BB5;&#x8BF4;&#x660E;&#xFF1A;</p>
@@ -552,7 +563,7 @@ signal and be able to wait(2) on the process to discover its termination status.
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -560,7 +571,7 @@ signal and be able to wait(2) on the process to discover its termination status.
           
             <div class="site-state-item site-state-categories">
               <a href="/blog/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -569,7 +580,7 @@ signal and be able to wait(2) on the process to discover its termination status.
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

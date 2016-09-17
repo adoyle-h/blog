@@ -161,8 +161,6 @@
   
 
   <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-meta ">
   
@@ -327,6 +325,19 @@
           </span>
 
           
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
+
+          
             <span class="post-category" >
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
@@ -391,7 +402,7 @@
         
         <h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x95EE;&#x9898;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x6211;&#x5199;&#x4E86;&#x4E00;&#x4E2A; Makefile&#xFF0C;&#x5927;&#x81F4;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF0C;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></span><br><span class="line"></span><br><span class="line">b: c1 c2</span><br><span class="line">	echo b</span><br><span class="line"></span><br><span class="line">c%:</span><br><span class="line">	echo $@</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></div><div class="line"></div><div class="line">b: c1 c2</div><div class="line">	echo b</div><div class="line"></div><div class="line">c%:</div><div class="line">	echo $@</div></pre></td></tr></table></figure>
 <p>&#x7136;&#x800C;&#x6267;&#x884C; <code>make b</code> &#x5374;&#x53EA;&#x6253;&#x5370;&#x51FA; <code>b</code>&#xFF1B;<br>
 &#x6267;&#x884C; <code>make c1</code> &#x7684;&#x7ED3;&#x679C;&#x5374;&#x662F; <code>make: Nothing to be done for &apos;c1&apos;</code>&#x3002;</p>
 <p>&#x4E3A;&#x4F55;&#x4F1A;&#x65E0;&#x6CD5;&#x6267;&#x884C; c1 &#x548C; c2&#xFF1F;&#xFF01;</p>
@@ -400,17 +411,17 @@
 <p><code>Nothing to be done for</code> &#x7684;&#x51FA;&#x73B0;&#xFF0C;&#x6709;&#x53EF;&#x80FD;&#x662F;&#x56E0;&#x4E3A;&#x6CA1;&#x6709;&#x53EF;&#x6267;&#x884C;&#x7684;&#x547D;&#x4EE4;&#x3002;<br>
 &#x4F46;&#x5728;&#x8FD9;&#x91CC;&#x4F3C;&#x4E4E;&#x4E0D;&#x662F;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
 <p>&#x4E3A;&#x4E86;&#x5BFB;&#x627E;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x4ECE;&#x6700;&#x7B80;&#x5355;&#x7684;&#x5199;&#x6CD5;&#x5F00;&#x59CB;&#x63A8;&#xFF1A;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">b: c</span><br><span class="line">	echo b</span><br><span class="line"></span><br><span class="line"><span class="section">c:</span></span><br><span class="line">	echo c</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; make b</span><br><span class="line"><span class="built_in">echo</span> c</span><br><span class="line">c</span><br><span class="line"><span class="built_in">echo</span> b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">&gt; make c</span><br><span class="line"><span class="built_in">echo</span> c</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">b: c</div><div class="line">	echo b</div><div class="line"></div><div class="line"><span class="section">c:</span></div><div class="line">	echo c</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; make b</div><div class="line"><span class="built_in">echo</span> c</div><div class="line">c</div><div class="line"><span class="built_in">echo</span> b</div><div class="line">b</div><div class="line"></div><div class="line">&gt; make c</div><div class="line"><span class="built_in">echo</span> c</div><div class="line">c</div></pre></td></tr></table></figure>
 <p>&#x6B63;&#x5E38;&#x3002;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c</span></span><br><span class="line"></span><br><span class="line">b: c</span><br><span class="line">	echo b</span><br><span class="line"></span><br><span class="line"><span class="section">c:</span></span><br><span class="line">	echo c</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; make b</span><br><span class="line"><span class="built_in">echo</span> c</span><br><span class="line">c</span><br><span class="line"><span class="built_in">echo</span> b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">&gt; make c</span><br><span class="line"><span class="built_in">echo</span> c</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c</span></div><div class="line"></div><div class="line">b: c</div><div class="line">	echo b</div><div class="line"></div><div class="line"><span class="section">c:</span></div><div class="line">	echo c</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; make b</div><div class="line"><span class="built_in">echo</span> c</div><div class="line">c</div><div class="line"><span class="built_in">echo</span> b</div><div class="line">b</div><div class="line"></div><div class="line">&gt; make c</div><div class="line"><span class="built_in">echo</span> c</div><div class="line">c</div></pre></td></tr></table></figure>
 <p>&#x6B63;&#x5E38;&#x3002;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></span><br><span class="line"></span><br><span class="line">b: c1 c2</span><br><span class="line">	echo b</span><br><span class="line"></span><br><span class="line"><span class="section">c1:</span></span><br><span class="line">	echo c1</span><br><span class="line"></span><br><span class="line"><span class="section">c2:</span></span><br><span class="line">	echo c2</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt; make b</span><br><span class="line"><span class="built_in">echo</span> c1</span><br><span class="line">c1</span><br><span class="line"><span class="built_in">echo</span> c2</span><br><span class="line">c2</span><br><span class="line"><span class="built_in">echo</span> b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">&gt; make c1</span><br><span class="line"><span class="built_in">echo</span> c1</span><br><span class="line">c1</span><br><span class="line"></span><br><span class="line">&gt; make c2</span><br><span class="line"><span class="built_in">echo</span> c2</span><br><span class="line">c</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></div><div class="line"></div><div class="line">b: c1 c2</div><div class="line">	echo b</div><div class="line"></div><div class="line"><span class="section">c1:</span></div><div class="line">	echo c1</div><div class="line"></div><div class="line"><span class="section">c2:</span></div><div class="line">	echo c2</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&gt; make b</div><div class="line"><span class="built_in">echo</span> c1</div><div class="line">c1</div><div class="line"><span class="built_in">echo</span> c2</div><div class="line">c2</div><div class="line"><span class="built_in">echo</span> b</div><div class="line">b</div><div class="line"></div><div class="line">&gt; make c1</div><div class="line"><span class="built_in">echo</span> c1</div><div class="line">c1</div><div class="line"></div><div class="line">&gt; make c2</div><div class="line"><span class="built_in">echo</span> c2</div><div class="line">c</div></pre></td></tr></table></figure>
 <p>&#x6B63;&#x5E38;&#x3002;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></span><br><span class="line"></span><br><span class="line">b: c1 c2</span><br><span class="line">	echo b</span><br><span class="line"></span><br><span class="line">c%:</span><br><span class="line">	echo $@</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; make b</span><br><span class="line"><span class="built_in">echo</span> b</span><br><span class="line">b</span><br><span class="line"></span><br><span class="line">&gt; make c1</span><br><span class="line">make: Nothing to be <span class="keyword">done</span> <span class="keyword">for</span> <span class="string">&apos;c1&apos;</span>.</span><br><span class="line"></span><br><span class="line">&gt; make c2</span><br><span class="line">make: Nothing to be <span class="keyword">done</span> <span class="keyword">for</span> <span class="string">&apos;c2&apos;</span>.</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></div><div class="line"></div><div class="line">b: c1 c2</div><div class="line">	echo b</div><div class="line"></div><div class="line">c%:</div><div class="line">	echo $@</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; make b</div><div class="line"><span class="built_in">echo</span> b</div><div class="line">b</div><div class="line"></div><div class="line">&gt; make c1</div><div class="line">make: Nothing to be <span class="keyword">done</span> <span class="keyword">for</span> <span class="string">&apos;c1&apos;</span>.</div><div class="line"></div><div class="line">&gt; make c2</div><div class="line">make: Nothing to be <span class="keyword">done</span> <span class="keyword">for</span> <span class="string">&apos;c2&apos;</span>.</div></pre></td></tr></table></figure>
 <p>&#x4E0D;&#x6B63;&#x5E38;&#x3002;<br>
 &#x8DDF;&#x4E4B;&#x524D;&#x7684;&#x76F8;&#x6BD4;&#xFF0C;&#x53D8;&#x5316;&#x7684;&#x662F; <code>.PHONY</code> &#x4E2D;&#x6DFB;&#x52A0;&#x4E86; c1 &#x548C; c2 &#x9879;&#x3002;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x4E00;&#x5B9A;&#x8DDF; <code>.PHONY</code> &#x76F8;&#x5173;&#x3002;</p>
 <h2 id="&#x539F;&#x56E0;">&#x539F;&#x56E0;</h2>
@@ -426,11 +437,11 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
 <p>&#x4E00;&#x3001;<br>
 &#x6211;&#x7528; <code>$(warning)</code> &#x6765;&#x6253;&#x5370;&#x8C03;&#x8BD5;&#x53D8;&#x91CF;&#xFF0C;&#x5947;&#x602A;&#x7684;&#x662F;&#x5728;&#x5148;&#x51B3;&#x6761;&#x4EF6; (prerequisites) &#x4E2D;&#x4F7F;&#x7528; warning &#x65E0;&#x6CD5;&#x6253;&#x5370;&#x51FA; % &#x7684;&#x503C;&#x3002;<br>
 &#x6BD4;&#x5982;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%.c: $(warning %.o)</span><br><span class="line"></span><br><span class="line">%.o:</span><br><span class="line">	touch %.o;</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">%.c: $(warning %.o)</div><div class="line"></div><div class="line">%.o:</div><div class="line">	touch %.o;</div></pre></td></tr></table></figure>
 <p><code>make a.c</code> &#x6253;&#x5370;&#x51FA;&#x7684;&#x662F; <code>Makefile:1: %.o</code>&#xFF0C;&#x7136;&#x800C;&#x53BB;&#x6389; warning&#xFF0C;&#x5B9E;&#x9645;&#x4E0A; <code>make a.c</code> &#x662F;&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x5230; <code>%.o</code> &#x91CC;&#x7684;&#x547D;&#x4EE4;&#x7684;&#x3002;<br>
 &#x6211;&#x731C;&#x53EF;&#x80FD;&#x662F; <code>a.c</code> &#x5BF9;&#x5E94;&#x7684;&#x503C;&#x8FD8;&#x6CA1;&#x6620;&#x5C04;&#x5230; %&#xFF0C; warning &#x5C31;&#x6253;&#x5370;&#x4E86;&#x3002;&#x6216;&#x8005;&#x56E0;&#x4E3A; % &#x662F;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4ECE;&#x800C; warning &#x65E0;&#x6CD5;&#x6253;&#x5370;&#x3002;&#x5177;&#x4F53;&#x6CA1;&#x6709;&#x7814;&#x7A76;&#x8FC7;&#xFF0C;&#x778E;&#x731C;&#x7684;&#x3002;</p>
 <p>&#x4E8C;&#x3001;</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: c</span></span><br><span class="line"></span><br><span class="line">b: c</span><br><span class="line">	touch b</span><br><span class="line"></span><br><span class="line"><span class="section">c:</span></span><br><span class="line">	touch c</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: c</span></div><div class="line"></div><div class="line">b: c</div><div class="line">	touch b</div><div class="line"></div><div class="line"><span class="section">c:</span></div><div class="line">	touch c</div></pre></td></tr></table></figure>
 <p>&#x8FD9;&#x91CC;&#x867D;&#x7136; b &#x4E0D;&#x5728; .PHONY &#x91CC;&#xFF0C;&#x4F46;&#x662F; <code>make b</code> &#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x65E0;&#x9650;&#x6B21;&#x6267;&#x884C;&#x3002;&#x539F;&#x56E0;&#x5728;&#x4E8E; c &#x662F;&#x4F2A;&#x547D;&#x4EE4;&#xFF0C;&#x4F1A;&#x5F71;&#x54CD;&#x5230; b&#x3002;</p>
 <p>&#x53EA;&#x8981;&#x628A; c &#x4ECE; .PHONY &#x4E2D;&#x53BB;&#x6389;&#xFF0C;&#x6267;&#x884C; <code>make b</code>&#xFF08;&#x5DF2;&#x7ECF;&#x5B58;&#x5728; b &#x6587;&#x4EF6;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF09;&#xFF0C;&#x5C31;&#x4F1A;&#x5F97;&#x5230; <code>make: &apos;b&apos; is up to date.</code> &#x7684;&#x63D0;&#x793A;&#x3002;</p>
 <p>&#x6240;&#x4EE5;&#x5199; Makefile &#x7684;&#x65F6;&#x5019;&#x8981;&#x6CE8;&#x610F;&#x94FE;&#x5F0F;&#x4F9D;&#x8D56;&#x91CC;&#x6709;&#x6CA1;&#x6709;&#x4F9D;&#x8D56;&#x4F2A;&#x547D;&#x4EE4;&#xFF0C;&#x4EE5;&#x6B64;&#x63D0;&#x9AD8;&#x6267;&#x884C;&#x6548;&#x7387;&#x3002;</p>
@@ -464,6 +475,10 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/implicit-strict-mode.html" rel="prev" title="告别 'use-strict'">
+                告别 'use-strict' <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -538,7 +553,7 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -546,7 +561,7 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
           
             <div class="site-state-item site-state-categories">
               <a href="/blog/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -555,7 +570,7 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -147,8 +147,6 @@
   <div class="container one-collumn sidebar-position-left 
    page-home 
  ">
-    <div class="headband"></div>
-
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-meta ">
   
@@ -296,6 +294,123 @@
             
               
                 
+                <a class="post-title-link" href="/blog/implicit-strict-mode.html" itemprop="url">
+                  告别 'use-strict'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-17T13:43:38+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-09-17T13:48:39+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/implicit-strict-mode.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="implicit-strict-mode.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="概览-overview">概览 (Overview)</h2>
+<p>结论：如果你使用的 node 版本 &gt;= 2.0.0，可以不必再在每个文件头写 <code>'use-strict';</code>，因为 node 已经默认开启 strict 模式。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/blog/implicit-strict-mode.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/blog/trap-in-makefile.html" itemprop="url">
                   Makefile 的一个陷阱
                 </a>
@@ -314,6 +429,19 @@
               2016-04-24
             </time>
           </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
 
           
             <span class="post-category" >
@@ -376,7 +504,7 @@
         
           <h2 id="前言-intro">前言(Intro)</h2>
 <p>问题是这样的，我写了一个 Makefile，大致内容如下，</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></span><br><span class="line"></span><br><span class="line">b: c1 c2</span><br><span class="line">	echo b</span><br><span class="line"></span><br><span class="line">c%:</span><br><span class="line">	echo $@</span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta"><span class="meta-keyword">.PHONY</span>: b c1 c2</span></div><div class="line"></div><div class="line">b: c1 c2</div><div class="line">	echo b</div><div class="line"></div><div class="line">c%:</div><div class="line">	echo $@</div></pre></td></tr></table></figure>
 <p>然而执行 <code>make b</code> 却只打印出 <code>b</code>；<br />
 执行 <code>make c1</code> 的结果却是 <code>make: Nothing to be done for 'c1'</code>。</p>
 <p>为何会无法执行 c1 和 c2？！</p>
@@ -450,6 +578,19 @@
           </span>
 
           
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
+
+          
             <span class="post-category" >
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
@@ -514,7 +655,7 @@
         
           <h2 id="前言-intro">前言(Intro)</h2>
 <p>当运行下面一段代码，会发生什么？</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Ouch!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Ouch!'</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>恩，你看不到任何错误信息。<br />
 沉默的失败非常可怕。当发生错误时，你无法获知任何当时上下文的信息，仅有的线索只有程序没按正常的流程走。你甚至可能都没有机会察觉到发生了错误。</p>
 <p>也许这是一个 Feature，而非 Bug。但我觉得这是一大隐患，所幸有些人也注意到这个问题，并已经在修正了。看看这个<a href="https://gist.github.com/benjamingr/0237932cee84712951a2">提案</a>。</p>
@@ -587,6 +728,19 @@
               2016-03-27
             </time>
           </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
 
           
             <span class="post-category" >
@@ -726,6 +880,19 @@
           </span>
 
           
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
+
+          
             <span class="post-category" >
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
@@ -862,6 +1029,19 @@
           </span>
 
           
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
+
+          
 
           
             
@@ -979,6 +1159,19 @@
               2016-01-08
             </time>
           </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
 
           
             <span class="post-category" >
@@ -1113,6 +1306,19 @@
               2015-12-16
             </time>
           </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
 
           
             <span class="post-category" >
@@ -1250,6 +1456,19 @@
               2015-11-03
             </time>
           </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
 
           
             <span class="post-category" >
@@ -1397,6 +1616,19 @@
           </span>
 
           
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
+              2016-05-14
+            </time>
+          </span>
+          
+
+          
             <span class="post-category" >
               &nbsp; | &nbsp;
               <span class="post-meta-item-icon">
@@ -1515,163 +1747,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/meet-best.html" itemprop="url">
-                  《介绍 Famous 框架》之《相遇 BEST》
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-01T19:44:24+08:00" content="2015-11-01">
-              2015-11-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/translation/" itemprop="url" rel="index">
-                    <span itemprop="name">翻译</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/translation/tech/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/translation/tech/fe/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/blog/meet-best.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="meet-best.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-tags">
-              <span class="post-tags-item-text">标签</span>
-              
-                <a href="/blog/tags/框架/" rel="tag">#框架</a>
-              
-                <a href="/blog/tags/响应式编程/" rel="tag">#响应式编程</a>
-              
-            </div>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>本文节选翻译自<a href="https://blog.famous.org/introducing-the-famous-framework/">《Introducing the Famous Framework》</a>的“Meet BEST”部分</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/blog/meet-best.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1717,7 +1792,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1725,7 +1800,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/blog/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1734,7 +1809,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

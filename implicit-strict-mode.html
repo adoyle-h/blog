@@ -91,15 +91,21 @@
 
 
 
-<meta name="description" content="大自然的搬运工">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ADoyle 的博客">
-<meta property="og:url" content="http://adoyle.me/blog/categories/ramb/index.html">
+<meta name="description" content="概览 (Overview)
+结论：如果你使用的 node 版本 &amp;gt;= 2.0.0，可以不必再在每个文件头写 &apos;use-strict&apos;;，因为 node 已经默认开启 strict 模式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="告别 'use-strict'">
+<meta property="og:url" content="http://adoyle.me/blog/implicit-strict-mode.html">
 <meta property="og:site_name" content="ADoyle 的博客">
-<meta property="og:description" content="大自然的搬运工">
+<meta property="og:description" content="概览 (Overview)
+结论：如果你使用的 node 版本 &amp;gt;= 2.0.0，可以不必再在每个文件头写 &apos;use-strict&apos;;，因为 node 已经默认开启 strict 模式。">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/blog/Monosnap%202016-09-17%2013-14-50.png">
+<meta property="og:updated_time" content="2016-09-17T05:48:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ADoyle 的博客">
-<meta name="twitter:description" content="大自然的搬运工">
+<meta name="twitter:title" content="告别 'use-strict'">
+<meta name="twitter:description" content="概览 (Overview)
+结论：如果你使用的 node 版本 &amp;gt;= 2.0.0，可以不必再在每个文件头写 &apos;use-strict&apos;;，因为 node 已经默认开启 strict 模式。">
+<meta name="twitter:image" content="http://7xniyb.com1.z0.glb.clouddn.com/blog/Monosnap%202016-09-17%2013-14-50.png">
 
 
 
@@ -120,10 +126,10 @@
 
 
 
-  <link rel="canonical" href="http://adoyle.me/blog/categories/ramb/"/>
+  <link rel="canonical" href="http://adoyle.me/blog/implicit-strict-mode.html"/>
 
 
-  <title> 分类: 杂谈 | ADoyle 的博客 </title>
+  <title> 告别 'use-strict' | ADoyle 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -144,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-meta ">
   
@@ -270,47 +276,152 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        杂谈
-        <small>分类</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                告别 'use-strict'
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-17T13:43:38+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2016-09-17T13:48:39+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+          
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/implicit-strict-mode.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="implicit-strict-mode.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
+      
         
-            <a class="post-title-link" href="/blog/the-summary-of-2015.html" itemprop="url">
-              
-                <span itemprop="name">二零一伍 · 结</span>
-              
-            </a>
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
         
-      </h1>
+        <h2 id="&#x6982;&#x89C8;-overview">&#x6982;&#x89C8; (Overview)</h2>
+<p>&#x7ED3;&#x8BBA;&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x4F7F;&#x7528;&#x7684; node &#x7248;&#x672C; &gt;= 2.0.0&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x5FC5;&#x518D;&#x5728;&#x6BCF;&#x4E2A;&#x6587;&#x4EF6;&#x5934;&#x5199; <code>&apos;use-strict&apos;;</code>&#xFF0C;&#x56E0;&#x4E3A; node &#x5DF2;&#x7ECF;&#x9ED8;&#x8BA4;&#x5F00;&#x542F; strict &#x6A21;&#x5F0F;&#x3002;</p>
+<a id="more"></a>
+<h2 id="more">More</h2>
+<p>&#x6211;&#x5728;&#x914D;&#x7F6E; eslint &#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#x53D1;&#x73B0;&#x9AD8;&#x7248;&#x672C;&#x7684; node &#x5DF2;&#x7ECF;&#x5B9E;&#x73B0;&#x4E86; <code>implicit strict mode</code>&#xFF0C;&#x5373;&#x65E0;&#x987B;&#x4F7F;&#x7528; <code>--use_strict</code> flag &#x4E5F;&#x65E0;&#x987B;&#x5728;&#x6587;&#x4EF6;&#x5934;&#x5199;&#x5165; <code>&apos;use strict&apos;;</code>&#xFF0C;&#x9ED8;&#x8BA4;&#x5F00;&#x542F;&#x4E25;&#x683C;&#x6A21;&#x5F0F;&#x3002;<br>
+&#x90A3;&#x4E48;&#x4ECE;&#x4F55;&#x65F6;&#x8D77;&#x5B9E;&#x73B0;&#x4E86;&#x8FD9;&#x529F;&#x80FD;&#xFF1F;</p>
+<p>&#x6211;&#x627E;&#x5BFB;&#x4E86; <a href="https://github.com/nodejs/node/tree/master/doc/changelogs" target="_blank" rel="external">node changelog</a> &#x4EE5;&#x53CA; <a href="https://github.com/v8/v8/blob/master/ChangeLog" target="_blank" rel="external">v8 changelog</a>&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x83B7;&#x5F97;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#x3002;<br>
+<a href="http://node.green/" target="_blank" rel="external">node.green</a> &#x63D0;&#x4F9B; node &#x5C42;&#x9762;&#x7684;&#x529F;&#x80FD;&#x68C0;&#x6D4B;&#x3002;&#x7136;&#x800C;&#x5B83;&#x8986;&#x76D6;&#x7684;&#x7248;&#x672C;&#x4E0D;&#x591F;&#x591A;(4.x &#x4ECE; 4.3.2 &#x5F00;&#x59CB;)&#x3002;<br>
+&#x6240;&#x5E78;&#x5B83;&#x662F;&#x5F00;&#x6E90;&#x7684;&#xFF0C;&#x6211;&#x4F7F;&#x7528; <a href="https://github.com/williamkapke/node-compat-table" target="_blank" rel="external">williamkapke/node-compat-table</a> &#x5728;&#x672C;&#x5730;&#x8DD1;&#x4E86;&#x4E00;&#x904D;&#xFF0C;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/blog/Monosnap%202016-09-17%2013-14-50.png" alt=""></p>
+<p>&#x81F3;&#x5C11;&#x4ECE; 2.0.0 &#x7248;&#x672C;&#x5F00;&#x59CB;&#x5C31;&#x5B8C;&#x5168;&#x5B9E;&#x73B0;&#x4E86; <code>implicit strict mode</code>&#xFF0C; 1.5.0 &#x8FD8;&#x8981;&#x5F00;&#x542F; <code>harmony flag</code>&#xFF0C;1.0.0 &#x7248;&#x672C;&#x8FD8;&#x4E0D;&#x53EF;&#x7528;&#x3002;</p>
+<p>&#x56E0;&#x4E3A; 1.x&#x3001;2.x&#x3001;3.x &#x7684;&#x7248;&#x672C;&#x662F;&#x8FC7;&#x6E21;&#x9636;&#x6BB5;&#xFF0C;&#x57FA;&#x672C;&#x4E0D;&#x4F1A;&#x8003;&#x8651;&#x4F7F;&#x7528;&#xFF0C;&#x6240;&#x4EE5;&#x5C31;&#x4E0D;&#x7EC6;&#x5206;&#x4E0B;&#x53BB;&#x4E86;&#x3002;</p>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-08T00:45:01+08:00"
-              content="2016-01-08" >
-          01-08
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/trap-in-makefile.html" rel="next" title="Makefile 的一个陷阱">
+                <i class="fa fa-chevron-left"></i> Makefile 的一个陷阱
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -318,6 +429,17 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -337,8 +459,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
@@ -430,6 +561,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览-overview"><span class="nav-number">1.</span> <span class="nav-text">概览 (Overview)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#more"><span class="nav-number">2.</span> <span class="nav-text">More</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -517,6 +659,10 @@
   
 
   
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
@@ -533,9 +679,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'adoyle-blog';
-      var disqus_identifier = 'categories/ramb/index.html';
-      var disqus_title = "";
-      var disqus_url = '';
+      var disqus_identifier = 'implicit-strict-mode.html';
+      var disqus_title = "告别 \'use-strict\'";
+      var disqus_url = 'http://adoyle.me/blog/blog/implicit-strict-mode.html';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
@@ -546,6 +692,8 @@
       }
 
       run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
       
     </script>
   
