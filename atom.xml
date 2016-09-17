@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://adoyle.me/blog/"/>
-  <updated>2016-09-17T05:48:39.000Z</updated>
+  <updated>2016-09-17T05:52:32.000Z</updated>
   <id>http://adoyle.me/blog/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://adoyle.me/blog/implicit-strict-mode.html"/>
     <id>http://adoyle.me/blog/implicit-strict-mode.html</id>
     <published>2016-09-17T05:43:38.000Z</published>
-    <updated>2016-09-17T05:48:39.000Z</updated>
+    <updated>2016-09-17T05:52:32.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;&amp;#x6982;&amp;#x89C8;-overview&quot;&gt;&amp;#x6982;&amp;#x89C8; (Overview)&lt;/h2&gt;
 &lt;p&gt;&amp;#x7ED3;&amp;#x8BBA;&amp;#xFF1A;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x4F7F;&amp;#x7528;&amp;#x7684; node &amp;#x7248;&amp;#x672C; &amp;gt;= 2.0.0&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E0D;&amp;#x5FC5;&amp;#x518D;&amp;#x5728;&amp;#x6BCF;&amp;#x4E2A;&amp;#x6587;&amp;#x4EF6;&amp;#x5934;&amp;#x5199; &lt;code&gt;&amp;apos;use-strict&amp;apos;;&lt;/code&gt;&amp;#xFF0C;&amp;#x56E0;&amp;#x4E3A; node &amp;#x5DF2;&amp;#x7ECF;&amp;#x9ED8;&amp;#x8BA4;&amp;#x5F00;&amp;#x542F; strict &amp;#x6A21;&amp;#x5F0F;&amp;#x3002;&lt;/p&gt;
@@ -43,6 +43,10 @@
     
     </summary>
     
+      <category term="技术" scheme="http://adoyle.me/blog/categories/tech/"/>
+    
+    
+      <category term="NodeJS" scheme="http://adoyle.me/blog/tags/NodeJS/"/>
     
   </entry>
   
