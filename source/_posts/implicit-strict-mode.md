@@ -31,5 +31,12 @@ updated:
 
 因为 1.x、2.x、3.x 的版本是过渡阶段，基本不会考虑使用，所以就不细分下去了。
 
+## 有问题？
+
+然而，你可能会遇到 `Block-scoped declarations (let, const, function, class) not yet supported outside strict mode` 这样的报错。
+
+这是因为 node 的 `implicit strict mode` 只实现了 [ES5 的语法][]，并没有实现到 ES6。所以当你用到 `let`、`const` 等关键字，还是需要手动加上 `'use strict';`。
+
 [node changelog]: https://github.com/nodejs/node/tree/master/doc/changelogs
 [v8 changelog]: https://github.com/v8/v8/blob/master/ChangeLog
+[ES5 的语法]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
