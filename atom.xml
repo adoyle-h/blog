@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://adoyle.me/blog/"/>
-  <updated>2016-09-17T15:41:36.000Z</updated>
+  <updated>2016-09-23T14:39:06.000Z</updated>
   <id>http://adoyle.me/blog/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html"/>
     <id>http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html</id>
     <published>2016-09-17T15:41:36.000Z</published>
-    <updated>2016-09-17T15:41:36.000Z</updated>
+    <updated>2016-09-23T14:39:06.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;&amp;#x6982;&amp;#x89C8;-overview&quot;&gt;&amp;#x6982;&amp;#x89C8; (Overview)&lt;/h2&gt;
 &lt;p&gt;&amp;#x6216;&amp;#x8005;&amp;#x8BF4;&amp;#x597D;&amp;#x7684;&amp;#x5F00;&amp;#x6E90;&amp;#x9879;&amp;#x76EE;&amp;#x7684;&amp;#x7EF4;&amp;#x62A4;&amp;#x8005;&amp;#x5E94;&amp;#x8BE5;&amp;#x662F;&amp;#x600E;&amp;#x6837;&amp;#x7684;&amp;#xFF1F;&lt;/p&gt;
@@ -122,7 +122,7 @@
     <link href="http://adoyle.me/blog/implicit-strict-mode.html"/>
     <id>http://adoyle.me/blog/implicit-strict-mode.html</id>
     <published>2016-09-17T05:43:38.000Z</published>
-    <updated>2016-09-17T05:52:32.000Z</updated>
+    <updated>2016-09-23T14:45:45.000Z</updated>
     
     <content type="html">&lt;h2 id=&quot;&amp;#x6982;&amp;#x89C8;-overview&quot;&gt;&amp;#x6982;&amp;#x89C8; (Overview)&lt;/h2&gt;
 &lt;p&gt;&amp;#x7ED3;&amp;#x8BBA;&amp;#xFF1A;&amp;#x5982;&amp;#x679C;&amp;#x4F60;&amp;#x4F7F;&amp;#x7528;&amp;#x7684; node &amp;#x7248;&amp;#x672C; &amp;gt;= 2.0.0&amp;#xFF0C;&amp;#x53EF;&amp;#x4EE5;&amp;#x4E0D;&amp;#x5FC5;&amp;#x518D;&amp;#x5728;&amp;#x6BCF;&amp;#x4E2A;&amp;#x6587;&amp;#x4EF6;&amp;#x5934;&amp;#x5199; &lt;code&gt;&amp;apos;use-strict&amp;apos;;&lt;/code&gt;&amp;#xFF0C;&amp;#x56E0;&amp;#x4E3A; node &amp;#x5DF2;&amp;#x7ECF;&amp;#x9ED8;&amp;#x8BA4;&amp;#x5F00;&amp;#x542F; strict &amp;#x6A21;&amp;#x5F0F;&amp;#x3002;&lt;/p&gt;
@@ -136,6 +136,9 @@
 &lt;p&gt;&lt;img src=&quot;http://7xniyb.com1.z0.glb.clouddn.com/blog/Monosnap%202016-09-17%2013-14-50.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&amp;#x81F3;&amp;#x5C11;&amp;#x4ECE; 2.0.0 &amp;#x7248;&amp;#x672C;&amp;#x5F00;&amp;#x59CB;&amp;#x5C31;&amp;#x5B8C;&amp;#x5168;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E86; &lt;code&gt;implicit strict mode&lt;/code&gt;&amp;#xFF0C; 1.5.0 &amp;#x8FD8;&amp;#x8981;&amp;#x5F00;&amp;#x542F; &lt;code&gt;harmony flag&lt;/code&gt;&amp;#xFF0C;1.0.0 &amp;#x7248;&amp;#x672C;&amp;#x8FD8;&amp;#x4E0D;&amp;#x53EF;&amp;#x7528;&amp;#x3002;&lt;/p&gt;
 &lt;p&gt;&amp;#x56E0;&amp;#x4E3A; 1.x&amp;#x3001;2.x&amp;#x3001;3.x &amp;#x7684;&amp;#x7248;&amp;#x672C;&amp;#x662F;&amp;#x8FC7;&amp;#x6E21;&amp;#x9636;&amp;#x6BB5;&amp;#xFF0C;&amp;#x57FA;&amp;#x672C;&amp;#x4E0D;&amp;#x4F1A;&amp;#x8003;&amp;#x8651;&amp;#x4F7F;&amp;#x7528;&amp;#xFF0C;&amp;#x6240;&amp;#x4EE5;&amp;#x5C31;&amp;#x4E0D;&amp;#x7EC6;&amp;#x5206;&amp;#x4E0B;&amp;#x53BB;&amp;#x4E86;&amp;#x3002;&lt;/p&gt;
+&lt;h2 id=&quot;&amp;#x6709;&amp;#x95EE;&amp;#x9898;&quot;&gt;&amp;#x6709;&amp;#x95EE;&amp;#x9898;&amp;#xFF1F;&lt;/h2&gt;
+&lt;p&gt;&amp;#x7136;&amp;#x800C;&amp;#xFF0C;&amp;#x4F60;&amp;#x53EF;&amp;#x80FD;&amp;#x4F1A;&amp;#x9047;&amp;#x5230; &lt;code&gt;Block-scoped declarations (let, const, function, class) not yet supported outside strict mode&lt;/code&gt; &amp;#x8FD9;&amp;#x6837;&amp;#x7684;&amp;#x62A5;&amp;#x9519;&amp;#x3002;&lt;/p&gt;
+&lt;p&gt;&amp;#x8FD9;&amp;#x662F;&amp;#x56E0;&amp;#x4E3A; node &amp;#x7684; &lt;code&gt;implicit strict mode&lt;/code&gt; &amp;#x53EA;&amp;#x5B9E;&amp;#x73B0;&amp;#x4E86; &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;ES5 &amp;#x7684;&amp;#x8BED;&amp;#x6CD5;&lt;/a&gt;&amp;#xFF0C;&amp;#x5E76;&amp;#x6CA1;&amp;#x6709;&amp;#x5B9E;&amp;#x73B0;&amp;#x5230; ES6&amp;#x3002;&amp;#x6240;&amp;#x4EE5;&amp;#x5F53;&amp;#x4F60;&amp;#x7528;&amp;#x5230; &lt;code&gt;let&lt;/code&gt;&amp;#x3001;&lt;code&gt;const&lt;/code&gt; &amp;#x7B49;&amp;#x5173;&amp;#x952E;&amp;#x5B57;&amp;#xFF0C;&amp;#x8FD8;&amp;#x662F;&amp;#x9700;&amp;#x8981;&amp;#x624B;&amp;#x52A8;&amp;#x52A0;&amp;#x4E0A; &lt;code&gt;&amp;apos;use strict&amp;apos;;&lt;/code&gt;&amp;#x3002;&lt;/p&gt;
 </content>
     
     <summary type="html">
