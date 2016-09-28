@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://adoyle.me/blog/blog/my-eslint-config-best-practices.html</loc>
+    
+    <lastmod>2016-09-28T14:15:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/blog/implicit-strict-mode.html</loc>
     
     <lastmod>2016-09-23T14:45:45.000Z</lastmod>
@@ -16,7 +23,7 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/blog/unidirectional-user-interface-architectures.html</loc>
+    <loc>http://adoyle.me/blog/blog/orphaned-process-and-zombie-process-and-docker.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
@@ -30,41 +37,6 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/categories/index.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/tags/index.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/how-to-debug.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/silent-fail-in-promise.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/meet-best.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://adoyle.me/blog/blog/apache-vs-nginx-practical-considerations.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
@@ -72,21 +44,7 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/blog/trap-in-makefile.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/the-summary-of-2015.html</loc>
-    
-    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/blog/orphaned-process-and-zombie-process-and-docker.html</loc>
+    <loc>http://adoyle.me/blog/categories/index.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
@@ -100,7 +58,56 @@
   </url>
   
   <url>
+    <loc>http://adoyle.me/blog/blog/meet-best.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/silent-fail-in-promise.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/tags/index.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/unidirectional-user-interface-architectures.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/trap-in-makefile.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/blog/what-kind-of-project-is-good.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/the-summary-of-2015.html</loc>
+    
+    <lastmod>2016-05-14T11:57:30.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/blog/how-to-debug.html</loc>
     
     <lastmod>2016-05-14T11:57:30.000Z</lastmod>
     
