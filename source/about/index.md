@@ -3,8 +3,11 @@ title: 关于作者
 
 # 关于作者
 
-☟ 大概长这样
-![][head]
+<div style="text-align: center;">☟ 大概长这样</div>
+
+![My Photo][Photo]
+
+<div style="text-align: center;">(图像来自 <a href="http://gabrielladenizot.com/" target="_blank" rel="external">Gabriella Denizot</a> 的<a href="http://simpledesktops.com/browse/desktops/2010/aug/19/classy/" target="_blank" rel="external">作品</a>，已获得使用授权)</div>
 
 ## 组成
 
@@ -49,4 +52,6 @@ http://www.douban.com/people/adoyle/
 地址: 地球上
 电话号码: 不约不聊
 
-[head]: http://7xniyb.com1.z0.glb.clouddn.com/head_160.png
+[Photo]: http://7xniyb.com1.z0.glb.clouddn.com/head_160.png
+[Gabriella Denizot]: http://gabrielladenizot.com/
+[0]: http://simpledesktops.com/browse/desktops/2010/aug/19/classy/
