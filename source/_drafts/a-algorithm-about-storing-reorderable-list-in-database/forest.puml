@@ -1,0 +1,104 @@
+@startuml
+
+title
+  MaxLen = 5
+  Cap = 7
+  list = [c, b, d, a, e]
+end title
+
+' Tree 1
+(0) as o0
+(1) as o1
+(2) as o2
+(a/3) as o3
+(4) as o4
+(5) as o5
+(6) as o6
+
+o5 -up-> o3
+o4 -up-> o5
+o6 -up-> o5
+
+o1 -up-> o3
+o0 -up-> o1
+o2 -up-> o1
+
+
+' Tree 2
+(0) as 2o0
+(1) as 2o1
+(2) as 2o2
+(b/3) as 2o3
+(4) as 2o4
+(5) as 2o5
+(6) as 2o6
+
+2o5 -up-> 2o3
+2o4 -up-> 2o5
+2o6 -up-> 2o5
+
+2o1 -up-> 2o3
+2o0 -up-> 2o1
+2o2 -up-> 2o1
+
+
+' Tree 3
+(0) as 3o0
+(1) as 3o1
+(2) as 3o2
+(c/3) as 3o3
+(4) as 3o4
+(5) as 3o5
+(6) as 3o6
+
+3o5 -up-> 3o3
+3o4 -up-> 3o5
+3o6 -up-> 3o5
+
+3o1 -up-> 3o3
+3o0 -up-> 3o1
+3o2 -up-> 3o1
+
+
+' Tree 4
+(0) as 4o0
+(1) as 4o1
+(2) as 4o2
+(d/3) as 4o3
+(4) as 4o4
+(5) as 4o5
+(6) as 4o6
+
+4o5 -up-> 4o3
+4o4 -up-> 4o5
+4o6 -up-> 4o5
+
+4o1 -up-> 4o3
+4o0 -up-> 4o1
+4o2 -up-> 4o1
+
+
+' Tree 5
+(0) as 5o0
+(1) as 5o1
+(2) as 5o2
+(e/3) as 5o3
+(4) as 5o4
+(5) as 5o5
+(6) as 5o6
+
+5o5 -up-> 5o3
+5o4 -up-> 5o5
+5o6 -up-> 5o5
+
+5o1 -up-> 5o3
+5o0 -up-> 5o1
+5o2 -up-> 5o1
+
+note top of o3: Tree 1
+note top of 2o3: Tree 2
+note top of 3o3: Tree 3
+note top of 4o3: Tree 4
+note top of 5o3: Tree 5
+
+@enduml
