@@ -101,7 +101,7 @@
 <meta property="og:description" content="前言(Intro)
 这是一份随时更新的列表，列出了一些常用的命令组合，供自己日常使用查阅，欢迎交流。
 本文内容整合在我的命令速查表 中，可以使用 chrisallenlane/cheat 来快速查询命令。">
-<meta property="og:updated_time" content="2015-10-24T11:33:40.000Z">
+<meta property="og:updated_time" content="2016-02-18T11:33:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的 Linux 基础命令速查表">
 <meta name="twitter:description" content="前言(Intro)
@@ -322,8 +322,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">更新于</span>
-            <time itemprop="dateUpdated" datetime="2015-10-24T19:33:40+08:00" content="2015-10-24">
-              2015-10-24
+            <time itemprop="dateUpdated" datetime="2016-02-18T19:33:40+08:00" content="2016-02-18">
+              2016-02-18
             </time>
           </span>
           
@@ -404,8 +404,17 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># &#x663E;&#x793A;&#x5F53;&#x524D;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#x6240;&#x6709;&#x4E00;&#x7EA7;&#x5B50;&#x76EE;&#x5F55;</span></div><div class="line">ls <span class="_">-d</span> */</div></pre></td></tr></table></figure>
 <h2 id="&#x7BA1;&#x9053;-&#x6D41;">&#x7BA1;&#x9053;&#x3001;&#x6D41;</h2>
 <h3 id="">|</h3>
-<h3 id="">&gt;</h3>
-<h3 id="">&lt;</h3>
+<h3 id="&#x91CD;&#x5B9A;&#x5411;">&gt; &#xFF08;&#x91CD;&#x5B9A;&#x5411;&#xFF09;</h3>
+<p>&#x5F53;&#x91C7;&#x7528; <code>&gt;&gt;</code> &#x7B26;&#x53F7;&#x505A;&#x8F93;&#x51FA;&#x91CD;&#x5B9A;&#x5411;&#x65F6;&#xFF0C;&#x65B0;&#x7684;&#x5185;&#x5BB9;&#x4F1A;&#x8FFD;&#x52A0;&#x5728;&#x76EE;&#x6807;&#x6587;&#x4EF6;&#x7684;&#x5C3E;&#x90E8;</p>
+<p><code>&lt;</code> &#x4ECE;&#x53F3;&#x5230;&#x5DE6;&#x8F93;&#x51FA;&#x3002;</p>
+<p>&#x91CD;&#x5B9A;&#x5411;&#x91CC;&#x7528;&#x5230;&#x7684;&#x6570;&#x5B57;&#x88AB;&#x79F0;&#x4F5C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26; (File Descriptor)&#x3002;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4E0E;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x6587;&#x4EF6;&#x76F8;&#x5173;&#x8054;&#xFF0C;&#x5B83;&#x7684;&#x4F5C;&#x7528;&#x5C31;&#x662F;&#x7ED9;&#x76F8;&#x5E94;&#x7684;&#x6587;&#x4EF6;&#x64CD;&#x4F5C;&#x51FD;&#x6570;&#x63D0;&#x4F9B;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x5373;&#x64CD;&#x4F5C;&#x54EA;&#x4E2A;&#x6587;&#x4EF6;&#x3002;&#x5728; POSIX &#x6807;&#x51C6;&#x4E2D;&#xFF0C;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x90FD;&#x662F;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#xFF0C;&#x5E76;&#x4E14;&#x6709;&#x4E09;&#x4E2A;&#x7279;&#x6B8A;&#x7684;&#x6587;&#x4EF6;&#x63CF;&#x8FF0;&#x7B26;&#x4ED6;&#x4EEC;&#x662F;:</p>
+<ul>
+<li>0&#xFF0C;Standard Input&#xFF0C;stdin &#x4E2D;&#x6587;&#x540D;&#x79F0;&#x662F;&#x6807;&#x51C6;&#x8F93;&#x5165;</li>
+<li>1&#xFF0C;Standard Output&#xFF0C;stdout &#x4E2D;&#x6587;&#x540D;&#x79F0;&#x662F;&#x6807;&#x51C6;&#x8F93;&#x51FA;</li>
+<li>2&#xFF0C;Standard Error&#xFF0C;stderr &#x4E2D;&#x6587;&#x540D;&#x79F0;&#x662F;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#x8F93;&#x51FA;</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># &#x5C06;&#x6807;&#x51C6;&#x8F93;&#x51FA;&#x548C;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#x8F93;&#x51FA;&#x90FD;&#x8F93;&#x51FA;&#x5230; file &#x6587;&#x4EF6;&#x4E2D;&#x53BB;</span></div><div class="line"><span class="built_in">command</span> 2&gt;&amp;1 &gt;file</div><div class="line"></div><div class="line"><span class="comment"># &#x540C;&#x4E0A;</span></div><div class="line"><span class="built_in">command</span> &amp;&gt;file</div></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># &#x5C06;&#x6807;&#x51C6;&#x9519;&#x8BEF;&#x8F93;&#x51FA;&#x4E22;&#x5F03;</span></div><div class="line"><span class="built_in">command</span> 2&gt;/dev/null</div></pre></td></tr></table></figure>
 <h3 id="tee">tee</h3>
 <h3 id="sed">sed</h3>
 <h3 id="awk">awk</h3>
@@ -570,7 +579,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -578,7 +587,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/blog/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -587,7 +596,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">78</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -657,7 +666,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言intro"><span class="nav-number">1.</span> <span class="nav-text">前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户"><span class="nav-number">2.</span> <span class="nav-text">用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">2.1.</span> <span class="nav-text">ls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道-流"><span class="nav-number">3.</span> <span class="nav-text">管道、流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.1.</span> <span class="nav-text">|</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.2.</span> <span class="nav-text">></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.3.</span> <span class="nav-text"><</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tee"><span class="nav-number">3.4.</span> <span class="nav-text">tee</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed"><span class="nav-number">3.5.</span> <span class="nav-text">sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk"><span class="nav-number">3.6.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">3.7.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xargs"><span class="nav-number">3.8.</span> <span class="nav-text">xargs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统"><span class="nav-number">4.</span> <span class="nav-text">系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">4.1.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#realpath"><span class="nav-number">4.2.</span> <span class="nav-text">realpath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lsof"><span class="nav-number">4.3.</span> <span class="nav-text">lsof</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络"><span class="nav-number">5.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nc-netcat"><span class="nav-number">5.1.</span> <span class="nav-text">nc (netcat)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑"><span class="nav-number">6.</span> <span class="nav-text">编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">6.1.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nl"><span class="nav-number">6.2.</span> <span class="nav-text">nl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">7.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">8.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言intro"><span class="nav-number">1.</span> <span class="nav-text">前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户"><span class="nav-number">2.</span> <span class="nav-text">用户</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">2.1.</span> <span class="nav-text">ls</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管道-流"><span class="nav-number">3.</span> <span class="nav-text">管道、流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">3.1.</span> <span class="nav-text">|</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向"><span class="nav-number">3.2.</span> <span class="nav-text">> （重定向）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tee"><span class="nav-number">3.3.</span> <span class="nav-text">tee</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed"><span class="nav-number">3.4.</span> <span class="nav-text">sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#awk"><span class="nav-number">3.5.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">3.6.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xargs"><span class="nav-number">3.7.</span> <span class="nav-text">xargs</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统"><span class="nav-number">4.</span> <span class="nav-text">系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">4.1.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#realpath"><span class="nav-number">4.2.</span> <span class="nav-text">realpath</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lsof"><span class="nav-number">4.3.</span> <span class="nav-text">lsof</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络"><span class="nav-number">5.</span> <span class="nav-text">网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#nc-netcat"><span class="nav-number">5.1.</span> <span class="nav-text">nc (netcat)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编辑"><span class="nav-number">6.</span> <span class="nav-text">编辑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">6.1.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nl"><span class="nav-number">6.2.</span> <span class="nav-text">nl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">7.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">8.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
             
           </div>
         </section>
@@ -679,7 +688,7 @@
   
   
 
-  Copyright © 2015-2016 by ADoyle. All rights reserved. 保留所有权利。
+  Copyright © 2015-2017 by ADoyle. All rights reserved. 保留所有权利。
 </div>
 
 <div class="theme-info copyright-description">
