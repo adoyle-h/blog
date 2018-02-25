@@ -5,7 +5,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="http://adoyle.me/blog/"/>
-  <updated>2018-02-25T16:30:50.000Z</updated>
+  <updated>2018-02-25T14:53:21.000Z</updated>
   <id>http://adoyle.me/blog/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://adoyle.me/blog/think-in-alternatives.html"/>
     <id>http://adoyle.me/blog/think-in-alternatives.html</id>
     <published>2018-02-25T14:53:21.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2018-02-25T14:53:21.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>&#x672C;&#x6587;&#x7FFB;&#x8BD1;&#x81EA; Scott Nonnenberg &#x7684;&#x6587;&#x7AE0; <a href="https://blog.scottnonnenberg.com/think-in-alternatives-dev-productivity-tip-5/" target="_blank" rel="noopener">&#x300A;Think in alternatives&#x300B;</a></p>
@@ -141,7 +141,7 @@
     <link href="http://adoyle.me/blog/the-summary-of-2017.html"/>
     <id>http://adoyle.me/blog/the-summary-of-2017.html</id>
     <published>2018-02-25T14:53:16.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2018-02-25T14:53:16.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;-intro">&#x524D;&#x8A00; (Intro)</h2>
 <blockquote>
@@ -251,7 +251,7 @@ async/await &#x7528;&#x8D77;&#x6765;&#x5F88;&#x723D;&#xFF01;Promise &#x548C; asy
     <link href="http://adoyle.me/blog/the-summary-of-2016.html"/>
     <id>http://adoyle.me/blog/the-summary-of-2016.html</id>
     <published>2017-01-01T15:42:25.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2017-01-01T15:42:25.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;-intro">&#x524D;&#x8A00; (Intro)</h2>
 <p>&#x65F6;&#x5149;&#x834F;&#x82D2;&#xFF0C;&#x5C81;&#x6708;&#x5982;&#x68AD;&#x3002;</p>
@@ -377,7 +377,7 @@ async/await &#x7528;&#x8D77;&#x6765;&#x5F88;&#x723D;&#xFF01;Promise &#x548C; asy
     <link href="http://adoyle.me/blog/my-eslint-config-best-practices.html"/>
     <id>http://adoyle.me/blog/my-eslint-config-best-practices.html</id>
     <published>2016-09-28T14:10:14.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-09-28T14:10:14.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;-intro">&#x524D;&#x8A00; (Intro)</h2>
 <p>&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5F00;&#x53D1;&#x8005;&#x6216;&#x8005;&#x56E2;&#x961F;&#xFF0C;&#x90FD;&#x5E94;&#x8BE5;&#x6709;&#x4E00;&#x5957;&#x81EA;&#x5DF1;&#x7684;&#x5F00;&#x53D1;&#x7EA6;&#x5B9A;&#x3002;</p>
@@ -441,7 +441,7 @@ async/await &#x7528;&#x8D77;&#x6765;&#x5F88;&#x723D;&#xFF01;Promise &#x548C; asy
     <link href="http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html"/>
     <id>http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html</id>
     <published>2016-09-17T15:41:36.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-09-17T15:41:36.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x6982;&#x89C8;-overview">&#x6982;&#x89C8; (Overview)</h2>
 <p>&#x6216;&#x8005;&#x8BF4;&#x597D;&#x7684;&#x5F00;&#x6E90;&#x9879;&#x76EE;&#x7684;&#x7EF4;&#x62A4;&#x8005;&#x5E94;&#x8BE5;&#x662F;&#x600E;&#x6837;&#x7684;&#xFF1F;</p>
@@ -666,7 +666,7 @@ ECMAScript code that is not strict mode code is called non-strict code.</p>
     <link href="http://adoyle.me/blog/trap-in-makefile.html"/>
     <id>http://adoyle.me/blog/trap-in-makefile.html</id>
     <published>2016-04-24T14:16:10.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-04-24T14:16:10.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x95EE;&#x9898;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;&#x6211;&#x5199;&#x4E86;&#x4E00;&#x4E2A; Makefile&#xFF0C;&#x5927;&#x81F4;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF0C;</p>
@@ -738,7 +738,7 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
     <link href="http://adoyle.me/blog/silent-fail-in-promise.html"/>
     <id>http://adoyle.me/blog/silent-fail-in-promise.html</id>
     <published>2016-04-14T08:29:40.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-04-14T08:29:40.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x5F53;&#x8FD0;&#x884C;&#x4E0B;&#x9762;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x4F1A;&#x53D1;&#x751F;&#x4EC0;&#x4E48;&#xFF1F;</p>
@@ -800,7 +800,7 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
     <link href="http://adoyle.me/blog/how-csrf-works.html"/>
     <id>http://adoyle.me/blog/how-csrf-works.html</id>
     <published>2016-03-27T07:13:23.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-03-27T07:13:23.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x6709;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x7684;&#x95EE;&#x9898;&#xFF1A;CSRF &#x653B;&#x51FB;&#x4E3B;&#x8981;&#x662F;&#x5229;&#x7528; cookie &#x6765;&#x4F2A;&#x9020;&#x53D7;&#x5BB3;&#x8005;&#x7684;&#x8EAB;&#x4EFD;&#x6765;&#x53D1;&#x8D77;&#x6076;&#x610F;&#x8BF7;&#x6C42;&#x3002;&#xFF08;&#x672C;&#x6587;&#x53EA;&#x8BA8;&#x8BBA;&#x57FA;&#x4E8E; cookie &#x8FDB;&#x884C;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#x7684;&#x60C5;&#x51B5;&#xFF09;<br>
@@ -921,7 +921,7 @@ Makefile&#xFF1A;&#x602A;&#x6211;&#x54AF;&#xFF1F;</p>
     <link href="http://adoyle.me/blog/orphaned-process-and-zombie-process-and-docker.html"/>
     <id>http://adoyle.me/blog/orphaned-process-and-zombie-process-and-docker.html</id>
     <published>2016-02-17T12:10:28.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-02-17T12:10:28.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x6211;&#x4EEC;&#x77E5;&#x9053;&#x5F53;&#x5B50;&#x8FDB;&#x7A0B;&#x8FD8;&#x5728;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x5176;&#x76F4;&#x63A5;&#x7236;&#x8FDB;&#x7A0B;&#x88AB; kill &#x6389;&#x4EE5;&#x540E;&#xFF0C;&#x8FD9;&#x4E2A;&#x5B50;&#x8FDB;&#x7A0B;&#x4F1A;&#x53D8;&#x6210;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#xFF08;orphaned process&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x5B83;&#x4F1A;&#x88AB; init &#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#x3002;</p>
@@ -1007,7 +1007,7 @@ signal and be able to wait(2) on the process to discover its termination status.
     <link href="http://adoyle.me/blog/how-to-debug.html"/>
     <id>http://adoyle.me/blog/how-to-debug.html</id>
     <published>2016-01-23T15:54:28.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-01-23T15:54:28.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x5728;&#x8FD9;&#x91CC;&#x5206;&#x4EAB;&#x4E00;&#x4E0B;&#x5173;&#x4E8E;&#x6211;&#x5904;&#x7406;&#x95EE;&#x9898;&#x65F6;&#x7684;&#x4E00;&#x70B9;&#x7ECF;&#x9A8C;&#xFF0C;&#x5E0C;&#x671B;&#x80FD;&#x5BF9;&#x90A3;&#x4E9B;&#x9762;&#x5BF9; BUG &#x6216;&#x8005;&#x5176;&#x4ED6;&#x95EE;&#x9898;&#x800C;&#x5E38;&#x5E38;&#x624B;&#x8DB3;&#x65E0;&#x63AA;&#x7684;&#x4EBA;&#x6709;&#x6240;&#x5E2E;&#x52A9;&#x3002;<br>
@@ -1087,7 +1087,7 @@ signal and be able to wait(2) on the process to discover its termination status.
     <link href="http://adoyle.me/blog/the-summary-of-2015.html"/>
     <id>http://adoyle.me/blog/the-summary-of-2015.html</id>
     <published>2016-01-07T16:45:01.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2016-01-07T16:45:01.000Z</updated>
     
     <content type="html"><![CDATA[<p>&#x65F6;&#x95F4;&#x834F;&#x82D2;&#xFF0C;&#x5982;&#x767D;&#x9A79;&#x8FC7;&#x9699;&#x3002;</p>
 <a id="more"></a>
@@ -1173,7 +1173,7 @@ SQL &#x4E0E; NoSQL &#x6CA1;&#x6709;&#x597D;&#x4E0E;&#x574F;&#xFF0C;&#x5168;&#x77
     <link href="http://adoyle.me/blog/how-to-apply-the-apache-2-0-license-to-your-project.html"/>
     <id>http://adoyle.me/blog/how-to-apply-the-apache-2-0-license-to-your-project.html</id>
     <published>2015-12-16T13:34:24.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2015-12-16T13:34:24.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
 <p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD; Apache License 2.0 &#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x4E0D;&#x6D89;&#x53CA;&#x5176;&#x4ED6;&#x8BB8;&#x53EF;&#x8BC1;&#xFF0C;&#x4E5F;&#x4E0D;&#x89E3;&#x91CA;&#x5176;&#x5177;&#x4F53;&#x5185;&#x5BB9;&#x3002;</p>
@@ -1253,7 +1253,7 @@ b) &#x4E0D;&#x8981;&#x5728;&#x901A;&#x544A;&#x58F0;&#x660E;&#x4E2D;&#x7559;&#x4E
     <link href="http://adoyle.me/blog/what-kind-of-project-is-good.html"/>
     <id>http://adoyle.me/blog/what-kind-of-project-is-good.html</id>
     <published>2015-11-03T14:58:59.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2015-11-03T14:58:59.000Z</updated>
     
     <content type="html"><![CDATA[<h2 id="&#x6982;&#x89C8;overview">&#x6982;&#x89C8;(Overview)</h2>
 <p>&#x6211;&#x89C9;&#x5F97;&#x5B83;&#x5E94;&#x8BE5;&#x81F3;&#x5C11;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x51E0;&#x70B9;&#xFF1A;</p>
@@ -1412,7 +1412,7 @@ b) &#x4E0D;&#x8981;&#x5728;&#x901A;&#x544A;&#x58F0;&#x660E;&#x4E2D;&#x7559;&#x4E
     <link href="http://adoyle.me/blog/unidirectional-user-interface-architectures.html"/>
     <id>http://adoyle.me/blog/unidirectional-user-interface-architectures.html</id>
     <published>2015-11-01T11:46:52.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2015-11-01T11:46:52.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>&#x672C;&#x6587;&#x7FFB;&#x8BD1;&#x81EA;<a href="http://staltz.com/unidirectional-user-interface-architectures.html" target="_blank" rel="noopener">&#x300A;Unidirectional User Interface Architectures&#x300B;</a></p>
@@ -1575,7 +1575,7 @@ b) &#x4E0D;&#x8981;&#x5728;&#x901A;&#x544A;&#x58F0;&#x660E;&#x4E2D;&#x7559;&#x4E
     <link href="http://adoyle.me/blog/meet-best.html"/>
     <id>http://adoyle.me/blog/meet-best.html</id>
     <published>2015-11-01T11:44:24.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2015-11-01T11:44:24.000Z</updated>
     
     <content type="html"><![CDATA[<blockquote>
 <p>&#x672C;&#x6587;&#x8282;&#x9009;&#x7FFB;&#x8BD1;&#x81EA;<a href="https://blog.famous.org/introducing-the-famous-framework/" target="_blank" rel="noopener">&#x300A;Introducing the Famous Framework&#x300B;</a>&#x7684;&#x201C;Meet BEST&#x201D;&#x90E8;&#x5206;</p>
@@ -1639,7 +1639,7 @@ b) &#x4E0D;&#x8981;&#x5728;&#x901A;&#x544A;&#x58F0;&#x660E;&#x4E2D;&#x7559;&#x4E
     <link href="http://adoyle.me/blog/apache-vs-nginx-practical-considerations.html"/>
     <id>http://adoyle.me/blog/apache-vs-nginx-practical-considerations.html</id>
     <published>2015-10-26T13:47:57.000Z</published>
-    <updated>2018-02-25T16:30:50.000Z</updated>
+    <updated>2015-10-26T13:47:57.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://ww2.sinaimg.cn/large/006aQyYMgw1excaa6aeflj30ku0afwis.jpg" alt="Apache vs Nginx"></p>
 <blockquote>

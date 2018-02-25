@@ -99,7 +99,7 @@
 <meta property="og:site_name" content="ADoyle 的博客">
 <meta property="og:description" content="前言(Intro) 我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。 在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。 那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta property="og:updated_time" content="2016-02-17T12:10:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="孤儿进程、僵尸进程与 Docker">
 <meta name="twitter:description" content="前言(Intro) 我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。 在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。 那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
@@ -311,17 +311,6 @@
             </time>
           </span>
 
-          
-          <span class="update-time">
-            &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">更新于</span>
-            <time itemprop="dateUpdated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
-              2018-02-26
-            </time>
-          </span>
           
 
           

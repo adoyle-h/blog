@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://adoyle.me/blog/the-summary-of-2016.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://adoyle.me/blog/tags/index.html</loc>
     
     <lastmod>2018-02-25T16:30:50.000Z</lastmod>
@@ -16,112 +9,7 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/how-csrf-works.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/how-to-apply-the-apache-2-0-license-to-your-project.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/how-to-debug.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/meet-best.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/my-eslint-config-best-practices.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://adoyle.me/blog/categories/index.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/silent-fail-in-promise.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/orphaned-process-and-zombie-process-and-docker.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/the-summary-of-2015.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/apache-vs-nginx-practical-considerations.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/unidirectional-user-interface-architectures.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/trap-in-makefile.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/think-in-alternatives.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/the-summary-of-2017.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/what-kind-of-project-is-good.html</loc>
     
     <lastmod>2018-02-25T16:30:50.000Z</lastmod>
     
@@ -149,9 +37,121 @@
   </url>
   
   <url>
+    <loc>http://adoyle.me/blog/think-in-alternatives.html</loc>
+    
+    <lastmod>2018-02-25T14:53:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/the-summary-of-2017.html</loc>
+    
+    <lastmod>2018-02-25T14:53:16.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/the-summary-of-2016.html</loc>
+    
+    <lastmod>2017-01-01T15:42:25.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/my-eslint-config-best-practices.html</loc>
+    
+    <lastmod>2016-09-28T14:10:14.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/what-kind-of-open-source-project-is-good.html</loc>
+    
+    <lastmod>2016-09-17T15:41:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/trap-in-makefile.html</loc>
+    
+    <lastmod>2016-04-24T14:16:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/silent-fail-in-promise.html</loc>
+    
+    <lastmod>2016-04-14T08:29:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/how-csrf-works.html</loc>
+    
+    <lastmod>2016-03-27T07:13:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/my-basic-linux-commands-cheatsheet.html</loc>
     
     <lastmod>2016-02-18T11:33:40.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/orphaned-process-and-zombie-process-and-docker.html</loc>
+    
+    <lastmod>2016-02-17T12:10:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/how-to-debug.html</loc>
+    
+    <lastmod>2016-01-23T15:54:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/the-summary-of-2015.html</loc>
+    
+    <lastmod>2016-01-07T16:45:01.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/how-to-apply-the-apache-2-0-license-to-your-project.html</loc>
+    
+    <lastmod>2015-12-16T13:34:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/what-kind-of-project-is-good.html</loc>
+    
+    <lastmod>2015-11-03T14:58:59.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/unidirectional-user-interface-architectures.html</loc>
+    
+    <lastmod>2015-11-01T11:46:52.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/meet-best.html</loc>
+    
+    <lastmod>2015-11-01T11:44:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/apache-vs-nginx-practical-considerations.html</loc>
+    
+    <lastmod>2015-10-26T13:47:57.000Z</lastmod>
     
   </url>
   
