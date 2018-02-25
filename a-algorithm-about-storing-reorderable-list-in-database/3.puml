@@ -1,0 +1,26 @@
+@startuml
+
+title
+  MaxLen = 5
+  Cap = 7
+  list = [c, b, a]
+end title
+
+(c/0) as o0 #red
+(b/1) as o1
+(2) as o2
+(a/3) as o3
+(4) as o4
+(5) as o5
+(6) as o6
+
+o5 -up-> o3
+o4 -up-> o5
+o6 -up-> o5
+
+o1 -up-> o3
+o0 -up-> o1
+o2 -up-> o1
+
+
+@enduml

@@ -91,25 +91,18 @@
 
 
 
-<meta name="description" content="前言 (Intro)
-任何一个开发者或者团队，都应该有一套自己的开发约定。
-我参考了 airbnb 的 eslint-config-airbnb，并根据自己的编程经验配置了一个 eslint-config-adoyle-style。
-实践了很长一段时间，今天总结一下如何写一个可扩展的，兼容多场景的 eslint 配置文件。">
+<meta name="description" content="前言 (Intro) 任何一个开发者或者团队，都应该有一套自己的开发约定。 我参考了 airbnb 的 eslint-config-airbnb，并根据自己的编程经验配置了一个 eslint-config-adoyle-style。 实践了很长一段时间，今天总结一下如何写一个可扩展的，兼容多场景的 eslint 配置文件。">
+<meta name="keywords" content="eslint">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我的 eslint 配置最佳实践">
 <meta property="og:url" content="http://adoyle.me/blog/my-eslint-config-best-practices.html">
 <meta property="og:site_name" content="ADoyle 的博客">
-<meta property="og:description" content="前言 (Intro)
-任何一个开发者或者团队，都应该有一套自己的开发约定。
-我参考了 airbnb 的 eslint-config-airbnb，并根据自己的编程经验配置了一个 eslint-config-adoyle-style。
-实践了很长一段时间，今天总结一下如何写一个可扩展的，兼容多场景的 eslint 配置文件。">
-<meta property="og:updated_time" content="2016-11-27T16:39:50.000Z">
+<meta property="og:description" content="前言 (Intro) 任何一个开发者或者团队，都应该有一套自己的开发约定。 我参考了 airbnb 的 eslint-config-airbnb，并根据自己的编程经验配置了一个 eslint-config-adoyle-style。 实践了很长一段时间，今天总结一下如何写一个可扩展的，兼容多场景的 eslint 配置文件。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的 eslint 配置最佳实践">
-<meta name="twitter:description" content="前言 (Intro)
-任何一个开发者或者团队，都应该有一套自己的开发约定。
-我参考了 airbnb 的 eslint-config-airbnb，并根据自己的编程经验配置了一个 eslint-config-adoyle-style。
-实践了很长一段时间，今天总结一下如何写一个可扩展的，兼容多场景的 eslint 配置文件。">
+<meta name="twitter:description" content="前言 (Intro) 任何一个开发者或者团队，都应该有一套自己的开发约定。 我参考了 airbnb 的 eslint-config-airbnb，并根据自己的编程经验配置了一个 eslint-config-adoyle-style。 实践了很长一段时间，今天总结一下如何写一个可扩展的，兼容多场景的 eslint 配置文件。">
 
 
 
@@ -325,8 +318,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">更新于</span>
-            <time itemprop="dateUpdated" datetime="2016-11-28T00:39:50+08:00" content="2016-11-28">
-              2016-11-28
+            <time itemprop="dateUpdated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
             </time>
           </span>
           
@@ -396,41 +389,41 @@
         
         <h2 id="&#x524D;&#x8A00;-intro">&#x524D;&#x8A00; (Intro)</h2>
 <p>&#x4EFB;&#x4F55;&#x4E00;&#x4E2A;&#x5F00;&#x53D1;&#x8005;&#x6216;&#x8005;&#x56E2;&#x961F;&#xFF0C;&#x90FD;&#x5E94;&#x8BE5;&#x6709;&#x4E00;&#x5957;&#x81EA;&#x5DF1;&#x7684;&#x5F00;&#x53D1;&#x7EA6;&#x5B9A;&#x3002;</p>
-<p>&#x6211;&#x53C2;&#x8003;&#x4E86; airbnb &#x7684; <a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank" rel="external">eslint-config-airbnb</a>&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x81EA;&#x5DF1;&#x7684;&#x7F16;&#x7A0B;&#x7ECF;&#x9A8C;&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; <a href="https://github.com/adoyle-h/eslint-config-adoyle-style" target="_blank" rel="external">eslint-config-adoyle-style</a>&#x3002;<br>
+<p>&#x6211;&#x53C2;&#x8003;&#x4E86; airbnb &#x7684; <a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank" rel="noopener">eslint-config-airbnb</a>&#xFF0C;&#x5E76;&#x6839;&#x636E;&#x81EA;&#x5DF1;&#x7684;&#x7F16;&#x7A0B;&#x7ECF;&#x9A8C;&#x914D;&#x7F6E;&#x4E86;&#x4E00;&#x4E2A; <a href="https://github.com/adoyle-h/eslint-config-adoyle-style" target="_blank" rel="noopener">eslint-config-adoyle-style</a>&#x3002;<br>
 &#x5B9E;&#x8DF5;&#x4E86;&#x5F88;&#x957F;&#x4E00;&#x6BB5;&#x65F6;&#x95F4;&#xFF0C;&#x4ECA;&#x5929;&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#x5982;&#x4F55;&#x5199;&#x4E00;&#x4E2A;&#x53EF;&#x6269;&#x5C55;&#x7684;&#xFF0C;&#x517C;&#x5BB9;&#x591A;&#x573A;&#x666F;&#x7684; eslint &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
 <a id="more"></a>
 <h2 id="&#x76EE;&#x5F55;&#x7ED3;&#x6784;">&#x76EE;&#x5F55;&#x7ED3;&#x6784;</h2>
 <p>&#x4EE5;&#x4E0B;&#x662F;&#x4E3B;&#x8981;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5E03;&#x5C40;&#x3002;</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">&#x251C;&#x2500;&#x2500; browser           <span class="comment">// &#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684;&#x914D;&#x7F6E;</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; es6<span class="selector-class">.js</span>        <span class="comment">// &#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684; es6 &#x914D;&#x7F6E;</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x2514;&#x2500;&#x2500; index<span class="selector-class">.js</span>      <span class="comment">// &#x5165;&#x53E3;&#x70B9;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684; es5 &#x914D;&#x7F6E;</span></div><div class="line">&#x251C;&#x2500;&#x2500; eslint            <span class="comment">// eslint &#x6838;&#x5FC3;&#x914D;&#x7F6E;&#xFF0C;&#x6587;&#x4EF6;&#x5212;&#x5206;&#x6839;&#x636E; http://eslint.org/docs/rules/</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; best_practices<span class="selector-class">.js</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; commonjs<span class="selector-class">.js</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; es6<span class="selector-class">.js</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; possible_errors<span class="selector-class">.js</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; strict<span class="selector-class">.js</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; stylistic_issues<span class="selector-class">.js</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x2514;&#x2500;&#x2500; variables<span class="selector-class">.js</span></div><div class="line">&#x251C;&#x2500;&#x2500; node              <span class="comment">// &#x9002;&#x7528;&#x4E8E; node &#x73AF;&#x5883;&#x7684;&#x914D;&#x7F6E;</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; es6<span class="selector-class">.js</span>        <span class="comment">// &#x9002;&#x7528;&#x4E8E; node &#x73AF;&#x5883;&#x7684; es6 &#x914D;&#x7F6E;</span></div><div class="line">&#x2502;&#xA0;&#xA0; &#x2514;&#x2500;&#x2500; index<span class="selector-class">.js</span>      <span class="comment">// &#x5165;&#x53E3;&#x70B9;&#xFF0C;&#x9002;&#x7528;&#x4E8E; node &#x73AF;&#x5883;&#x7684; es5 &#x914D;&#x7F6E;</span></div><div class="line">&#x2514;&#x2500;&#x2500; plugin            <span class="comment">// &#x53EF;&#x9009;&#x63D2;&#x4EF6;&#x7684;&#x914D;&#x7F6E;</span></div><div class="line">    &#x251C;&#x2500;&#x2500; import<span class="selector-class">.js</span>     <span class="comment">// https://github.com/benmosher/eslint-plugin-import</span></div><div class="line">    &#x251C;&#x2500;&#x2500; react-a11y<span class="selector-class">.js</span> <span class="comment">// https://github.com/evcohen/eslint-plugin-jsx-a11y</span></div><div class="line">    &#x2514;&#x2500;&#x2500; react<span class="selector-class">.js</span>      <span class="comment">// https://github.com/yannickcr/eslint-plugin-react</span></div></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">&#x251C;&#x2500;&#x2500; browser           <span class="comment">// &#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684;&#x914D;&#x7F6E;</span></span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; es6<span class="selector-class">.js</span>        <span class="comment">// &#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684; es6 &#x914D;&#x7F6E;</span></span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x2514;&#x2500;&#x2500; index<span class="selector-class">.js</span>      <span class="comment">// &#x5165;&#x53E3;&#x70B9;&#xFF0C;&#x9002;&#x7528;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883;&#x7684; es5 &#x914D;&#x7F6E;</span></span><br><span class="line">&#x251C;&#x2500;&#x2500; eslint            <span class="comment">// eslint &#x6838;&#x5FC3;&#x914D;&#x7F6E;&#xFF0C;&#x6587;&#x4EF6;&#x5212;&#x5206;&#x6839;&#x636E; http://eslint.org/docs/rules/</span></span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; best_practices.js</span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; commonjs.js</span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; es6.js</span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; possible_errors.js</span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; strict.js</span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; stylistic_issues.js</span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x2514;&#x2500;&#x2500; variables.js</span><br><span class="line">&#x251C;&#x2500;&#x2500; node              <span class="comment">// &#x9002;&#x7528;&#x4E8E; node &#x73AF;&#x5883;&#x7684;&#x914D;&#x7F6E;</span></span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x251C;&#x2500;&#x2500; es6<span class="selector-class">.js</span>        <span class="comment">// &#x9002;&#x7528;&#x4E8E; node &#x73AF;&#x5883;&#x7684; es6 &#x914D;&#x7F6E;</span></span><br><span class="line">&#x2502;&#xA0;&#xA0; &#x2514;&#x2500;&#x2500; index<span class="selector-class">.js</span>      <span class="comment">// &#x5165;&#x53E3;&#x70B9;&#xFF0C;&#x9002;&#x7528;&#x4E8E; node &#x73AF;&#x5883;&#x7684; es5 &#x914D;&#x7F6E;</span></span><br><span class="line">&#x2514;&#x2500;&#x2500; plugin            <span class="comment">// &#x53EF;&#x9009;&#x63D2;&#x4EF6;&#x7684;&#x914D;&#x7F6E;</span></span><br><span class="line">    &#x251C;&#x2500;&#x2500; import<span class="selector-class">.js</span>     <span class="comment">// https://github.com/benmosher/eslint-plugin-import</span></span><br><span class="line">    &#x251C;&#x2500;&#x2500; react-a11y<span class="selector-class">.js</span> <span class="comment">// https://github.com/evcohen/eslint-plugin-jsx-a11y</span></span><br><span class="line">    &#x2514;&#x2500;&#x2500; react<span class="selector-class">.js</span>      <span class="comment">// https://github.com/yannickcr/eslint-plugin-react</span></span><br></pre></td></tr></table></figure>
 <h2 id="&#x4E3B;&#x8981;&#x601D;&#x8DEF;">&#x4E3B;&#x8981;&#x601D;&#x8DEF;</h2>
 <p>&#x4E3B;&#x8981;&#x601D;&#x8DEF;&#x662F;&#x5165;&#x53E3;&#x70B9;&#x6587;&#x4EF6;&#x4F5C;&#x4E3A;&#x57FA;&#x7840;&#x914D;&#x7F6E;&#xFF0C;&#x7136;&#x540E;&#x9009;&#x62E9;&#x9644;&#x52A0;&#x5176;&#x4ED6;&#x914D;&#x7F6E;&#xFF08;&#x4F8B;&#x5982; es6 &#x6216;&#x8005; plugin &#x914D;&#x7F6E;&#xFF09;&#xFF0C;&#x6309;&#x987A;&#x5E8F;&#x8986;&#x76D6;&#x4E4B;&#x524D;&#x7684;&#x914D;&#x7F6E;&#x3002;</p>
 <p>&#x4F8B;&#x5982;&#x5728;&#x4F60;&#x7684; <code>.eslintrc</code> &#x91CC;&#x8FD9;&#x4E48;&#x5B9A;&#x4E49;&#xFF0C;</p>
 <p>&#x53EA;&#x52A0;&#x8F7D; node &#x73AF;&#x5883;&#x7684; es5 &#x8BED;&#x6CD5;&#x914D;&#x7F6E;&#xFF1A;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">{</div><div class="line">  <span class="string">&quot;extends&quot;</span>: <span class="string">&quot;adoyle-style/node&quot;</span></div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="string">&quot;extends&quot;</span>: <span class="string">&quot;adoyle-style/node&quot;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>&#x52A0;&#x8F7D; node &#x73AF;&#x5883;&#x7684; es5 + es6 &#x914D;&#x7F6E;&#xFF1A;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">{</div><div class="line">  <span class="string">&quot;extends&quot;</span>: [</div><div class="line">    <span class="string">&quot;adoyle-style/node&quot;</span>,</div><div class="line">    <span class="string">&quot;adoyle-style/node/es6&quot;</span></div><div class="line">  ],</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;adoyle-style/node&quot;</span>,</span><br><span class="line">    <span class="string">&quot;adoyle-style/node/es6&quot;</span></span><br><span class="line">  ],</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p>&#x53C8;&#x6BD4;&#x5982;&#x6D4F;&#x89C8;&#x5668;&#x73AF;&#x5883; + es6 + react&#xFF1A;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">{</div><div class="line">  <span class="string">&quot;extends&quot;</span>: [</div><div class="line">    <span class="string">&quot;adoyle-style/browser&quot;</span>,</div><div class="line">    <span class="string">&quot;adoyle-style/browser/es6&quot;</span>,</div><div class="line">    <span class="string">&quot;adoyle-style/plugin/import&quot;</span>,</div><div class="line">    <span class="string">&quot;adoyle-style/plugin/react-a11y&quot;</span>,</div><div class="line">    <span class="string">&quot;adoyle-style/plugin/react&quot;</span>,</div><div class="line">  ],</div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="string">&quot;extends&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;adoyle-style/browser&quot;</span>,</span><br><span class="line">    <span class="string">&quot;adoyle-style/browser/es6&quot;</span>,</span><br><span class="line">    <span class="string">&quot;adoyle-style/plugin/import&quot;</span>,</span><br><span class="line">    <span class="string">&quot;adoyle-style/plugin/react-a11y&quot;</span>,</span><br><span class="line">    <span class="string">&quot;adoyle-style/plugin/react&quot;</span>,</span><br><span class="line">  ],</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <h2 id="&#x63D2;&#x4EF6;">&#x63D2;&#x4EF6;</h2>
 <p>&#x6240;&#x6709;&#x63D2;&#x4EF6;&#x914D;&#x7F6E;&#x90FD;&#x662F;&#x53EF;&#x9009;&#x7684;&#xFF0C;&#x653E;&#x5728; <code>plugin/</code> &#x76EE;&#x5F55;&#x3002;<br>
 &#x5982;&#x679C;&#x4F7F;&#x7528;&#x67D0;&#x4E2A; <code>eslint-plugin</code>&#xFF0C;&#x90A3;&#x4E48;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x4F7F;&#x7528;&#x5BF9;&#x5E94;&#x7684;&#x6211;&#x5DF2;&#x5199;&#x597D;&#x7684;&#x914D;&#x7F6E;&#x3002;</p>
 <h3 id="&#x81EA;&#x52A8;&#x68C0;&#x6D4B;">&#x81EA;&#x52A8;&#x68C0;&#x6D4B;</h3>
 <p>&#x6211;&#x5BF9;&#x6BCF;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5F00;&#x5934;&#x90FD;&#x9644;&#x52A0;&#x4E86;&#x8FD9;&#x4E48;&#x4E00;&#x6BB5;&#xFF1A;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&apos;../lib/util&apos;</span>);</div><div class="line">util.checkPlugin(<span class="string">&apos;eslint-plugin-import&apos;</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> util = <span class="built_in">require</span>(<span class="string">&apos;../lib/util&apos;</span>);</span><br><span class="line">util.checkPlugin(<span class="string">&apos;eslint-plugin-import&apos;</span>);</span><br></pre></td></tr></table></figure>
 <p><code>checkPlugin(&apos;eslint-plugin-import&apos;)</code> &#x7528;&#x6765;&#x68C0;&#x67E5;&#x5982;&#x679C; <code>.eslintrc</code> &#x91CC;&#x6307;&#x5B9A;&#x4E86;&#x8FD9;&#x4E2A;&#x63D2;&#x4EF6;&#x914D;&#x7F6E;&#xFF0C;<br>
 &#x90A3;&#x4E48;&#x4F1A;&#x5728;&#x6BCF;&#x6B21;&#x6267;&#x884C; eslint &#x65F6;&#x81EA;&#x52A8;&#x68C0;&#x6D4B;&#x9879;&#x76EE;&#x91CC;&#x662F;&#x5426;&#x5B89;&#x88C5;&#x4E86; <code>eslint-plugin-import</code>&#xFF0C;<br>
 &#x5E76;&#x4E14;&#x68C0;&#x67E5;&#x5176;&#x7248;&#x672C;&#x662F;&#x5426;&#x7B26;&#x5408; <code>eslint-config-adoyle-style</code> &#x7684; <code>package.json</code> &#x4E2D;&#x7684; <code>optionalDependencies.eslint-plugin-react</code> &#x7684; semver&#x3002;<br>
 &#x5982;&#x679C;&#x68C0;&#x67E5;&#x6709;&#x9519;&#xFF0C;&#x5C31;&#x4F1A;&#x629B;&#x9519;&#x901A;&#x77E5;&#x4F7F;&#x7528;&#x8005;&#x3002;</p>
 <h3 id="packagejson">package.json</h3>
 <p>&#x4EE5;&#x4E0B;&#x662F; <code>eslint-config-adoyle-style</code> &#x7684; <code>package.json</code> &#x4E2D;&#x7684;&#x4E00;&#x90E8;&#x5206;&#x3002;</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="string">&quot;peerDependencies&quot;</span>: {</div><div class="line">  <span class="string">&quot;eslint&quot;</span>: <span class="string">&quot;~3.5.0&quot;</span></div><div class="line">},</div><div class="line"><span class="string">&quot;optionalDependencies&quot;</span>: {</div><div class="line">  <span class="string">&quot;eslint-plugin-import&quot;</span>: <span class="string">&quot;~1.15.0&quot;</span>,</div><div class="line">  <span class="string">&quot;eslint-plugin-jsx-a11y&quot;</span>: <span class="string">&quot;~2.2.2&quot;</span>,</div><div class="line">  <span class="string">&quot;eslint-plugin-react&quot;</span>: <span class="string">&quot;~6.2.2&quot;</span></div><div class="line">}</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;peerDependencies&quot;</span>: {</span><br><span class="line">  <span class="string">&quot;eslint&quot;</span>: <span class="string">&quot;~3.5.0&quot;</span></span><br><span class="line">},</span><br><span class="line"><span class="string">&quot;optionalDependencies&quot;</span>: {</span><br><span class="line">  <span class="string">&quot;eslint-plugin-import&quot;</span>: <span class="string">&quot;~1.15.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;eslint-plugin-jsx-a11y&quot;</span>: <span class="string">&quot;~2.2.2&quot;</span>,</span><br><span class="line">  <span class="string">&quot;eslint-plugin-react&quot;</span>: <span class="string">&quot;~6.2.2&quot;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
 <p><code>peerDependencies</code> &#x8BBE;&#x7F6E;&#x914D;&#x7F6E;&#x517C;&#x5BB9;&#x7684; eslint &#x7248;&#x672C;&#xFF0C;&#x6211;&#x8BBE;&#x7F6E;&#x7684;&#x6BD4;&#x8F83;&#x4E25;&#x683C;&#xFF0C;&#x56E0;&#x4E3A;&#x6700;&#x65B0; eslint &#x7248;&#x672C;&#x7684;&#x6BCF;&#x6761;&#x89C4;&#x5219;&#x6211;&#x90FD;&#x6709;&#x663E;&#x5F0F;&#x914D;&#x7F6E;&#xFF0C;&#x6240;&#x4EE5;&#x9650;&#x5B9A; eslint &#x7684;&#x7248;&#x672C;&#x8D77;&#x70B9;&#x5F88;&#x9AD8;&#x8303;&#x56F4;&#x5F88;&#x5C0F;&#x3002;<br>
 <code>optionalDependencies</code> &#x5217;&#x51FA; eslint &#x63D2;&#x4EF6;&#x7684;&#x517C;&#x5BB9;&#x7248;&#x672C;&#x3002;</p>
 <h2 id="&#x5176;&#x4ED6;">&#x5176;&#x4ED6;</h2>
 <p>&#x76EE;&#x524D;&#x53EA;&#x6574;&#x7406;&#x4E86;&#x4E09;&#x4E2A;&#x63D2;&#x4EF6;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x5199;&#x4E86; browser &#x548C; node &#x7AEF;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x672A;&#x6765;&#x8FD8;&#x4F1A;&#x8865;&#x4E0A;&#x6D4B;&#x8BD5;&#x7528;&#x7684;&#x914D;&#x7F6E;&#x3002;</p>
 <h2 id="&#x53C2;&#x8003;-bibliographies">&#x53C2;&#x8003; (Bibliographies)</h2>
 <ul>
-<li><a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank" rel="external">eslint-config-airbnb</a></li>
+<li><a href="https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb" target="_blank" rel="noopener">eslint-config-airbnb</a></li>
 </ul>
 <!-- 以下是相关链接 -->
 
@@ -541,7 +534,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -558,7 +551,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -650,7 +643,7 @@
   
   
 
-  Copyright © 2015-2017 by ADoyle. All rights reserved. 保留所有权利。
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
 </div>
 
 <div class="theme-info copyright-description">
@@ -742,7 +735,7 @@
       var disqus_shortname = 'adoyle-blog';
       var disqus_identifier = 'my-eslint-config-best-practices.html';
       var disqus_title = "我的 eslint 配置最佳实践";
-      var disqus_url = 'http://adoyle.me/blog/blog/my-eslint-config-best-practices.html';
+      var disqus_url = 'http://adoyle.me/blog/my-eslint-config-best-practices.html';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

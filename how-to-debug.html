@@ -91,34 +91,18 @@
 
 
 
-<meta name="description" content="前言(Intro)
-在这里分享一下关于我处理问题时的一点经验，希望能对那些面对 BUG 或者其他问题而常常手足无措的人有所帮助。
-这些经验谈不仅限于解决技术问题，其他生活或者工作中的问题也可以遵循这一套思路。
-总结在前头，主要是五个步骤和四点要素。
-
-五个步骤：分析现象，定位问题，分析原因，解决问题，确认解决。
-四点要素：临危不乱，钜细靡遗，追本溯源，有的放矢。">
+<meta name="description" content="前言(Intro) 在这里分享一下关于我处理问题时的一点经验，希望能对那些面对 BUG 或者其他问题而常常手足无措的人有所帮助。 这些经验谈不仅限于解决技术问题，其他生活或者工作中的问题也可以遵循这一套思路。 总结在前头，主要是五个步骤和四点要素。  五个步骤：分析现象，定位问题，分析原因，解决问题，确认解决。 四点要素：临危不乱，钜细靡遗，追本溯源，有的放矢。">
+<meta name="keywords" content="debug,经验谈">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何解决问题？">
 <meta property="og:url" content="http://adoyle.me/blog/how-to-debug.html">
 <meta property="og:site_name" content="ADoyle 的博客">
-<meta property="og:description" content="前言(Intro)
-在这里分享一下关于我处理问题时的一点经验，希望能对那些面对 BUG 或者其他问题而常常手足无措的人有所帮助。
-这些经验谈不仅限于解决技术问题，其他生活或者工作中的问题也可以遵循这一套思路。
-总结在前头，主要是五个步骤和四点要素。
-
-五个步骤：分析现象，定位问题，分析原因，解决问题，确认解决。
-四点要素：临危不乱，钜细靡遗，追本溯源，有的放矢。">
-<meta property="og:updated_time" content="2016-05-14T11:57:30.000Z">
+<meta property="og:description" content="前言(Intro) 在这里分享一下关于我处理问题时的一点经验，希望能对那些面对 BUG 或者其他问题而常常手足无措的人有所帮助。 这些经验谈不仅限于解决技术问题，其他生活或者工作中的问题也可以遵循这一套思路。 总结在前头，主要是五个步骤和四点要素。  五个步骤：分析现象，定位问题，分析原因，解决问题，确认解决。 四点要素：临危不乱，钜细靡遗，追本溯源，有的放矢。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何解决问题？">
-<meta name="twitter:description" content="前言(Intro)
-在这里分享一下关于我处理问题时的一点经验，希望能对那些面对 BUG 或者其他问题而常常手足无措的人有所帮助。
-这些经验谈不仅限于解决技术问题，其他生活或者工作中的问题也可以遵循这一套思路。
-总结在前头，主要是五个步骤和四点要素。
-
-五个步骤：分析现象，定位问题，分析原因，解决问题，确认解决。
-四点要素：临危不乱，钜细靡遗，追本溯源，有的放矢。">
+<meta name="twitter:description" content="前言(Intro) 在这里分享一下关于我处理问题时的一点经验，希望能对那些面对 BUG 或者其他问题而常常手足无措的人有所帮助。 这些经验谈不仅限于解决技术问题，其他生活或者工作中的问题也可以遵循这一套思路。 总结在前头，主要是五个步骤和四点要素。  五个步骤：分析现象，定位问题，分析原因，解决问题，确认解决。 四点要素：临危不乱，钜细靡遗，追本溯源，有的放矢。">
 
 
 
@@ -334,8 +318,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">更新于</span>
-            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
-              2016-05-14
+            <time itemprop="dateUpdated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
             </time>
           </span>
           
@@ -545,7 +529,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -562,7 +546,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -654,7 +638,7 @@
   
   
 
-  Copyright © 2015-2017 by ADoyle. All rights reserved. 保留所有权利。
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
 </div>
 
 <div class="theme-info copyright-description">
@@ -746,7 +730,7 @@
       var disqus_shortname = 'adoyle-blog';
       var disqus_identifier = 'how-to-debug.html';
       var disqus_title = "如何解决问题？";
-      var disqus_url = 'http://adoyle.me/blog/blog/how-to-debug.html';
+      var disqus_url = 'http://adoyle.me/blog/how-to-debug.html';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');

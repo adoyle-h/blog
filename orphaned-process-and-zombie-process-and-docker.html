@@ -91,25 +91,18 @@
 
 
 
-<meta name="description" content="前言(Intro)
-我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。
-在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。
-那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
+<meta name="description" content="前言(Intro) 我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。 在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。 那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
+<meta name="keywords" content="Docker,进程,僵尸进程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="孤儿进程、僵尸进程与 Docker">
 <meta property="og:url" content="http://adoyle.me/blog/orphaned-process-and-zombie-process-and-docker.html">
 <meta property="og:site_name" content="ADoyle 的博客">
-<meta property="og:description" content="前言(Intro)
-我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。
-在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。
-那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
-<meta property="og:updated_time" content="2016-05-14T11:57:30.000Z">
+<meta property="og:description" content="前言(Intro) 我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。 在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。 那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="孤儿进程、僵尸进程与 Docker">
-<meta name="twitter:description" content="前言(Intro)
-我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。
-在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。
-那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
+<meta name="twitter:description" content="前言(Intro) 我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。 在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 ps 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。 那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程">
 
 
 
@@ -325,8 +318,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">更新于</span>
-            <time itemprop="dateUpdated" datetime="2016-05-14T19:57:30+08:00" content="2016-05-14">
-              2016-05-14
+            <time itemprop="dateUpdated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
             </time>
           </span>
           
@@ -406,10 +399,10 @@
 <h2 id="&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x5982;&#x4F55;&#x88AB;&#x63A5;&#x7BA1;">&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x5982;&#x4F55;&#x88AB;&#x63A5;&#x7BA1;&#xFF1F;</h2>
 <p>&#x5176;&#x5B9E;&#x201C;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x662F;&#x4F1A;&#x88AB; init &#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#x7684;&#x201D;&#x5E76;&#x4E0D;&#x662F;&#x771F;&#x76F8;&#xFF0C;&#x53EA;&#x4E0D;&#x8FC7;&#x7ED3;&#x8BBA;&#x4E0A;&#x6765;&#x8BF4;&#x662F;&#x8FD9;&#x6837;&#x3002;<br>
 &#x7F51;&#x4E0A;&#x4E5F;&#x6709;&#x4EBA;&#x8BF4;&#x662F;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x4F1A;&#x88AB; pid &#x4E3A; 1 &#x7684;&#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#xFF0C;&#x800C; init &#x8FDB;&#x7A0B;&#x521A;&#x597D;&#x5C31;&#x662F;&#x90A3;&#x4E2A; pid &#x4E3A; 1 &#x7684;&#x8FDB;&#x7A0B;&#x3002;&#x8FD9;&#x8BF4;&#x7684;&#x4E0D;&#x662F;&#x5F88;&#x51C6;&#x786E;&#x3002;</p>
-<p>&#x4E0D;&#x5982;&#x76F4;&#x63A5;&#x6765;&#x770B; <a href="https://github.com/torvalds/linux/blob/eae21770b4fed5597623aad0d618190fa60426ff/kernel/exit.c#L479" target="_blank" rel="external">linux &#x5185;&#x6838;&#x6E90;&#x7801;</a></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*</span></div><div class="line"> * When we die, we re-parent all our children, and try to:</div><div class="line"> * 1. give them to another thread in our thread group, if such a member exists</div><div class="line"> * 2. give it to the first ancestor process which prctl&apos;d itself as a</div><div class="line"> *    child_subreaper for its children (like a service manager)</div><div class="line"> * 3. give it to the init process (PID 1) in our pid namespace</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">struct</span> task_struct *<span class="title">find_new_reaper</span><span class="params">(<span class="keyword">struct</span> task_struct *father,</span></span></div><div class="line">                       <span class="keyword">struct</span> task_struct *child_reaper)</div><div class="line">{</div><div class="line">    <span class="keyword">struct</span> task_struct *thread, *reaper;</div><div class="line"></div><div class="line">    thread = find_alive_thread(father);</div><div class="line">    <span class="keyword">if</span> (thread)</div><div class="line">        <span class="keyword">return</span> thread;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (father-&gt;signal-&gt;has_child_subreaper) {</div><div class="line">        <span class="comment">/*</span></div><div class="line">         * Find the first -&gt;is_child_subreaper ancestor in our pid_ns.</div><div class="line">         * We start from father to ensure we can not look into another</div><div class="line">         * namespace, this is safe because all its threads are dead.</div><div class="line">         */</div><div class="line">        <span class="keyword">for</span> (reaper = father;</div><div class="line">             !same_thread_group(reaper, child_reaper);</div><div class="line">             reaper = reaper-&gt;real_parent) {</div><div class="line">            <span class="comment">/* call_usermodehelper() descendants need this check */</span></div><div class="line">            <span class="keyword">if</span> (reaper == &amp;init_task)</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            <span class="keyword">if</span> (!reaper-&gt;signal-&gt;is_child_subreaper)</div><div class="line">                <span class="keyword">continue</span>;</div><div class="line">            thread = find_alive_thread(reaper);</div><div class="line">            <span class="keyword">if</span> (thread)</div><div class="line">                <span class="keyword">return</span> thread;</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">return</span> child_reaper;</div><div class="line">}</div></pre></td></tr></table></figure>
-<p>&#x63A5;&#x7BA1;&#x5206;&#x4E09;&#x6B65;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x662F;&#x627E;&#x5230;&#x76F8;&#x540C;&#x7EBF;&#x7A0B;&#x7EC4;&#x91CC;&#x5176;&#x4ED6;&#x53EF;&#x7528;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5219;&#x8FDB;&#x884C;&#x7B2C;&#x4E8C;&#x6B65;&#x3002;&#x81F3;&#x4E8E;&#x7EBF;&#x7A0B;&#x548C;&#x8FDB;&#x7A0B;&#x7684;&#x5173;&#x7CFB;&#xFF0C;<a href="http://stackoverflow.com/a/9306150/4622308" target="_blank" rel="external">&#x8FD9;&#x4E2A;&#x56DE;&#x7B54;</a>&#x975E;&#x5E38;&#x5F62;&#x8C61;&#x3002;</p>
-<p>&#x5BF9;&#x4E8E;&#x7B2C;&#x4E8C;&#x6B65;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003; <a href="http://man7.org/linux/man-pages/man2/prctl.2.html" target="_blank" rel="external">prctl &#x7684; PR_SET_CHILD_SUBREAPER &#x53C2;&#x6570;</a> &#x91CC;&#x7684;&#x63CF;&#x8FF0;&#x3002;<br>
+<p>&#x4E0D;&#x5982;&#x76F4;&#x63A5;&#x6765;&#x770B; <a href="https://github.com/torvalds/linux/blob/eae21770b4fed5597623aad0d618190fa60426ff/kernel/exit.c#L479" target="_blank" rel="noopener">linux &#x5185;&#x6838;&#x6E90;&#x7801;</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * When we die, we re-parent all our children, and try to:</span></span><br><span class="line"><span class="comment"> * 1. give them to another thread in our thread group, if such a member exists</span></span><br><span class="line"><span class="comment"> * 2. give it to the first ancestor process which prctl&apos;d itself as a</span></span><br><span class="line"><span class="comment"> *    child_subreaper for its children (like a service manager)</span></span><br><span class="line"><span class="comment"> * 3. give it to the init process (PID 1) in our pid namespace</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> struct task_struct *<span class="title">find_new_reaper</span><span class="params">(struct task_struct *father,</span></span></span><br><span class="line"><span class="function"><span class="params">                       struct task_struct *child_reaper)</span></span></span><br><span class="line"><span class="function"></span>{</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> *<span class="title">thread</span>, *<span class="title">reaper</span>;</span></span><br><span class="line"></span><br><span class="line">    thread = find_alive_thread(father);</span><br><span class="line">    <span class="keyword">if</span> (thread)</span><br><span class="line">        <span class="keyword">return</span> thread;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (father-&gt;signal-&gt;has_child_subreaper) {</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * Find the first -&gt;is_child_subreaper ancestor in our pid_ns.</span></span><br><span class="line"><span class="comment">         * We start from father to ensure we can not look into another</span></span><br><span class="line"><span class="comment">         * namespace, this is safe because all its threads are dead.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">for</span> (reaper = father;</span><br><span class="line">             !same_thread_group(reaper, child_reaper);</span><br><span class="line">             reaper = reaper-&gt;real_parent) {</span><br><span class="line">            <span class="comment">/* call_usermodehelper() descendants need this check */</span></span><br><span class="line">            <span class="keyword">if</span> (reaper == &amp;init_task)</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">if</span> (!reaper-&gt;signal-&gt;is_child_subreaper)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            thread = find_alive_thread(reaper);</span><br><span class="line">            <span class="keyword">if</span> (thread)</span><br><span class="line">                <span class="keyword">return</span> thread;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> child_reaper;</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x63A5;&#x7BA1;&#x5206;&#x4E09;&#x6B65;&#xFF0C;&#x7B2C;&#x4E00;&#x6B65;&#x662F;&#x627E;&#x5230;&#x76F8;&#x540C;&#x7EBF;&#x7A0B;&#x7EC4;&#x91CC;&#x5176;&#x4ED6;&#x53EF;&#x7528;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x627E;&#x5230;&#x5219;&#x8FDB;&#x884C;&#x7B2C;&#x4E8C;&#x6B65;&#x3002;&#x81F3;&#x4E8E;&#x7EBF;&#x7A0B;&#x548C;&#x8FDB;&#x7A0B;&#x7684;&#x5173;&#x7CFB;&#xFF0C;<a href="http://stackoverflow.com/a/9306150/4622308" target="_blank" rel="noopener">&#x8FD9;&#x4E2A;&#x56DE;&#x7B54;</a>&#x975E;&#x5E38;&#x5F62;&#x8C61;&#x3002;</p>
+<p>&#x5BF9;&#x4E8E;&#x7B2C;&#x4E8C;&#x6B65;&#x7684;&#x539F;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003; <a href="http://man7.org/linux/man-pages/man2/prctl.2.html" target="_blank" rel="noopener">prctl &#x7684; PR_SET_CHILD_SUBREAPER &#x53C2;&#x6570;</a> &#x91CC;&#x7684;&#x63CF;&#x8FF0;&#x3002;<br>
 prctl &#x662F; linux &#x5185;&#x6838;&#x66B4;&#x9732;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x7528;&#x6765;&#x67E5;&#x770B;&#x6216;&#x4FEE;&#x6539;&#x8FDB;&#x7A0B;&#x548C;&#x7EBF;&#x7A0B;&#x7684;&#x4FE1;&#x606F;&#x3002;<code>PR_SET_CHILD_SUBREAPER</code> &#x53EF;&#x4EE5;&#x7ED9;&#x67D0;&#x4E2A;&#x8FDB;&#x7A0B;&#x6807;&#x8BC6;&#x4E3A; <code>child_subreaper</code>&#xFF0C;&#x5B83;&#x6709;&#x8FD9;&#x4E48;&#x4E00;&#x6BB5;&#x8BF4;&#x660E;&#xFF1A;</p>
 <blockquote>
 <p>When a process is marked as a child subreaper, all of the children<br>
@@ -427,19 +420,19 @@ signal and be able to wait(2) on the process to discover its termination status.
 <p>&#x5982;&#x679C;&#x7B2C;&#x4E8C;&#x6B65;&#x4E5F;&#x6CA1;&#x6709;&#x627E;&#x5230;&#xFF0C;&#x5219;&#x8FDB;&#x884C;&#x7B2C;&#x4E09;&#x6B65;&#xFF0C;&#x5373;&#x4F7F;&#x7528; pid &#x4E3A; 1 &#x7684;&#x8FDB;&#x7A0B;&#x6765;&#x63A5;&#x7BA1;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x3002;</p>
 <p>&#x800C; init &#x8FDB;&#x7A0B;&#x901A;&#x5E38;&#x7B2C;&#x4E00;&#x4E2A;&#x542F;&#x52A8;&#x7684;&#x8FDB;&#x7A0B;&#xFF0C;&#x5176;&#x4ED6;&#x6240;&#x6709;&#x8FDB;&#x7A0B;&#x90FD;&#x662F; init &#x7684;&#x5B50;&#x8FDB;&#x7A0B;&#xFF0C;&#x6240;&#x4EE5;&#x4E00;&#x822C;&#x6765;&#x8BF4;&#x6700;&#x540E;&#x6240;&#x6709;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x90FD;&#x5C06;&#x88AB; init &#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#x3002;<br>
 &#x4E3E;&#x4E2A;&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x6BD4;&#x5982;&#x4F7F;&#x7528; docker &#x6267;&#x884C; <code>docker run --name ubuntu -d ubuntu /bin/bash -c &apos;sleep 1000&apos;</code>&#xFF08;&#x8FD9;&#x91CC;&#x4F7F;&#x7528; ubuntu &#x5B98;&#x65B9;&#x955C;&#x50CF;&#xFF09;&#xFF0C;&#x7136;&#x540E;&#x4F60;&#x8FDB;&#x5165;&#x5BB9;&#x5668;&#x4E2D;&#x6267;&#x884C; <code>ps</code> &#x5C31;&#x4F1A;&#x53D1;&#x73B0; pid &#x4E3A; 1 &#x7684;&#x8FDB;&#x7A0B;&#x662F; sleep&#x3002;</p>
-<p>&#x4E0D;&#x8FC7;&#x4E5F;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x4EBA;&#x4E3A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x5C06;&#x5B83;&#x6807;&#x8BB0;&#x4E3A; <code>child_subreaper</code>&#xFF0C;&#x4F7F;&#x5176;&#x63A5;&#x7BA1;&#x5176;&#x521B;&#x5EFA;&#x7684;&#x6240;&#x6709;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#xFF0C;&#x4ECE;&#x800C;&#x4E0D;&#x5FC5;&#x8BA9; init &#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#x3002;&#xFF08;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003; <a href="https://github.com/krallin/tini" target="_blank" rel="external">krallin/tini</a>&#xFF09;</p>
+<p>&#x4E0D;&#x8FC7;&#x4E5F;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x4EBA;&#x4E3A;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x5C06;&#x5B83;&#x6807;&#x8BB0;&#x4E3A; <code>child_subreaper</code>&#xFF0C;&#x4F7F;&#x5176;&#x63A5;&#x7BA1;&#x5176;&#x521B;&#x5EFA;&#x7684;&#x6240;&#x6709;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#xFF0C;&#x4ECE;&#x800C;&#x4E0D;&#x5FC5;&#x8BA9; init &#x8FDB;&#x7A0B;&#x63A5;&#x7BA1;&#x3002;&#xFF08;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF0C;&#x53EF;&#x4EE5;&#x53C2;&#x8003; <a href="https://github.com/krallin/tini" target="_blank" rel="noopener">krallin/tini</a>&#xFF09;</p>
 <p>&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x88AB;&#x63A5;&#x7BA1;&#x7684;&#x6D41;&#x7A0B;&#x5927;&#x81F4;&#x5C31;&#x662F;&#x8FD9;&#x6837;&#x3002;</p>
 <h2 id="&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x7684;&#x5371;&#x5BB3;&#x4E0E;&#x5E94;&#x5BF9;">&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x7684;&#x5371;&#x5BB3;&#x4E0E;&#x5E94;&#x5BF9;</h2>
 <p>&#x5F53;&#x5B50;&#x8FDB;&#x7A0B;&#x9000;&#x51FA;&#x65F6;&#xFF0C;&#x6CA1;&#x6709;&#x88AB;&#x7236;&#x8FDB;&#x7A0B;&#x901A;&#x8FC7; wait/waitpid &#x6765;&#x56DE;&#x6536;&#x7684;&#x8BDD;&#xFF0C;&#x8BE5;&#x5B50;&#x8FDB;&#x7A0B;&#x5C31;&#x53D8;&#x6210;&#x4E86;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#xFF08;zombie process&#xFF09;&#x3002;<br>
 &#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#x867D;&#x7136;&#x5DF2;&#x7ECF;&#x91CA;&#x653E;&#x4E86;&#x5927;&#x90E8;&#x5206;&#x5B83;&#x5360;&#x7528;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x548C;&#x5360;&#x7528;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x4F46;&#x4ECD;&#x6709;&#x5C11;&#x90E8;&#x5206;&#x4FE1;&#x606F;&#x4ECD;&#x7136;&#x5728;&#x5360;&#x7528;&#xFF0C;&#x6BD4;&#x5982;&#x8FDB;&#x7A0B;&#x53F7;&#x3001;&#x8FDB;&#x7A0B;&#x7684;&#x9000;&#x51FA;&#x72B6;&#x6001;&#x3001;&#x8D44;&#x6E90;&#x5360;&#x7528;&#x4FE1;&#x606F;&#x5217;&#x8868;&#x3002;<br>
 &#x5B83;&#x4ECD;&#x7136;&#x4F1A;&#x7ED9;&#x7CFB;&#x7EDF;&#x5E26;&#x6765;&#x8D1F;&#x62C5;&#x3002;&#x6709;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x4E0D;&#x80FD;&#x521B;&#x5EFA;&#x65B0;&#x8FDB;&#x7A0B;&#x3002;</p>
 <p>&#x6240;&#x4EE5;&#x8981;&#x907F;&#x514D;&#x4EA7;&#x751F;&#x50F5;&#x5C38;&#x8FDB;&#x7A0B;&#xFF0C;&#x4E3B;&#x8981;&#x8981;&#x505A;&#x7684;&#x662F;&#x5728;&#x7236;&#x8FDB;&#x7A0B;&#x4E0A;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E0D;&#x5FFD;&#x7565; SIGCHLD &#x4FE1;&#x53F7;&#xFF0C;&#x7528; wait/waitpid &#x6765;&#x7B49;&#x5F85;&#x5B50;&#x8FDB;&#x7A0B;&#x7ED3;&#x675F;&#x4E4B;&#x7C7B;&#x7684;&#x3002;<br>
-&#x7136;&#x800C; docker &#x6709;&#x4E00;&#x4E9B;&#x5751;&#xFF0C;&#x6BD4;&#x5982;<a href="https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/" target="_blank" rel="external">&#x300A;Docker and the PID 1 zombie reaping problem&#x300B;</a> &#x5C31;&#x662F;&#x5F88;&#x5178;&#x578B;&#x7684;&#x4E00;&#x4F8B;&#x3002;<br>
-&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x7684;&#x4F5C;&#x8005;&#xFF0C;&#x4E5F;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x5E94;&#x5BF9;&#x65B9;&#x6CD5;&#xFF1A;<a href="https://github.com/phusion/baseimage-docker" target="_blank" rel="external">phusion/baseimage-docker</a>&#xFF0C;&#x5176;&#x4E2D;&#x81EA;&#x5E26;&#x4E86;&#x5B83;&#x81EA;&#x5DF1;&#x7684; init &#x7CFB;&#x7EDF;&#xFF0C;&#x7528;&#x6765;&#x4FDD;&#x8BC1;&#x5728;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x4EA7;&#x751F;&#x7684;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x4E00;&#x5B9A;&#x4F1A;&#x88AB;&#x63A5;&#x7BA1;&#x3002;</p>
+&#x7136;&#x800C; docker &#x6709;&#x4E00;&#x4E9B;&#x5751;&#xFF0C;&#x6BD4;&#x5982;<a href="https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/" target="_blank" rel="noopener">&#x300A;Docker and the PID 1 zombie reaping problem&#x300B;</a> &#x5C31;&#x662F;&#x5F88;&#x5178;&#x578B;&#x7684;&#x4E00;&#x4F8B;&#x3002;<br>
+&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x7684;&#x4F5C;&#x8005;&#xFF0C;&#x4E5F;&#x5199;&#x4E86;&#x4E00;&#x4E2A;&#x5E94;&#x5BF9;&#x65B9;&#x6CD5;&#xFF1A;<a href="https://github.com/phusion/baseimage-docker" target="_blank" rel="noopener">phusion/baseimage-docker</a>&#xFF0C;&#x5176;&#x4E2D;&#x81EA;&#x5E26;&#x4E86;&#x5B83;&#x81EA;&#x5DF1;&#x7684; init &#x7CFB;&#x7EDF;&#xFF0C;&#x7528;&#x6765;&#x4FDD;&#x8BC1;&#x5728;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x4EA7;&#x751F;&#x7684;&#x5B64;&#x513F;&#x8FDB;&#x7A0B;&#x4E00;&#x5B9A;&#x4F1A;&#x88AB;&#x63A5;&#x7BA1;&#x3002;</p>
 <p>&#x5F53;&#x7136;&#xFF0C;&#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5176;&#x4ED6;&#x8F7B;&#x91CF;&#x7EA7;&#x7684; init &#x7CFB;&#x7EDF;&#xFF1A;</p>
 <ul>
-<li><a href="https://github.com/Yelp/dumb-init" target="_blank" rel="external">Yelp/dumb-init</a></li>
-<li><a href="https://github.com/krallin/tini" target="_blank" rel="external">krallin/tini</a></li>
+<li><a href="https://github.com/Yelp/dumb-init" target="_blank" rel="noopener">Yelp/dumb-init</a></li>
+<li><a href="https://github.com/krallin/tini" target="_blank" rel="noopener">krallin/tini</a></li>
 </ul>
 <h2 id="&#x7ED3;&#x8BBA;conclusion">&#x7ED3;&#x8BBA;(Conclusion)</h2>
 <blockquote>
@@ -448,10 +441,10 @@ signal and be able to wait(2) on the process to discover its termination status.
 <p>&#x7B54;&#x6848;&#x662F;&#x5BB9;&#x5668;&#x4E2D; pid &#x4E3A; 1 &#x7684;&#x90A3;&#x4E2A;&#x8FDB;&#x7A0B;&#x3002;</p>
 <h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
 <ul>
-<li><a href="http://stackoverflow.com/a/9306150/4622308" target="_blank" rel="external">Stackoverflow - Linux - Threads and Process</a></li>
-<li><a href="http://stackoverflow.com/questions/6476452/process-re-parenting-controlling-who-is-the-new-parent" target="_blank" rel="external">Stackoverflow - process re-parenting: controlling who is the new parent</a></li>
-<li><a href="https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/" target="_blank" rel="external">Phusion - Docker and the PID 1 zombie reaping problem</a></li>
-<li><a href="http://www.infoq.com/cn/news/2016/01/dumb-init-Docker" target="_blank" rel="external">InfoQ - dumb-init&#xFF1A;&#x4E00;&#x4E2A; Docker &#x5BB9;&#x5668;&#x521D;&#x59CB;&#x5316;&#x7CFB;&#x7EDF;</a></li>
+<li><a href="http://stackoverflow.com/a/9306150/4622308" target="_blank" rel="noopener">Stackoverflow - Linux - Threads and Process</a></li>
+<li><a href="http://stackoverflow.com/questions/6476452/process-re-parenting-controlling-who-is-the-new-parent" target="_blank" rel="noopener">Stackoverflow - process re-parenting: controlling who is the new parent</a></li>
+<li><a href="https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/" target="_blank" rel="noopener">Phusion - Docker and the PID 1 zombie reaping problem</a></li>
+<li><a href="http://www.infoq.com/cn/news/2016/01/dumb-init-Docker" target="_blank" rel="noopener">InfoQ - dumb-init&#xFF1A;&#x4E00;&#x4E2A; Docker &#x5BB9;&#x5668;&#x521D;&#x59CB;&#x5316;&#x7CFB;&#x7EDF;</a></li>
 </ul>
 <h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
 <!-- 以下是相关链接 -->
@@ -563,7 +556,7 @@ signal and be able to wait(2) on the process to discover its termination status.
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -580,7 +573,7 @@ signal and be able to wait(2) on the process to discover its termination status.
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -672,7 +665,7 @@ signal and be able to wait(2) on the process to discover its termination status.
   
   
 
-  Copyright © 2015-2017 by ADoyle. All rights reserved. 保留所有权利。
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
 </div>
 
 <div class="theme-info copyright-description">
@@ -764,7 +757,7 @@ signal and be able to wait(2) on the process to discover its termination status.
       var disqus_shortname = 'adoyle-blog';
       var disqus_identifier = 'orphaned-process-and-zombie-process-and-docker.html';
       var disqus_title = "孤儿进程、僵尸进程与 Docker";
-      var disqus_url = 'http://adoyle.me/blog/blog/orphaned-process-and-zombie-process-and-docker.html';
+      var disqus_url = 'http://adoyle.me/blog/orphaned-process-and-zombie-process-and-docker.html';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
