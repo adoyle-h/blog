@@ -1,10 +1,18 @@
 ---
 title: Think in alternatives
 author: ADoyle <adoyle.h@gmail.com>
-tags: ['程序员', '思想']
-categories: ['翻译', '技术']
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/blog/copyright.html)'
+copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/copyright)'
+tags:
+  - 程序员
+  - 思想
+categories:
+  - 翻译
+  - 技术
+date: 2018-02-25 22:53:21
+updated:
 ---
+
+
 
 > 本文翻译自 Scott Nonnenberg 的文章 [《Think in alternatives》][origin]
 
@@ -18,6 +26,8 @@ copyright: '未经授权，不得全文转载。转载前请先阅读[本站版�
 二次校对和润色后，发现初次的翻译果然很糟糕，现在终于把还能入眼的译文发布出来了。
 
 <!-- more -->
+
+以下是译文。
 
 ----
 
