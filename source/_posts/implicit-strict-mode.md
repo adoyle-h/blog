@@ -181,7 +181,8 @@ a.f();
 
 因为截至 node 8.x 都没实现 import/export 功能，而在 node 9 里提供了 `--experimental-modules` 来支持 import/export 功能，应该是实现了 ES2015 里定义的 `Module` 吧，你可以在 `node -h` 里找到这个选项。
 
-来验证一下，切到 node 9，使用 `node --experimental-modules a.js` 执行例1.1，你会发现还是没报错，正常输出 42。所以我认为 node 9 --experimental-modules 同样没有完整实现 `Module` 的定义，只是实现了 import/export 语法功能。
+来验证一下，切到 node 9，使用 `node --experimental-modules a.js` 执行例1.1，你会发现还是没报错，正常输出 42。这里正常输出是因为文件后缀是 `.js`，即使开了 `--experimental-modules` 还是被 node 认为是 commonjs 的模块。
+你需要把 `a.js` 改成 `a.mjs`，这才是符合 ES2015 的 node 模块文件，再执行 `node --experimental-modules a.js`，会发现正常报错了。
 
 ## 浏览器端的行为
 
