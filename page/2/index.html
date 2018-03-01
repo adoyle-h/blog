@@ -295,6 +295,144 @@
             
               
                 
+                <a class="post-title-link" href="/blog/orphaned-process-and-zombie-process-and-docker.html" itemprop="url">
+                  孤儿进程、僵尸进程与 Docker
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-02-17T20:10:28+08:00" content="2016-02-17">
+              2016-02-17
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/orphaned-process-and-zombie-process-and-docker.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="orphaned-process-and-zombie-process-and-docker.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/Docker/" rel="tag">#Docker</a>
+              
+                <a href="/blog/tags/进程/" rel="tag">#进程</a>
+              
+                <a href="/blog/tags/僵尸进程/" rel="tag">#僵尸进程</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言-intro">前言(Intro)</h2>
+<p>我们知道当子进程还在运行时，其直接父进程被 kill 掉以后，这个子进程会变成孤儿进程（orphaned process），然后它会被 init 进程接管。</p>
+<p>在 docker 容器中运行的进程，一般是没有 init 进程的。你可以进入容器使用 <code>ps</code> 查看，会发现 pid 为 1 的进程并不是 init，而是容器的主进程。</p>
+<p>那么问题来了，如果容器中产生了孤儿进程，谁来接管这个进程？</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/blog/orphaned-process-and-zombie-process-and-docker.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/blog/how-to-debug.html" itemprop="url">
                   如何解决问题？
                 </a>
@@ -1590,7 +1728,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1607,7 +1745,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">80</span>
+                <span class="site-state-item-count">81</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
