@@ -1,0 +1,771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="代码风格," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概览(Overview)/前言(Intro)">
+<meta name="keywords" content="代码风格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Null Object 与 Null">
+<meta property="og:url" content="http://adoyle.me/blog/the-problem-of-null.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="概览(Overview)/前言(Intro)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Null Object 与 Null">
+<meta name="twitter:description" content="概览(Overview)/前言(Intro)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/the-problem-of-null.html"/>
+
+
+  <title> Null Object 与 Null | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Null Object 与 Null
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/the-problem-of-null.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="the-problem-of-null.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/代码风格/" rel="tag">#代码风格</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x6982;&#x89C8;overview&#x524D;&#x8A00;intro">&#x6982;&#x89C8;(Overview)/&#x524D;&#x8A00;(Intro)</h2>
+<a id="more"></a>
+<p>&#x8F93;&#x5165; id &#x5982;&#x679C;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x8C61;&#xFF0C;&#x5219; <code>return callback(&apos;&#x627E;&#x4E0D;&#x5230;&#x5BF9;&#x8C61;!&apos;)</code>&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x771F;&#x7684;&#x597D;&#x5417;&#xFF1F;</p>
+<p>&#x5BF9;&#x4E8E;&#x5904;&#x7406;&#x975E;&#x7406;&#x60F3;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x4E00;&#x822C;&#x6709;&#x4EE5;&#x4E0B;&#x51E0;&#x4E2A;&#x65B9;&#x6848;&#xFF1A;</p>
+<ol>
+<li>&#x629B;&#x51FA;&#x5F02;&#x5E38;(throw error&#x5F62;&#x5F0F;)</li>
+<li>&#x629B;&#x51FA;&#x5F02;&#x5E38;(callback&#x5F62;&#x5F0F;)</li>
+<li>&#x8FD4;&#x56DE;null</li>
+<li>&#x8FD4;&#x56DE;&#x7A7A;&#x6570;&#x7EC4;&#x6216;&#x7A7A;&#x5BF9;&#x8C61;&#x3002;&#x6216;&#x8005;&#x5B9E;&#x73B0;&#x4E86;&#x67D0;&#x4E9B;&#x63A5;&#x53E3;&#x7684;&#x7A7A;&#x5BF9;&#x8C61;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x6240;&#x8C13;&#x7684;<a href="http://en.wikipedia.org/wiki/Null_Object_pattern" target="_blank" rel="noopener">Null Object&#x6A21;&#x5F0F;</a></li>
+</ol>
+<p>&#x6211;&#x6BD4;&#x8F83;&#x503E;&#x5411;&#x4E8E;&#x7B2C;4&#x79CD;&#x3002;&#x800C;&#x4E14;<a href="http://book.douban.com/subject/4199741/" target="_blank" rel="noopener">&#x4EE3;&#x7801;&#x6574;&#x6D01;&#x4E4B;&#x9053;</a>&#x4E2D;&#x4F5C;&#x8005;&#x5C31;&#x660E;&#x786E;&#x63D0;&#x51FA;&#x4E0D;&#x5E94;&#x8BE5;&#x8FD4;&#x56DE;null&#xFF0C;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x7A7A;&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x539F;&#x56E0;&#x6709;&#x8FD9;&#x4E48;&#x51E0;&#x70B9;&#xFF1A;</p>
+<ol>
+<li>&#x5BF9;&#x4E8E;&#x65B9;&#x6848;1&#xFF1A;&#x8FD9;&#x6837;&#x4F60;&#x5C31;&#x5FC5;&#x987B;&#x5199;try/catch&#x53BB;&#x6355;&#x6349;&#x5F02;&#x5E38;&#xFF0C;&#x6709;&#x65F6;&#x5019;try/catch&#x5F97;&#x5199;&#x597D;&#x591A;&#x5C42;&#xFF0C;&#x56E0;&#x4E3A;&#x4F60;&#x7684;&#x9519;&#x8BEF;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x4E0D;&#x540C;&#x5C42;&#x7EA7;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;&#x3002;&#x6211;&#x4EEC;&#x4E5F;&#x77E5;&#x9053;&#xFF0C;try/catch&#x7684;&#x6548;&#x7387;&#x662F;&#x633A;&#x4F4E;&#x7684;&#xFF0C;&#x5E94;&#x8BE5;&#x5C3D;&#x91CF;&#x907F;&#x514D;&#x4F7F;&#x7528;&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;&#x65B9;&#x6848;2&#xFF1A;&#x8FD9;&#x6837;&#x4F60;&#x5C31;&#x5FC5;&#x987B;&#x53BB;&#x5224;&#x65AD;error&#x5B58;&#x4E0D;&#x5B58;&#x5728;&#xFF0C;&#x751A;&#x81F3;&#x53EF;&#x80FD;&#x5BFC;&#x81F4;&#x6BCF;&#x4E00;&#x5C42;&#x90FD;&#x8981;&#x5BF9;error&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;&#xFF08;&#x6240;&#x4EE5;TJ&#x5927;&#x795E;&#x5C31;&#x9886;&#x5BFC;&#x4EBA;&#x6C11;&#x4F7F;&#x7528;generator&#xFF0C;&#x867D;&#x7136;&#x4ED6;&#x6700;&#x540E;&#x8FD8;&#x662F;&#x5F03;&#x5751;&#x4E86;&#x2026;&#xFF09;</li>
+<li>&#x5BF9;&#x4E8E;&#x65B9;&#x6848;3&#xFF1A;&#x5047;&#x5982;&#x4F60;&#x662F;java&#x6216;C++&#x5F00;&#x53D1;&#x8005;&#xFF0C;&#x4F60;&#x4F1A;&#x53D1;&#x73B0;&#x4EE3;&#x7801;&#x91CC;&#x4F1A;&#x5199;&#x5F88;&#x591A;&#x5224;&#x65AD;&#x5BF9;&#x8C61;&#x662F;&#x5426;&#x5B58;&#x5728;&#x7684;&#x8BED;&#x53E5;&#xFF0C;&#x8FD9;&#x6837;&#x4F7F;&#x5F97;&#x4EE3;&#x7801;&#x770B;&#x8D77;&#x6765;&#x5F88;&#x7D2F;&#x8D58;&#xFF0C;&#x751A;&#x81F3;&#x4F1A;&#x5BFC;&#x81F4;&#x4EE3;&#x7801;&#x590D;&#x6742;&#x5316;&#x3002;&#x540C;&#x65F6;&#x4E5F;&#x8BA9;&#x5F00;&#x53D1;&#x8005;&#x4E0D;&#x80FD;&#x4E13;&#x6CE8;&#x4E8E;&#x4E1A;&#x52A1;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x5199;&#xFF08;&#x56E0;&#x4E3A;&#x90FD;&#x53BB;&#x505A;&#x5BB9;&#x9519;&#x5904;&#x7406;&#x4E86;&#xFF09;&#x3002;</li>
+<li>&#x5BF9;&#x4E8E;&#x65B9;&#x6848;4&#xFF1A;&#x6211;&#x6682;&#x65F6;&#x6CA1;&#x627E;&#x5230;&#x7F3A;&#x70B9;&#x3002;&#x4F18;&#x70B9;&#x5374;&#x6709;&#x5F88;&#x591A;&#xFF1A;</li>
+</ol>
+<pre><code>* &#x4F60;&#x53EF;&#x4EE5;&#x65E0;&#x6240;&#x987E;&#x5FCC;&#x5730;&#x4F7F;&#x7528;&#x94FE;&#x5F0F;(chain)&#x8BED;&#x6CD5;&#x3002;
+* &#x4F60;&#x4E0D;&#x5FC5;&#x53BB;&#x624B;&#x52A8;&#x5224;&#x65AD;null&#x548C;error&#x4E86;&#xFF01;
+* &#x4F60;&#x4E0D;&#x5FC5;&#x53BB;&#x5199;if () ... else ...&#x5D4C;&#x5957;&#x4E86;&#xFF01;
+</code></pre>
+<p>&#x89C9;&#x5F97;&#x6211;&#x8BF4;&#x7684;&#x4E0D;&#x597D;&#xFF1F;&#x770B;&#x770B;&#x522B;&#x4EBA;&#x662F;&#x600E;&#x4E48;&#x8BF4;&#x7684;&#x5427;&#xFF0C;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="http://stackoverflow.com/questions/1274792/is-returning-null-bad-design/1274822#1274822" target="_blank" rel="noopener">ST - Is returning null bad design?</a></li>
+<li><a href="http://en.wikipedia.org/wiki/Null_Object_pattern" target="_blank" rel="noopener">Wikipedia - Null Object pattern</a></li>
+</ul>
+<p>&#x61D2;&#x5F97;&#x770B;&#x82F1;&#x6587;&#xFF1F;&#x90A3;&#x5C31;&#x653E;&#x4E00;&#x7BC7;&#x4E2D;&#x6587;&#x7684;&#x5427;&#xFF0C;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="http://segmentfault.com/q/1010000000114775" target="_blank" rel="noopener">SF - java&#x5982;&#x4E0D;&#x60F3;&#x4E48;&#x6BCF;&#x6B21;&#x90FD;&#x5224;&#x7A7A; if(o !=null) &#x600E;&#x4E48;&#x505A;&#xFF1F;</a></li>
+</ul>
+<p>&#x7A7A;&#x5BF9;&#x8C61;&#x8FD4;&#x56DE;&#x7528;{}&#x53D6;&#x4EE3;null&#x6BD4;&#x8F83;&#x597D;&#xFF0C;&#x5B9E;&#x5728;&#x9700;&#x8981;&#x5224;&#x65AD;&#x662F;&#x5426;&#x4E3A;&#x7A7A;&#x7684;&#x8BDD;&#xFF0C;&#x53EF;&#x4EE5;&#x7528;<a href="http://www.css88.com/doc/underscore/#isEmpty" target="_blank" rel="noopener">isEmpty</a>&#x8FD9;&#x6837;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+<p>&#x8FD9;&#x6837;&#x5373;&#x53EF;&#x4EE5;&#x662F;Null Object&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x7528;&#x7C7B;&#x4F3C;&#x5224;&#x65AD;null&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x4E00;&#x4E3E;&#x4E24;&#x5F97;&#x3002;<br>
+&#x56E0;&#x4E3A;&#x5728;&#x83B7;&#x53D6;&#x5BF9;&#x8C61;&#x7684;&#x5C5E;&#x6027;&#x65F6;&#xFF0C;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x751F;NullPointerException&#x9519;&#x8BEF;&#xFF0C;&#x800C;&#x8FD4;&#x56DE;&#x7A7A;&#x5BF9;&#x8C61;&#x5C31;&#x53EF;&#x4EE5;&#x6709;&#x6548;&#x907F;&#x514D;&#x3002;</p>
+<p>&#x8FD8;&#x80FD;&#x8282;&#x7701;&#x4EE3;&#x7801;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;obj&#x5B58;&#x5728;&#xFF0C;&#x4F60;&#x8FD8;&#x662F;&#x5F97;&#x5728;&#x8C03;&#x7528;obj.key1.key2&#x524D;&#x5224;&#x65AD;obj.key1&#x3002;</li>
+<li>&#x5982;&#x679C;obj&#x4E3A;null&#xFF0C;&#x7684;&#x786E;&#x662F;&#x4E0D;&#x7528;&#x505A;&#x4EC0;&#x4E48;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>&#x5982;&#x679C;obj&#x4E3A;{}&#xFF0C;1&#x91CC;&#x5199;&#x5E26;&#x5224;&#x65AD;&#x4EE3;&#x7801;&#x90FD;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#xFF0C;&#x90A3;&#x80AF;&#x5B9A;&#x4E5F;&#x4E0D;&#x4F1A;&#x6709;&#x95EE;&#x9898;&#x3002;</li>
+</ul>
+<p>&#x6240;&#x4EE5;&#x5982;&#x679C;obj&#x8FD4;&#x56DE;null&#xFF0C;&#x76F8;&#x5BF9;&#x4E0E;&#x8FD4;&#x56DE;{}&#xFF0C;&#x4E0D;&#x662F;&#x5F92;&#x589E;&#x4E86;&#x5224;&#x65AD;&#x7684;&#x4EE3;&#x7801;&#x4E48;&#xFF1F;</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x4E0D;&#x8981; return null;</p>
+<h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
+<ul>
+<li><a href="url" title="&#x5907;&#x6CE8;"></a></li>
+</ul>
+<h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/translation-in-opensource-world.html" rel="next" title="如何进行开源翻译">
+                <i class="fa fa-chevron-left"></i> 如何进行开源翻译
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/thinking-of-SOA.html" rel="prev" title="对 SOA 的一些思考">
+                对 SOA 的一些思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览overview前言intro"><span class="nav-number">1.</span> <span class="nav-text">概览(Overview)/前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">2.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">3.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'the-problem-of-null.html';
+      var disqus_title = "Null Object 与 Null";
+      var disqus_url = 'http://adoyle.me/blog/the-problem-of-null.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

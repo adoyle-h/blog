@@ -1,0 +1,731 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概览(Overview)/前言(Intro) SQL 数据库的 ACID 特性保证了数据的完整（原子）、一致、可用与持久。 当我们使用 SQL 数据库，并且遵循数据库范式来设计规范化的数据结构时，那么数据的完整、一致、可用与持久可交由数据库来维护。应用程序完全可以信任数据库，由此可以在应用程序中减少冗余的判断和处理。 但当我们使用反范式的 SQL 设计，或者使用 NoSQL 数据库时，数据的这几个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据的定义与处理">
+<meta property="og:url" content="http://adoyle.me/blog/the-definition-and-handling-of-data.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="概览(Overview)/前言(Intro) SQL 数据库的 ACID 特性保证了数据的完整（原子）、一致、可用与持久。 当我们使用 SQL 数据库，并且遵循数据库范式来设计规范化的数据结构时，那么数据的完整、一致、可用与持久可交由数据库来维护。应用程序完全可以信任数据库，由此可以在应用程序中减少冗余的判断和处理。 但当我们使用反范式的 SQL 设计，或者使用 NoSQL 数据库时，数据的这几个">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据的定义与处理">
+<meta name="twitter:description" content="概览(Overview)/前言(Intro) SQL 数据库的 ACID 特性保证了数据的完整（原子）、一致、可用与持久。 当我们使用 SQL 数据库，并且遵循数据库范式来设计规范化的数据结构时，那么数据的完整、一致、可用与持久可交由数据库来维护。应用程序完全可以信任数据库，由此可以在应用程序中减少冗余的判断和处理。 但当我们使用反范式的 SQL 设计，或者使用 NoSQL 数据库时，数据的这几个">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/the-definition-and-handling-of-data.html"/>
+
+
+  <title> 数据的定义与处理 | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据的定义与处理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/the-definition-and-handling-of-data.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="the-definition-and-handling-of-data.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x6982;&#x89C8;overview&#x524D;&#x8A00;intro">&#x6982;&#x89C8;(Overview)/&#x524D;&#x8A00;(Intro)</h2>
+<p>SQL &#x6570;&#x636E;&#x5E93;&#x7684; ACID &#x7279;&#x6027;&#x4FDD;&#x8BC1;&#x4E86;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#xFF08;&#x539F;&#x5B50;&#xFF09;&#x3001;&#x4E00;&#x81F4;&#x3001;&#x53EF;&#x7528;&#x4E0E;&#x6301;&#x4E45;&#x3002;</p>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x4F7F;&#x7528; SQL &#x6570;&#x636E;&#x5E93;&#xFF0C;&#x5E76;&#x4E14;&#x9075;&#x5FAA;&#x6570;&#x636E;&#x5E93;&#x8303;&#x5F0F;&#x6765;&#x8BBE;&#x8BA1;&#x89C4;&#x8303;&#x5316;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x65F6;&#xFF0C;&#x90A3;&#x4E48;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x3001;&#x4E00;&#x81F4;&#x3001;&#x53EF;&#x7528;&#x4E0E;&#x6301;&#x4E45;&#x53EF;&#x4EA4;&#x7531;&#x6570;&#x636E;&#x5E93;&#x6765;&#x7EF4;&#x62A4;&#x3002;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x4FE1;&#x4EFB;&#x6570;&#x636E;&#x5E93;&#xFF0C;&#x7531;&#x6B64;&#x53EF;&#x4EE5;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x51CF;&#x5C11;&#x5197;&#x4F59;&#x7684;&#x5224;&#x65AD;&#x548C;&#x5904;&#x7406;&#x3002;</p>
+<p>&#x4F46;&#x5F53;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#x53CD;&#x8303;&#x5F0F;&#x7684; SQL &#x8BBE;&#x8BA1;&#xFF0C;&#x6216;&#x8005;&#x4F7F;&#x7528; NoSQL &#x6570;&#x636E;&#x5E93;&#x65F6;&#xFF0C;&#x6570;&#x636E;&#x7684;&#x8FD9;&#x51E0;&#x4E2A;&#x7279;&#x6027;&#x5C31;&#x4E0D;&#x7531;&#x6570;&#x636E;&#x5E93;&#x6765;&#x7EF4;&#x62A4;&#x4E86;&#xFF0C;&#x56E0;&#x4E3A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x9700;&#x8981;&#x627F;&#x62C5;&#x76F8;&#x5E94;&#x7684;&#x8D23;&#x4EFB;&#xFF0C;&#x9700;&#x8981;&#x5BF9;&#x6570;&#x636E;&#x5B8C;&#x6574;&#x6027;&#x548C;&#x4E00;&#x81F4;&#x6027;&#x6709;&#x66F4;&#x591A;&#x7684;&#x5224;&#x65AD;&#x548C;&#x7EF4;&#x62A4;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x7684;&#x7EF4;&#x62A4;&#x8005; = &#x6570;&#x636E;&#x5E93; + &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;</p>
+<p>&#x7531;&#x6570;&#x636E;&#x5E93;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x7684;&#x53EF;&#x7528;&#x4E0E;&#x6301;&#x4E45;&#xFF0C;&#x800C;&#x7531;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6765;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x548C;&#x4E00;&#x81F4;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5BF9;&#x6570;&#x636E;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x8FDB;&#x884C;&#x5B9A;&#x4E49;&#x3002;<br>
+&#x660E;&#x786E;&#x6570;&#x636E;&#x7684;&#x8FB9;&#x754C;&#xFF0C;&#x5373;&#x6570;&#x636E;&#x5728;&#x54EA;&#x4E00;&#x5C42;&#x4EE5;&#x5185;&#x6765;&#x4FDD;&#x8BC1;&#x6570;&#x636E;&#x81EA;&#x8EAB;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x4E0D;&#x88AB;&#x5916;&#x90E8;&#x7CFB;&#x7EDF;&#x7834;&#x574F;&#x3002;</p>
+<p>&#x6570;&#x636E;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x4E00;&#x822C;&#x662F;&#x8981;&#x5B9E;&#x73B0; CRUD &#x64CD;&#x4F5C;&#xFF0C;&#x518D;&#x9644;&#x52A0;&#x4E0A;&#x5176;&#x4ED6;&#x6839;&#x636E;&#x4E1A;&#x52A1;&#x800C;&#x5B9A;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<a id="more"></a>
+<h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
+<ul>
+<li><a href="url" title="&#x5907;&#x6CE8;"></a></li>
+</ul>
+<h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/the-front-end-web-architecture.html" rel="next" title="前端应用架构">
+                <i class="fa fa-chevron-left"></i> 前端应用架构
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/the-crisis-of-producting-software.html" rel="prev" title="软件的生产危机">
+                软件的生产危机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览overview前言intro"><span class="nav-number">1.</span> <span class="nav-text">概览(Overview)/前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">2.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">3.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'the-definition-and-handling-of-data.html';
+      var disqus_title = "数据的定义与处理";
+      var disqus_url = 'http://adoyle.me/blog/the-definition-and-handling-of-data.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,763 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="代码审核,编码风格," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概览(Overview) 本文主要介绍应对于代码组织，控制代码变化的策略。">
+<meta name="keywords" content="代码审核,编码风格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="书写可审核的代码 &amp; 控制你的版本提交">
+<meta property="og:url" content="http://adoyle.me/blog/writing-reviewable-code.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="概览(Overview) 本文主要介绍应对于代码组织，控制代码变化的策略。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="书写可审核的代码 &amp; 控制你的版本提交">
+<meta name="twitter:description" content="概览(Overview) 本文主要介绍应对于代码组织，控制代码变化的策略。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/writing-reviewable-code.html"/>
+
+
+  <title> 书写可审核的代码 & 控制你的版本提交 | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                书写可审核的代码 & 控制你的版本提交
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/writing-reviewable-code.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="writing-reviewable-code.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/代码审核/" rel="tag">#代码审核</a>
+              
+                <a href="/blog/tags/编码风格/" rel="tag">#编码风格</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x6982;&#x89C8;overview">&#x6982;&#x89C8;(Overview)</h2>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD;&#x5E94;&#x5BF9;&#x4E8E;&#x4EE3;&#x7801;&#x7EC4;&#x7EC7;&#xFF0C;&#x63A7;&#x5236;&#x4EE3;&#x7801;&#x53D8;&#x5316;&#x7684;&#x7B56;&#x7565;&#x3002;</p>
+<a id="more"></a>
+<h2 id="&#x539F;&#x5219;rules">&#x539F;&#x5219;(Rules)</h2>
+<h3 id="&#x6BCF;&#x4E2A;&#x63D0;&#x4EA4;commit&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x5C0F;&#x800C;&#x7B80;&#x5355;">&#x6BCF;&#x4E2A;&#x63D0;&#x4EA4;(commit)&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x5C0F;&#x800C;&#x7B80;&#x5355;&#x3002;</h3>
+<p>&#x8BD5;&#x60F3;&#x4E00;&#x4E0B;&#xFF0C;&#x4E00;&#x4E2A;1000&#x884C;&#x6539;&#x52A8;&#x7684;&#x63D0;&#x4EA4;&#xFF0C;&#x4E0E;5&#x4E2A;200&#x884C;&#x6539;&#x52A8;&#x7684;&#x63D0;&#x4EA4;&#x3002;&#x54EA;&#x4E2A;&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#xFF1F;</p>
+<p>&#x5C0F;&#x800C;&#x7B80;&#x5355;&#x7684;&#x63D0;&#x4EA4;&#xFF0C;&#x8981;&#x597D;&#x8FC7;&#x5E9E;&#x5927;&#x800C;&#x590D;&#x6742;&#x7684;&#x63D0;&#x4EA4;&#x3002;&#x4ED6;&#x4EEC;&#x66F4;&#x6613;&#x4E8E;&#x7406;&#x89E3;&#xFF0C;&#x6D4B;&#x8BD5;&#xFF0C;&#x5BA1;&#x6838;&#x3002;</p>
+<h3 id="&#x6700;&#x5C0F;&#x7684;&#x63D0;&#x4EA4;&#x5E94;&#x8BE5;&#x7B26;&#x5408;&#x5355;&#x4E00;&#x804C;&#x8D23;&#x539F;&#x5219;">&#x6700;&#x5C0F;&#x7684;&#x63D0;&#x4EA4;&#x5E94;&#x8BE5;&#x7B26;&#x5408;&#x5355;&#x4E00;&#x804C;&#x8D23;&#x539F;&#x5219;</h3>
+<p>&#x4E00;&#x4E2A;&#x6700;&#x5C0F;&#x7684;&#x63D0;&#x4EA4;(commit)&#x5E94;&#x8BE5;&#x7B26;&#x5408;&#x5355;&#x4E00;&#x804C;&#x8D23;&#x539F;&#x5219;(Single Responsibility Principle&#xFF0C;SRP)&#x3002;<br>
+&#x5373;&#xFF0C;&#x6BCF;&#x4E2A;&#x63D0;&#x4EA4;&#x5E94;&#x8BE5;&#x53EA;&#x505A;&#x4E00;&#x4EF6;&#x4E8B;&#x3002;&#x5C31;&#x5982;&#x4E00;&#x4E2A;&#x51FD;&#x6570;&#x5E94;&#x8BE5;&#x5C31;&#x53EA;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x529F;&#x80FD;&#x3002;</p>
+<h4 id="&#x6BCF;&#x4E2A;&#x63D0;&#x4EA4;&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x5C0F;&#x4F46;&#x8981;&#x9002;&#x5EA6;">&#x6BCF;&#x4E2A;&#x63D0;&#x4EA4;&#x8981;&#x5C3D;&#x53EF;&#x80FD;&#x5C0F;&#xFF0C;&#x4F46;&#x8981;<strong>&#x9002;&#x5EA6;</strong>&#x3002;</h4>
+<p>&#x63D0;&#x4EA4;&#x5185;&#x5BB9;&#x4E0D;&#x80FD;&#x5C0F;&#x5230;&#x4E27;&#x5931;&#x4E86;&#x5B83;&#x5B8C;&#x6574;&#x7684;&#x610F;&#x4E49;&#x3002;<br>
+&#x63D0;&#x4EA4;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x8981;&#x5B8C;&#x5168;&#x7B26;&#x5408;&#x63D0;&#x4EA4;&#x7684;&#x542B;&#x4E49;&#x3002;&#x6BD4;&#x5982;&#x63D0;&#x4EA4;&#x63CF;&#x8FF0;&#x91CC;&#x5199;&#x7684;&#x662F;&#x5B8C;&#x6210;&#x67D0;&#x4E2A;&#x529F;&#x80FD;&#xFF0C;&#x90A3;&#x4E48;&#x5185;&#x5BB9;&#x91CC;&#x7684;&#x4EE3;&#x7801;&#x6539;&#x52A8;&#x5FC5;&#x987B;&#x662F;&#x80FD;&#x591F;&#x5B9E;&#x73B0;&#x63CF;&#x8FF0;&#x6240;&#x8BF4;&#x7684;&#x3002;</p>
+<h3 id="&#x4E00;&#x5BF9;&#x4E00;">&#x4E00;&#x5BF9;&#x4E00;</h3>
+<p>&#x4E00;&#x4E2A;&#x60F3;&#x6CD5;&#x5BF9;&#x5E94;&#x4E8E;&#x4E00;&#x4E2A;&#x63D0;&#x4EA4;&#x3002;(one idea is one commit)</p>
+<h3 id="&#x62C6;&#x5206;">&#x62C6;&#x5206;</h3>
+<p>&#x628A;&#x4E00;&#x4E2A;&#x5927;&#x7684;&#x63D0;&#x4EA4;&#xFF0C;&#x62C6;&#x5206;&#x6210;&#x8BB8;&#x591A;&#x5C0F;&#x63D0;&#x4EA4;&#x3002;&#x5982;&#x540C;&#x5C06;&#x5927;&#x95EE;&#x9898;&#x62C6;&#x5206;&#x6210;&#x5C0F;&#x95EE;&#x9898;&#xFF0C;&#x6BCF;&#x4E2A;&#x63D0;&#x4EA4;&#x81F4;&#x529B;&#x4E8E;&#x89E3;&#x51B3;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#x3002;</p>
+<h4 id="&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x62C6;&#x5206;">&#x4EC0;&#x4E48;&#x65F6;&#x5019;&#x62C6;&#x5206;&#xFF1F;</h4>
+<h3 id="&#x53CB;&#x597D;&#x7684;&#x63D0;&#x4EA4;&#x4FE1;&#x606F;">&#x53CB;&#x597D;&#x7684;&#x63D0;&#x4EA4;&#x4FE1;&#x606F;</h3>
+<p>&#x4E66;&#x5199;&#x53CB;&#x597D;&#x7684;&#x63D0;&#x4EA4;&#x4FE1;&#x606F;&#x3002;&#x6BD4;&#x5982;&#x63CF;&#x8FF0;&#x8FD9;&#x4E2A;&#x63D0;&#x4EA4;&#x7684;&#x5185;&#x5BB9;&#xFF1B;&#x89E3;&#x51B3;&#x4E86;&#x4EC0;&#x4E48;&#x95EE;&#x9898;&#xFF1B;&#x5B8C;&#x6210;&#x4E86;&#x4EC0;&#x4E48;&#x529F;&#x80FD;&#x7B49;&#x7B49;&#x3002;</p>
+<h2 id="&#x597D;&#x5904;">&#x597D;&#x5904;</h2>
+<h3 id="&#x6709;&#x5229;&#x4E8E;&#x660E;&#x767D;&#x56DE;&#x987E;&#x505A;&#x4E86;&#x4EC0;&#x4E48;">&#x6709;&#x5229;&#x4E8E;&#x660E;&#x767D;/&#x56DE;&#x987E;&#x505A;&#x4E86;&#x4EC0;&#x4E48;</h3>
+<h3 id="&#x6709;&#x5229;&#x4E8E;&#x81EA;&#x52A8;&#x5316;&#x53D1;&#x5E03;release">&#x6709;&#x5229;&#x4E8E;&#x81EA;&#x52A8;&#x5316;&#x53D1;&#x5E03;(Release)</h3>
+<p>Release&#x9636;&#x6BB5;&#xFF0C;&#x901A;&#x5E38;&#x8981;&#x51C6;&#x5907;&#x7248;&#x672C;&#x53F7;&#x7684;&#x66F4;&#x65B0;&#xFF0C;Change Log&#x7684;&#x66F4;&#x65B0;&#xFF0C;&#x8D44;&#x6E90;&#x6587;&#x4EF6;&#x7684;&#x6574;&#x7406;/&#x6253;&#x5305;&#xFF0C;&#x4EE3;&#x7801;&#x7684;&#x7F16;&#x8BD1;&#x6253;&#x5305;&#x3002;<br>
+&#x9664;&#x4E86;<em>Change Log&#x7684;&#x66F4;&#x65B0;</em>&#xFF0C;&#x5176;&#x4ED6;&#x90FD;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x81EA;&#x52A8;&#x5316;&#x5904;&#x7406;&#x3002;&#x82E5;&#x662F;&#x5F00;&#x53D1;&#x56E2;&#x961F;&#x5B8C;&#x5168;&#x9075;&#x5B88;&#x4EE5;&#x4E0A;&#x63D0;&#x51FA;&#x7684;&#x539F;&#x5219;&#xFF0C;&#x5B9E;&#x73B0;&#x81EA;&#x52A8;&#x5316;&#x53D1;&#x5E03;&#x662F;&#x5B8C;&#x5168;&#x53EF;&#x80FD;&#x7684;&#x3002;</p>
+<h3 id="&#x6709;&#x5229;&#x4E8E;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;">&#x6709;&#x5229;&#x4E8E;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;</h3>
+<p>&#x5982;&#x679C;&#x4E00;&#x6B21;&#x4E0A;&#x4F20;(push)&#x592A;&#x591A;&#x529F;&#x80FD;&#xFF0C;&#x5982;&#x679C;&#x5176;&#x4E2D;&#x6709;&#x4E2A;&#x51E0;&#x4E2A;&#x9519;&#x8BEF;&#xFF0C;&#x90A3;&#x4E48;&#x7531;&#x4E8E;&#x6DF7;&#x5165;&#x4E86;&#x5F88;&#x591A;&#x529F;&#x80FD;&#xFF0C;&#x53CD;&#x800C;&#x4E0D;&#x5229;&#x4E8E;&#x6D4B;&#x8BD5;&#x65F6;&#x66B4;&#x9732;&#x51FA;&#x95EE;&#x9898;&#x6240;&#x5728;&#x3002;</p>
+<h2 id="&#x526F;&#x4F5C;&#x7528;side-effects">&#x526F;&#x4F5C;&#x7528;(Side Effects)</h2>
+<ul>
+<li>&#x62C6;&#x5206;&#x5927;&#x63D0;&#x4EA4;&#x6709;&#x65F6;&#x4F1A;&#x4E25;&#x91CD;&#x5F71;&#x54CD;&#x5230;&#x5F00;&#x53D1;&#x901F;&#x5EA6;</li>
+</ul>
+<h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
+<ul>
+<li><a href="https://secure.phabricator.com/book/phabflavor/article/writing_reviewable_code/" target="_blank" rel="noopener">Phabricator Flavor Text - Writing Reviewable Code</a></li>
+<li><a href="https://secure.phabricator.com/book/phabflavor/article/recommendations_on_revision_control/" target="_blank" rel="noopener">Phabricator Flavor Text - Recommendations on Revision Control</a></li>
+</ul>
+<h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/why-always-add-createdAt-and-updatedAt-fields-when-define-table.html" rel="next" title="定义 created_at 与 updated_at 字段">
+                <i class="fa fa-chevron-left"></i> 定义 created_at 与 updated_at 字段
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/why-font-weight-does-not-work.html" rel="prev" title="为何 font-weight 不起作用">
+                为何 font-weight 不起作用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览overview"><span class="nav-number">1.</span> <span class="nav-text">概览(Overview)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原则rules"><span class="nav-number">2.</span> <span class="nav-text">原则(Rules)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#每个提交commit要尽可能小而简单"><span class="nav-number">2.1.</span> <span class="nav-text">每个提交(commit)要尽可能小而简单。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最小的提交应该符合单一职责原则"><span class="nav-number">2.2.</span> <span class="nav-text">最小的提交应该符合单一职责原则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#每个提交要尽可能小但要适度"><span class="nav-number">2.2.1.</span> <span class="nav-text">每个提交要尽可能小，但要适度。</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对一"><span class="nav-number">2.3.</span> <span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拆分"><span class="nav-number">2.4.</span> <span class="nav-text">拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候拆分"><span class="nav-number">2.4.1.</span> <span class="nav-text">什么时候拆分？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#友好的提交信息"><span class="nav-number">2.5.</span> <span class="nav-text">友好的提交信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#好处"><span class="nav-number">3.</span> <span class="nav-text">好处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有利于明白回顾做了什么"><span class="nav-number">3.1.</span> <span class="nav-text">有利于明白/回顾做了什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有利于自动化发布release"><span class="nav-number">3.2.</span> <span class="nav-text">有利于自动化发布(Release)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有利于自动化测试"><span class="nav-number">3.3.</span> <span class="nav-text">有利于自动化测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副作用side-effects"><span class="nav-number">4.</span> <span class="nav-text">副作用(Side Effects)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">5.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">6.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'writing-reviewable-code.html';
+      var disqus_title = "书写可审核的代码 & 控制你的版本提交";
+      var disqus_url = 'http://adoyle.me/blog/writing-reviewable-code.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

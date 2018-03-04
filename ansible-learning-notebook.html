@@ -1,0 +1,762 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ansible," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言(Intro) 基本概念什么的 google 能找到一大把资料，这里就不重复了。仅记录使用 ansible 过程中需要注意的地方。">
+<meta name="keywords" content="ansible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ansible 学习笔记">
+<meta property="og:url" content="http://adoyle.me/blog/ansible-learning-notebook.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="前言(Intro) 基本概念什么的 google 能找到一大把资料，这里就不重复了。仅记录使用 ansible 过程中需要注意的地方。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ansible 学习笔记">
+<meta name="twitter:description" content="前言(Intro) 基本概念什么的 google 能找到一大把资料，这里就不重复了。仅记录使用 ansible 过程中需要注意的地方。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/ansible-learning-notebook.html"/>
+
+
+  <title> Ansible 学习笔记 | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Ansible 学习笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/ops/" itemprop="url" rel="index">
+                    <span itemprop="name">运维</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/ansible-learning-notebook.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="ansible-learning-notebook.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/ansible/" rel="tag">#ansible</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x524D;&#x8A00;intro">&#x524D;&#x8A00;(Intro)</h2>
+<p>&#x57FA;&#x672C;&#x6982;&#x5FF5;&#x4EC0;&#x4E48;&#x7684; google &#x80FD;&#x627E;&#x5230;&#x4E00;&#x5927;&#x628A;&#x8D44;&#x6599;&#xFF0C;&#x8FD9;&#x91CC;&#x5C31;&#x4E0D;&#x91CD;&#x590D;&#x4E86;&#x3002;&#x4EC5;&#x8BB0;&#x5F55;&#x4F7F;&#x7528; ansible &#x8FC7;&#x7A0B;&#x4E2D;&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;&#x3002;</p>
+<a id="more"></a>
+<h2 id="&#x4EFB;&#x52A1;&#x4E0E;&#x6A21;&#x5757;">&#x4EFB;&#x52A1;&#x4E0E;&#x6A21;&#x5757;</h2>
+<h3 id="task-&#x4E0E;-handler">task &#x4E0E; handler</h3>
+<h2 id="&#x89D2;&#x8272;">&#x89D2;&#x8272;</h2>
+<h2 id="&#x914D;&#x7F6E;&#x53D8;&#x91CF;">&#x914D;&#x7F6E;&#x53D8;&#x91CF;</h2>
+<h3 id="&#x8C03;&#x8BD5;debug">&#x8C03;&#x8BD5;(debug)</h3>
+<p>&#x5728;&#x4EFB;&#x52A1;&#x4E2D;&#x4F7F;&#x7528;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vars/main.yml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">instances:</span></span><br><span class="line"><span class="attr">  node:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  node2:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># tasks/main.yml</span></span><br><span class="line"></span><br><span class="line"><span class="meta">## &#x4F7F;&#x7528; var &#x5173;&#x952E;&#x5B57;</span></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;var&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>: var=instances   <span class="meta"># &#x6CE8;&#x610F;&#x4E0D;&#x8981;&#x4F7F;&#x7528; var={{ instances }} &#x8FD9;&#x6837;&#x7684;&#x5199;&#x6CD5;</span></span><br><span class="line"></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;var&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>: var=instances[&apos;node&apos;]   <span class="meta"># &#x6CE8;&#x610F;&#x4E0D;&#x8981;&#x4E00;&#x5B9A;&#x8981;&#x7528;&#x5F15;&#x53F7;&#x62EC;&#x8D77;&#x6765;</span></span><br><span class="line"></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;var&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>: var=instances.node</span><br><span class="line"></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;var&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>:</span><br><span class="line">    var=instances.node  <span class="meta"># &#x8C8C;&#x4F3C;&#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x5199;&#x4E5F;&#x884C;&#xFF0C;&#x4E0D;&#x61C2;&#x4E3A;&#x4EC0;&#x4E48;</span></span><br><span class="line"></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;var&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>:</span><br><span class="line">    var: instances.node  <span class="meta"># &#x4E5F;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x5199;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">## &#x4F7F;&#x7528; msg &#x5173;&#x952E;&#x5B57;</span></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;msg&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>: msg=<span class="string">&quot;instances={{ instances }}&quot;</span>   <span class="meta"># &#x8FD9;&#x91CC;&#x5C31;&#x9700;&#x8981;&#x5927;&#x62EC;&#x53F7;&#x4E86;</span></span><br><span class="line"></span><br><span class="line">- name: <span class="keyword">debug</span> via <span class="string">&quot;msg&quot;</span></span><br><span class="line">  <span class="keyword">debug</span>: msg=<span class="string">&quot;instances.node={{ instances.node }}, instances.node2={{ instances.node2 }}&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x53D8;&#x91CF;">&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x53D8;&#x91CF;</h3>
+<h3 id="&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x53C2;&#x6570;">&#x4F7F;&#x7528;&#x72B6;&#x6001;&#x53C2;&#x6570;</h3>
+<h3 id="&#x5E73;&#x94FA;&#x53D8;&#x91CF;&#x4E0D;&#x8981;&#x4F7F;&#x7528;&#x547D;&#x540D;&#x7A7A;&#x95F4;">&#x5E73;&#x94FA;&#x53D8;&#x91CF;&#xFF0C;&#x4E0D;&#x8981;&#x4F7F;&#x7528;&#x547D;&#x540D;&#x7A7A;&#x95F4;</h3>
+<p>&#x5982;&#x679C;&#x4F60;&#x4E0D;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x9ED8;&#x8BA4;&#x53D8;&#x91CF;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x5FC5;&#x9075;&#x5B88;&#x8FD9;&#x6761;&#x3002;<br>
+&#x56E0;&#x4E3A; ansible &#x7684;&#x53D8;&#x91CF;&#x4E0D;&#x652F;&#x6301;&#x5D4C;&#x5957;&#x8986;&#x76D6;&#xFF0C;&#x6BD4;&#x5982;&#x5982;&#x4E0B;&#x793A;&#x4F8B;&#xFF1A;</p>
+<p>&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x7684;&#x5199;&#x6CD5;&#xFF1A;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># roles/ruby/defaults/main.yml</span></span><br><span class="line"><span class="attr">ruby:</span></span><br><span class="line"><span class="attr">  version:</span> <span class="number">2.1</span></span><br><span class="line"><span class="attr">  experimental:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># vars.yml</span></span><br><span class="line"><span class="attr">ruby:</span></span><br><span class="line"><span class="attr">  version:</span> <span class="number">2.1</span></span><br><span class="line"><span class="attr">  experimental:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>&#x6CE8;&#x610F; <code>vars.yml</code> &#x4E2D;&#x7684; <code>version: 2.1</code> &#x4E0D;&#x80FD;&#x7701;&#x7565;&#xFF0C;&#x5426;&#x5219;&#x6700;&#x7EC8;&#x751F;&#x6210;&#x7684;&#x53D8;&#x91CF; <code>ruby</code> &#x91CC;&#x53EA;&#x6709; <code>experimental=true</code> &#x8FD9;&#x4E00;&#x5BF9;&#x952E;&#x503C;&#x3002;<br>
+&#x6240;&#x4EE5;&#x5EFA;&#x8BAE;&#x7528;&#x4EE5;&#x4E0B;&#x5199;&#x6CD5;&#xFF0C;&#x547D;&#x540D;&#x7A7A;&#x95F4; <code>ruby</code> &#x4EE5; <code>ruby_</code> &#x524D;&#x7F00;&#x7684;&#x65B9;&#x5F0F;&#x52A0;&#x5230;&#x6BCF;&#x4E2A;&#x53D8;&#x91CF;&#x4E0A;&#xFF0C;&#x7528;&#x6765;&#x5E73;&#x94FA;&#x53D8;&#x91CF;&#x3002;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># roles/ruby/defaults/main.yml</span></span><br><span class="line"><span class="attr">ruby_version:</span> <span class="number">2.1</span></span><br><span class="line"><span class="attr">ruby_experimental:</span> <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># vars.yml</span></span><br><span class="line"><span class="attr">ruby_experimental:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6837;&#x5F53;&#x4F60;&#x5728;&#x6A21;&#x677F;&#x4E2D;&#x4F7F;&#x7528; <code>ruby_version</code>&#xFF0C;&#x5176;&#x5B9E;&#x7528;&#x7684;&#x662F; <code>roles/ruby/defaults/main.yml</code> &#x91CC;&#x7684;&#xFF1B;&#x4F7F;&#x7528; <code>ruby_experimental</code> &#x65F6;&#x5019;&#xFF0C;&#x7528;&#x7684;&#x662F; <code>vars.yml</code> &#x4E2D;&#x7684; <code>ruby_experimental: true</code>&#x3002;</p>
+<blockquote>
+<p>&#x4EE5;&#x4E0A;&#x4F8B;&#x5B50;&#x51FA;&#x81EA; <a href="https://www.reinteractive.net/posts/167-ansible-real-life-good-practices" title="&#x5907;&#x6CE8;" target="_blank" rel="noopener">reinteractive - Ansible (Real Life) Good Practices - Prefer scalar variables</a></p>
+</blockquote>
+<h3 id="&#x4F7F;&#x7528;&#x6807;&#x8BB0;tag">&#x4F7F;&#x7528;&#x6807;&#x8BB0;(Tag)</h3>
+<h2 id="&#x5B89;&#x5168;&#x52A0;&#x5BC6;vault">&#x5B89;&#x5168;&#x52A0;&#x5BC6;(Vault)</h2>
+<h3 id="&#x72EC;&#x7ACB;&#x653E;&#x7F6E;&#x9700;&#x8981;&#x52A0;&#x5BC6;&#x7684;&#x654F;&#x611F;&#x6570;&#x636E;">&#x72EC;&#x7ACB;&#x653E;&#x7F6E;&#x9700;&#x8981;&#x52A0;&#x5BC6;&#x7684;&#x654F;&#x611F;&#x6570;&#x636E;</h3>
+<p><code>ansible-vault</code> &#x80FD;&#x591F;&#x9488;&#x5BF9;&#x5355;&#x4E2A;&#x6587;&#x4EF6;&#x6216;&#x8005;&#x76EE;&#x5F55;&#x8FDB;&#x884C;&#x52A0;&#x5BC6;&#x3002;</p>
+<p>&#x4E0D;&#x8981;&#x628A;&#x6240;&#x6709;&#x53D8;&#x91CF;&#x4E00;&#x5757;&#x52A0;&#x5BC6;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x8BA9;&#x64CD;&#x4F5C;&#x53D8;&#x5F97;&#x9EBB;&#x70E6;&#xFF0C;&#x800C;&#x4E14;&#x591A;&#x4EBA;&#x534F;&#x4F5C;&#x65F6;&#xFF0C;&#x4F9D;&#x7136;&#x4E0D;&#x5B89;&#x5168;&#x3002;</p>
+<h2 id="&#x5DE5;&#x5177;">&#x5DE5;&#x5177;</h2>
+<h3 id="&#x5229;&#x7528;-git-hook">&#x5229;&#x7528; Git Hook</h3>
+<h3 id="&#x5982;&#x4F55;&#x67E5;&#x770B;&#x6BD4;&#x8F83;&#x7F16;&#x8F91;&#x88AB;&#x52A0;&#x5BC6;&#x7684;&#x6570;&#x636E;">&#x5982;&#x4F55;&#x67E5;&#x770B;/&#x6BD4;&#x8F83;/&#x7F16;&#x8F91;&#x88AB;&#x52A0;&#x5BC6;&#x7684;&#x6570;&#x636E;</h3>
+<h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
+<ul>
+<li><a href="https://www.reinteractive.net/posts/167-ansible-real-life-good-practices" title="&#x5907;&#x6CE8;" target="_blank" rel="noopener">reinteractive - Ansible (Real Life) Good Practices</a></li>
+</ul>
+<h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/bignumber-problem-in-javascript.html" rel="next" title="JS 中的大数问题">
+                <i class="fa fa-chevron-left"></i> JS 中的大数问题
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/all-about-weekly-report.html" rel="prev" title="关于周报">
+                关于周报 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言intro"><span class="nav-number">1.</span> <span class="nav-text">前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务与模块"><span class="nav-number">2.</span> <span class="nav-text">任务与模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#task-与-handler"><span class="nav-number">2.1.</span> <span class="nav-text">task 与 handler</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角色"><span class="nav-number">3.</span> <span class="nav-text">角色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置变量"><span class="nav-number">4.</span> <span class="nav-text">配置变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调试debug"><span class="nav-number">4.1.</span> <span class="nav-text">调试(debug)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置默认变量"><span class="nav-number">4.2.</span> <span class="nav-text">设置默认变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用状态参数"><span class="nav-number">4.3.</span> <span class="nav-text">使用状态参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平铺变量不要使用命名空间"><span class="nav-number">4.4.</span> <span class="nav-text">平铺变量，不要使用命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用标记tag"><span class="nav-number">4.5.</span> <span class="nav-text">使用标记(Tag)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安全加密vault"><span class="nav-number">5.</span> <span class="nav-text">安全加密(Vault)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#独立放置需要加密的敏感数据"><span class="nav-number">5.1.</span> <span class="nav-text">独立放置需要加密的敏感数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具"><span class="nav-number">6.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用-git-hook"><span class="nav-number">6.1.</span> <span class="nav-text">利用 Git Hook</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何查看比较编辑被加密的数据"><span class="nav-number">6.2.</span> <span class="nav-text">如何查看/比较/编辑被加密的数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">7.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">8.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'ansible-learning-notebook.html';
+      var disqus_title = "Ansible 学习笔记";
+      var disqus_url = 'http://adoyle.me/blog/ansible-learning-notebook.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

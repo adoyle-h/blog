@@ -1,0 +1,918 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="BDD,测试,NodeJS," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概览(Overview)/前言(Intro)">
+<meta name="keywords" content="BDD,测试,NodeJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BDD In NodeJS">
+<meta property="og:url" content="http://adoyle.me/blog/BDD-in-nodejs.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="概览(Overview)/前言(Intro)">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BDD In NodeJS">
+<meta name="twitter:description" content="概览(Overview)/前言(Intro)">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/BDD-in-nodejs.html"/>
+
+
+  <title> BDD In NodeJS | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                BDD In NodeJS
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/BDD-in-nodejs.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="BDD-in-nodejs.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/BDD/" rel="tag">#BDD</a>
+              
+                <a href="/blog/tags/测试/" rel="tag">#测试</a>
+              
+                <a href="/blog/tags/NodeJS/" rel="tag">#NodeJS</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x6982;&#x89C8;overview&#x524D;&#x8A00;intro">&#x6982;&#x89C8;(Overview)/&#x524D;&#x8A00;(Intro)</h2>
+<a id="more"></a>
+<h2 id="bdd">BDD</h2>
+<p>BDD&#x662F;TDD&#x7684;&#x8D85;&#x96C6;&#x3002;&#x5373;BDD&#x5305;&#x542B;&#x4E86;TDD&#x6240;&#x6709;&#x7684;&#x4E1C;&#x897F;&#x3002;</p>
+<p>&#x662F;&#x4E00;&#x79CD;&#x654F;&#x6377;&#x8F6F;&#x4EF6;&#x5F00;&#x53D1;&#x7684;&#x6280;&#x672F;&#x3002;&#x5B83;&#x9F13;&#x52B1;&#x8F6F;&#x4EF6;&#x9879;&#x76EE;&#x4E2D;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x3001;QA&#x548C;&#x975E;&#x6280;&#x672F;&#x4EBA;&#x5458;&#x6216;&#x5546;&#x4E1A;&#x53C2;&#x4E0E;&#x8005;&#x4E4B;&#x95F4;&#x7684;&#x534F;&#x4F5C;&#x3002;</p>
+<h3 id="&#x4F18;&#x70B9;">&#x4F18;&#x70B9;</h3>
+<ul>
+<li>&#x62E5;&#x6709;TDD&#x7684;&#x6240;&#x6709;&#x4F18;&#x70B9;</li>
+<li>&#x7B80;&#x5355;&#x76F4;&#x89C2;&#x3002;&#x975E;&#x6280;&#x672F;&#x4EBA;&#x5458;&#x4E5F;&#x80FD;&#x591F;&#x7F16;&#x5199;&#x6D4B;&#x8BD5;&#xFF0C;&#x4EFB;&#x4F55;&#x4EBA;&#x90FD;&#x80FD;&#x770B;&#x61C2;&#x6D4B;&#x8BD5;&#x6848;&#x4F8B;&#x3002;</li>
+<li>&#x5173;&#x6CE8;&#x7528;&#x6237;&#x884C;&#x4E3A;&#x6216;&#x6545;&#x4E8B;(story)&#xFF0C;&#x5BF9;&#x529F;&#x80FD;&#x70B9;&#x6D4B;&#x8BD5;&#x5B8C;&#x5907;</li>
+<li>&#x7531;&#x5916;&#x800C;&#x5185;&#x6784;&#x5EFA;&#x6D4B;&#x8BD5;&#xFF0C;&#x7531;&#x6587;&#x6863;&#x5230;&#x4EE3;&#x7801;</li>
+</ul>
+<h2 id="mocha">Mocha</h2>
+<p>&#x6D4B;&#x8BD5;&#x6846;&#x67B6;</p>
+<h3 id="&#x4F18;&#x70B9;">&#x4F18;&#x70B9;</h3>
+<ul>
+<li>&#x652F;&#x6301;TDD/BDD</li>
+<li>&#x652F;&#x6301;&#x524D;&#x7AEF;/&#x540E;&#x7AEF;</li>
+<li>&#x5B66;&#x4E60;&#x6210;&#x672C;&#x5F88;&#x4F4E;</li>
+<li>&#x7B80;&#x6D01;&#xFF0C;&#x7075;&#x6D3B;&#xFF0C;&#x81EA;&#x7531;&#x5EA6;&#x9AD8;</li>
+</ul>
+<h3 id="install">Install</h3>
+<p><code>npm install -g mocha</code></p>
+<h3 id="&#x6784;&#x4EF6;">&#x6784;&#x4EF6;</h3>
+<ul>
+<li>
+<p>describe</p>
+</li>
+<li>
+<p>it</p>
+</li>
+<li>
+<p>anonymous function</p>
+</li>
+<li>
+<p>before</p>
+</li>
+<li>
+<p>after</p>
+</li>
+<li>
+<p>beforeEach</p>
+</li>
+<li>
+<p>afterEach</p>
+</li>
+<li>
+<p>only</p>
+</li>
+<li>
+<p>skip</p>
+</li>
+</ul>
+<h3 id="&#x540C;&#x6B65;">&#x540C;&#x6B65;</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> assert = <span class="built_in">require</span>(<span class="string">&apos;chai&apos;</span>).assert;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">&apos;Array&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">  describe(<span class="string">&apos;#indexOf()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">    it(<span class="string">&apos;should return -1 when the value is not present&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">      assert.equal(<span class="number">-1</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">5</span>));</span><br><span class="line">    });</span><br><span class="line"></span><br><span class="line">    it(<span class="string">&apos;2&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">      assert.equal(<span class="number">-1</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">0</span>));</span><br><span class="line">    });</span><br><span class="line"></span><br><span class="line">    it(<span class="string">&apos;3&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{</span><br><span class="line">      assert.equal(<span class="number">1</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].indexOf(<span class="number">2</span>));</span><br><span class="line">    });</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h3 id="&#x5F02;&#x6B65;">&#x5F02;&#x6B65;</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;User&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  describe(<span class="string">&apos;#save()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    it(<span class="string">&apos;should save without error&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">done</span>)</span>{</span><br><span class="line">      <span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">&apos;Luna&apos;</span>);</span><br><span class="line">      user.save(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>{</span><br><span class="line">        <span class="keyword">if</span> (err) done(err);</span><br><span class="line">        done();</span><br><span class="line">      });</span><br><span class="line">    })</span><br><span class="line">  })</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h3 id="&#x672A;&#x5B9A;&#x7684;&#x6D4B;&#x8BD5;">&#x672A;&#x5B9A;&#x7684;&#x6D4B;&#x8BD5;</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;Array&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  describe(<span class="string">&apos;#indexOf()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    it(<span class="string">&apos;should return -1 when the value is not present&apos;</span>);</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<h3 id="before">before</h3>
+<p>after&#x7684;&#x4F7F;&#x7528;&#x4E0E;before&#x540C;&#x7406;&#x3002;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;Array&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  before(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  });</span><br><span class="line"></span><br><span class="line">  describe(<span class="string">&apos;#indexOf()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    it(<span class="string">&apos;should return -1 when not present&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">      [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].indexOf(<span class="number">4</span>).should.equal(<span class="number">-1</span>);</span><br><span class="line">    });</span><br><span class="line">  });</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<p>&#x540C;&#x4E00;&#x4E2A;describe&#x4E0B;&#x53EF;&#x4EE5;&#x6709;&#x591A;&#x4E2A;before&#xFF0C;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x4E0E;&#x4EE3;&#x7801;&#x987A;&#x5E8F;&#x76F8;&#x540C;&#x3002;<br>
+&#x540C;&#x4E00;&#x4E2A;describe&#x4E0B;&#x7684;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x4E3A;before, beforeEach, afterEach, after&#x3002;<br>
+&#x5F53;&#x4E00;&#x4E2A;it&#x6709;&#x591A;&#x4E2A;before&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6267;&#x884C;&#x987A;&#x5E8F;&#x4ECE;&#x6700;&#x5916;&#x56F4;&#x7684;describe&#x7684;before&#x5F00;&#x59CB;&#xFF0C;&#x5176;&#x4F59;&#x540C;&#x7406;&#x3002;</p>
+<h3 id="beforeeach">beforeEach</h3>
+<p>beforeEach&#x53EA;&#x5BF9;&#x5F53;&#x524D;describe&#x4E0B;&#x7684;&#x6240;&#x6709;&#x5B50;&#x5B59;it&#x751F;&#x6548;&#x3002;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;Connection&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  <span class="keyword">var</span> db = <span class="keyword">new</span> Connection</span><br><span class="line">    , tobi = <span class="keyword">new</span> User(<span class="string">&apos;tobi&apos;</span>)</span><br><span class="line">    , loki = <span class="keyword">new</span> User(<span class="string">&apos;loki&apos;</span>)</span><br><span class="line">    , jane = <span class="keyword">new</span> User(<span class="string">&apos;jane&apos;</span>);</span><br><span class="line"></span><br><span class="line">  beforeEach(<span class="function"><span class="keyword">function</span>(<span class="params">done</span>)</span>{</span><br><span class="line">    db.clear(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>{</span><br><span class="line">      <span class="keyword">if</span> (err) <span class="keyword">return</span> done(err);</span><br><span class="line">      db.save([tobi, loki, jane], done);</span><br><span class="line">    });</span><br><span class="line">  })</span><br><span class="line"></span><br><span class="line">  describe(<span class="string">&apos;#find()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    it(<span class="string">&apos;respond with matching records&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">done</span>)</span>{</span><br><span class="line">      db.find({ <span class="attr">type</span>: <span class="string">&apos;User&apos;</span> }, <span class="function"><span class="keyword">function</span>(<span class="params">err, res</span>)</span>{</span><br><span class="line">        <span class="keyword">if</span> (err) <span class="keyword">return</span> done(err);</span><br><span class="line">        res.should.have.length(<span class="number">3</span>);</span><br><span class="line">        done();</span><br><span class="line">      })</span><br><span class="line">    })</span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></table></figure>
+<h3 id="only">only</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;Array&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  describe.only(<span class="string">&apos;#indexOf()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></table></figure>
+<h3 id="skip">skip</h3>
+<p>skip describe</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;Array&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  describe.skip(<span class="string">&apos;#indexOf()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    ...</span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></table></figure>
+<p>&#x6216;&#x8005;&#xFF0C;skip &#x5B50;&#x7528;&#x4F8B;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">describe(<span class="string">&apos;Array&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">  describe(<span class="string">&apos;#indexOf()&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line">    it.skip(<span class="string">&apos;should return -1 unless present&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">    })</span><br><span class="line"></span><br><span class="line">    it(<span class="string">&apos;should return the index when present&apos;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>{</span><br><span class="line"></span><br><span class="line">    })</span><br><span class="line">  })</span><br><span class="line">})</span><br></pre></td></tr></table></figure>
+<h2 id="chai">Chai</h2>
+<p>&#x65AD;&#x8A00;&#x5E93;</p>
+<h3 id="&#x4F18;&#x70B9;">&#x4F18;&#x70B9;</h3>
+<ul>
+<li>&#x652F;&#x6301;Assert&#x3001;Expect&#x3001;Should</li>
+<li>&#x6709;&#x5404;&#x79CD;&#x63D2;&#x4EF6;&#x589E;&#x5F3A;&#x529F;&#x80FD;</li>
+</ul>
+<h3 id="install">Install</h3>
+<p>&#x540E;&#x7AEF;<br>
+<code>npm install --save-dev chai</code></p>
+<p>&#x524D;&#x7AEF;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;chai.js&quot;</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="assert">Assert</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> assert = <span class="built_in">require</span>(<span class="string">&apos;chai&apos;</span>).assert</span><br><span class="line">  , foo = <span class="string">&apos;bar&apos;</span></span><br><span class="line">  , beverages = { <span class="attr">tea</span>: [ <span class="string">&apos;chai&apos;</span>, <span class="string">&apos;matcha&apos;</span>, <span class="string">&apos;oolong&apos;</span> ] };</span><br><span class="line"></span><br><span class="line">assert.typeOf(foo, <span class="string">&apos;string&apos;</span>, <span class="string">&apos;foo is a string&apos;</span>);</span><br><span class="line">assert.equal(foo, <span class="string">&apos;bar&apos;</span>, <span class="string">&apos;foo equal `bar`&apos;</span>);</span><br><span class="line">assert.lengthOf(foo, <span class="number">3</span>, <span class="string">&apos;foo`s value has a length of 3&apos;</span>);</span><br><span class="line">assert.lengthOf(beverages.tea, <span class="number">3</span>, <span class="string">&apos;beverages has 3 types of tea&apos;</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="expect">Expect</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> expect = <span class="built_in">require</span>(<span class="string">&apos;chai&apos;</span>).expect</span><br><span class="line">  , foo = <span class="string">&apos;bar&apos;</span></span><br><span class="line">  , beverages = { <span class="attr">tea</span>: [ <span class="string">&apos;chai&apos;</span>, <span class="string">&apos;matcha&apos;</span>, <span class="string">&apos;oolong&apos;</span> ] };</span><br><span class="line"></span><br><span class="line">expect(foo).to.be.a(<span class="string">&apos;string&apos;</span>);</span><br><span class="line">expect(foo).to.equal(<span class="string">&apos;bar&apos;</span>);</span><br><span class="line">expect(foo).to.have.length(<span class="number">3</span>);</span><br><span class="line">expect(beverages).to.have.property(<span class="string">&apos;tea&apos;</span>).with.length(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> answer = <span class="number">43</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// AssertionError: expected 43 to equal 42.</span></span><br><span class="line">expect(answer).to.equal(<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// AssertionError: topic [answer]: expected 43 to equal 42.</span></span><br><span class="line">expect(answer, <span class="string">&apos;topic [answer]&apos;</span>).to.equal(<span class="number">42</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="should">Should</h3>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> should = <span class="built_in">require</span>(<span class="string">&apos;chai&apos;</span>).should() <span class="comment">//actually call the the function</span></span><br><span class="line">  , foo = <span class="string">&apos;bar&apos;</span></span><br><span class="line">  , beverages = { <span class="attr">tea</span>: [ <span class="string">&apos;chai&apos;</span>, <span class="string">&apos;matcha&apos;</span>, <span class="string">&apos;oolong&apos;</span> ] };</span><br><span class="line"></span><br><span class="line">foo.should.be.a(<span class="string">&apos;string&apos;</span>);</span><br><span class="line">foo.should.equal(<span class="string">&apos;bar&apos;</span>);</span><br><span class="line">foo.should.have.length(<span class="number">3</span>);</span><br><span class="line">beverages.should.have.property(<span class="string">&apos;tea&apos;</span>).with.length(<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="&#x5176;&#x4ED6;&#x7528;&#x6CD5;">&#x5176;&#x4ED6;&#x7528;&#x6CD5;</h4>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> should = <span class="built_in">require</span>(<span class="string">&apos;chai&apos;</span>).should();</span><br><span class="line">db.get(<span class="number">1234</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err, doc</span>) </span>{</span><br><span class="line">  should.not.exist(err);</span><br><span class="line">  should.exist(doc);</span><br><span class="line">  doc.should.be.an(<span class="string">&apos;object&apos;</span>);</span><br><span class="line">});</span><br></pre></td></tr></table></figure>
+<ul>
+<li>should.exist</li>
+<li>should.not.exist</li>
+<li>should.equal</li>
+<li>should.not.equal</li>
+<li>should.Throw</li>
+<li>should.not.Throw</li>
+</ul>
+<h3 id="plugin"><a href="http://chaijs.com/plugins" target="_blank" rel="noopener">Plugin</a></h3>
+<ul>
+<li>HTTP</li>
+<li>Promise</li>
+<li>SPY</li>
+<li>JQuery</li>
+</ul>
+<h2 id="&#x524D;&#x7AEF;&#x6D4B;&#x8BD5;">&#x524D;&#x7AEF;&#x6D4B;&#x8BD5;</h2>
+<h3 id="mocha-in-browser">Mocha in Browser</h3>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Mocha Tests<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;mocha.css&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;mocha&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;jquery.js&quot;</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;chai.js&quot;</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;mocha.js&quot;</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="actionscript">    mocha.setup(<span class="string">&apos;bdd&apos;</span>)</span></span><br><span class="line"><span class="actionscript">    mocha.reporter(<span class="string">&apos;spec&apos;</span>);</span></span><br><span class="line"><span class="undefined">    should = chai.should();</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;test.js&quot;</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    mocha.checkLeaks();</span></span><br><span class="line"><span class="actionscript">    mocha.globals([<span class="string">&apos;jQuery&apos;</span>]);</span></span><br><span class="line"><span class="undefined">    mocha.run();</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="&#x5DE5;&#x5177;">&#x5DE5;&#x5177;</h3>
+<h4 id="sinonjs"><a href="https://github.com/cjohansen/Sinon.JS" target="_blank" rel="noopener">Sinon.js</a></h4>
+<p>spies&#x3001;stubs&#x3001;mocks&#x5DE5;&#x5177;&#x3002;</p>
+<p>&#x7279;&#x6027;&#xFF1A;</p>
+<ul>
+<li>fake &#x8BA1;&#x65F6;&#x5668;</li>
+<li>fake ajax</li>
+<li>fake &#x670D;&#x52A1;&#x5668;</li>
+<li>&#x6C99;&#x76D2;&#x6A21;&#x5F0F;</li>
+<li>&#x65AD;&#x8A00;&#x5E93;</li>
+</ul>
+<h4 id="rewire"><a href="https://github.com/jhnns/rewire" target="_blank" rel="noopener">rewire</a></h4>
+<p>&#x5BF9;node&#x6A21;&#x5757;&#x7684;&#x79C1;&#x6709;&#x6210;&#x5458;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x3002;</p>
+<p>rewire&#x4F7F;&#x7528;&#x548C;node&#x7684;<code>require</code>&#x975E;&#x5E38;&#x76F8;&#x4F3C;&#x3002;</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myModule = rewire(<span class="string">&quot;path/to/your/test/module&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>&#x5B9E;&#x9645;&#x4E0A;myModule&#x4F1A;&#x591A;&#x51FA;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;<code>__set__</code>&#x548C;<code>__get__</code></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">myModule</span><span class="selector-class">.__set__</span>(<span class="string">&quot;path&quot;</span>, <span class="string">&quot;/dev/null&quot;</span>);</span><br><span class="line"><span class="selector-tag">myModule</span><span class="selector-class">.__get__</span>(<span class="string">&quot;path&quot;</span>); <span class="comment">// = &apos;/dev/null&apos;</span></span><br></pre></td></tr></table></figure>
+<p>&#x5982;&#x6B64;&#x5C31;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6CE8;&#x5165;stub&#xFF0C;&#x6216;&#x8005;&#x5BF9;&#x79C1;&#x6709;&#x6210;&#x5458;&#x8FDB;&#x884C;&#x6D4B;&#x8BD5;&#x4E86;&#x3002;</p>
+<p>rewire&#x4E0D;&#x76F4;&#x63A5;&#x8BFB;&#x53D6;&#x4EE3;&#x7801;&#x6765;&#x52A0;&#x8F7D;&#x51FD;&#x6570;&#xFF0C;&#x800C;&#x662F;&#x4F7F;&#x7528;nodejs&#x81EA;&#x8EAB;&#x7684;require&#x53BB;&#x52A0;&#x8F7D;&#x6A21;&#x5757;&#x3002;<br>
+&#x4F7F;&#x7528;&#x7684;&#x662F;node&#x6A21;&#x5757;&#x7F13;&#x5B58;&#x4E2D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x56E0;&#x6B64;&#x4E0E;&#x6D4B;&#x8BD5;&#x73AF;&#x5883;&#x4E0E;&#x771F;&#x5B9E;&#x73AF;&#x5883;&#x662F;&#x4E00;&#x81F4;&#x7684;&#x3002;</p>
+<p>&#x5BA2;&#x6237;&#x7AEF;JS&#x6D4B;&#x8BD5;&#x53EF;&#x4EE5;&#x4E5F;&#x4F7F;&#x7528;&#xFF0C;&#x53C2;&#x89C1;<a href="https://github.com/jhnns/rewire#client-side-bundlers" target="_blank" rel="noopener">&#x8FD9;&#x91CC;</a></p>
+<h4 id="gremlinsjs"><a href="https://github.com/marmelab/gremlins.js" target="_blank" rel="noopener">gremlins.js</a></h4>
+<ul>
+<li>&#x6A21;&#x62DF;&#x7528;&#x6237;&#x968F;&#x673A;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x505A;fuzzing&#x6D4B;&#x8BD5;</li>
+<li>&#x6A21;&#x62DF;&#x70B9;&#x51FB;&#x3001;&#x62D6;&#x52A8;&#x3001;&#x6EDA;&#x5C4F;</li>
+<li>&#x81EA;&#x5B9A;&#x4E49;&#x6D4B;&#x8BD5;&#x6D41;&#x7A0B;</li>
+<li>&#x589E;&#x5F3A;&#x63D2;&#x4EF6;</li>
+<li>&#x76D1;&#x63A7;&#x3001;&#x5206;&#x6790;</li>
+</ul>
+<h4 id="superagent"><a href="https://github.com/visionmedia/superagent" target="_blank" rel="noopener">superagent</a></h4>
+<p>&#x6A21;&#x62DF;HTTP&#x8BF7;&#x6C42;</p>
+<h4 id="supertest"><a href="https://github.com/visionmedia/supertest" target="_blank" rel="noopener">supertest</a></h4>
+<p>HTTP&#x65AD;&#x8A00;&#x5E93;&#xFF0C;&#x7528;&#x4E8E;&#x6D4B;&#x8BD5;HTTP&#x670D;&#x52A1;&#x5668;</p>
+<ul>
+<li>&#x652F;&#x6301;Express</li>
+</ul>
+<h4 id="zombiejs"><a href="https://github.com/assaf/zombie" target="_blank" rel="noopener">Zombie.js</a></h4>
+<ul>
+<li>&#x5BA2;&#x6237;&#x7AEF;&#x6D4B;&#x8BD5;&#x6A21;&#x62DF;&#x73AF;&#x5883;&#xFF0C;&#x5E76;&#x4E14;&#x53EF;&#x7528;&#x4E8E;&#x5728;headless&#x6D4F;&#x89C8;&#x5668;&#x6D4B;&#x8BD5;</li>
+</ul>
+<h4 id="phantomjs"><a href="https://github.com/ariya/phantomjs#" target="_blank" rel="noopener">PhantomJS</a></h4>
+<ul>
+<li>Webkit&#x5185;&#x6838;</li>
+<li>JavascriptCore</li>
+</ul>
+<h4 id="slimerjs"><a href="https://github.com/laurentj/slimerjs/" target="_blank" rel="noopener">SlimerJS</a></h4>
+<ul>
+<li>Gecko&#x5185;&#x6838;</li>
+<li>SpiderMonkey(Mozilla&#x7684;JS&#x5F15;&#x64CE;)</li>
+</ul>
+<h4 id="casperjs"><a href="https://github.com/n1k0/casperjs" target="_blank" rel="noopener">CasperJS</a></h4>
+<ul>
+<li>&#x7528;&#x4E8E;&#x6D4B;PhantomJS&#x3001;SlimerJS&#x7684;&#x5DE5;&#x5177;</li>
+</ul>
+<h4 id="intern"><a href="https://github.com/theintern/intern" target="_blank" rel="noopener">intern</a></h4>
+<ul>
+<li>&#x770B;&#x4ECB;&#x7ECD;&#x5F88;&#x725B;X</li>
+</ul>
+<h4 id="phantomcss"><a href="https://github.com/Huddle/PhantomCSS" target="_blank" rel="noopener">PhantomCSS</a></h4>
+<ul>
+<li>&#x57FA;&#x4E8E;PhantomJS&#x548C;Resemble.js&#x7684;&#xFF0C;CSS&#x6D4B;&#x8BD5;&#x5DE5;&#x5177;&#x3002;</li>
+</ul>
+<h4 id="mockery"><a href="https://github.com/mfncooper/mockery" target="_blank" rel="noopener">Mockery</a></h4>
+<p>mock &#x5DE5;&#x5177;</p>
+<h4 id="sandboxed-module"><a href="https://github.com/felixge/node-sandboxed-module" target="_blank" rel="noopener">sandboxed-module</a></h4>
+<p>mock&#x6846;&#x67B6;</p>
+<h4 id="proxyquire"><a href="https://github.com/thlorenz/proxyquire" target="_blank" rel="noopener">proxyquire</a></h4>
+<p>mock&#x6846;&#x67B6;</p>
+<h4 id="testem"><a href="https://github.com/airportyh/testem" target="_blank" rel="noopener">testem</a></h4>
+<p>&#x5F85;&#x8BC4;&#x8BBA;</p>
+<h2 id="&#x53C2;&#x8003;bibliographies">&#x53C2;&#x8003;(Bibliographies)</h2>
+<ul>
+<li><a href="http://stackoverflow.com/questions/24190043/proxyquire-rewire-sandboxedmodule-and-sinon-pros-cons" target="_blank" rel="noopener">Stackoverflow - Proxyquire, rewire, SandboxedModule, and Sinon: pros &amp; cons</a></li>
+<li><a href="http://www.clock.co.uk/blog/tools-for-unit-testing-and-quality-assurance-in-node-js" target="_blank" rel="noopener">UNIT TESTING, THE CLOCK WAY</a></li>
+</ul>
+<h2 id="&#x5F15;&#x7528;references">&#x5F15;&#x7528;(References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/my-practices-of-scrum.html" rel="next" title="我的 Scrum 实践">
+                <i class="fa fa-chevron-left"></i> 我的 Scrum 实践
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/why-always-add-createdAt-and-updatedAt-fields-when-define-table.html" rel="prev" title="定义 created_at 与 updated_at 字段">
+                定义 created_at 与 updated_at 字段 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概览overview前言intro"><span class="nav-number">1.</span> <span class="nav-text">概览(Overview)/前言(Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bdd"><span class="nav-number">2.</span> <span class="nav-text">BDD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.1.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mocha"><span class="nav-number">3.</span> <span class="nav-text">Mocha</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">3.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install"><span class="nav-number">3.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构件"><span class="nav-number">3.3.</span> <span class="nav-text">构件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步"><span class="nav-number">3.4.</span> <span class="nav-text">同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步"><span class="nav-number">3.5.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#未定的测试"><span class="nav-number">3.6.</span> <span class="nav-text">未定的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#before"><span class="nav-number">3.7.</span> <span class="nav-text">before</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#beforeeach"><span class="nav-number">3.8.</span> <span class="nav-text">beforeEach</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#only"><span class="nav-number">3.9.</span> <span class="nav-text">only</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skip"><span class="nav-number">3.10.</span> <span class="nav-text">skip</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chai"><span class="nav-number">4.</span> <span class="nav-text">Chai</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">4.1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#install"><span class="nav-number">4.2.</span> <span class="nav-text">Install</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#assert"><span class="nav-number">4.3.</span> <span class="nav-text">Assert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#expect"><span class="nav-number">4.4.</span> <span class="nav-text">Expect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#should"><span class="nav-number">4.5.</span> <span class="nav-text">Should</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#其他用法"><span class="nav-number">4.5.1.</span> <span class="nav-text">其他用法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#plugin"><span class="nav-number">4.6.</span> <span class="nav-text">Plugin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前端测试"><span class="nav-number">5.</span> <span class="nav-text">前端测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mocha-in-browser"><span class="nav-number">5.1.</span> <span class="nav-text">Mocha in Browser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具"><span class="nav-number">5.2.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sinonjs"><span class="nav-number">5.2.1.</span> <span class="nav-text">Sinon.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rewire"><span class="nav-number">5.2.2.</span> <span class="nav-text">rewire</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#gremlinsjs"><span class="nav-number">5.2.3.</span> <span class="nav-text">gremlins.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#superagent"><span class="nav-number">5.2.4.</span> <span class="nav-text">superagent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#supertest"><span class="nav-number">5.2.5.</span> <span class="nav-text">supertest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zombiejs"><span class="nav-number">5.2.6.</span> <span class="nav-text">Zombie.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phantomjs"><span class="nav-number">5.2.7.</span> <span class="nav-text">PhantomJS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#slimerjs"><span class="nav-number">5.2.8.</span> <span class="nav-text">SlimerJS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#casperjs"><span class="nav-number">5.2.9.</span> <span class="nav-text">CasperJS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#intern"><span class="nav-number">5.2.10.</span> <span class="nav-text">intern</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#phantomcss"><span class="nav-number">5.2.11.</span> <span class="nav-text">PhantomCSS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mockery"><span class="nav-number">5.2.12.</span> <span class="nav-text">Mockery</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sandboxed-module"><span class="nav-number">5.2.13.</span> <span class="nav-text">sandboxed-module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proxyquire"><span class="nav-number">5.2.14.</span> <span class="nav-text">proxyquire</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#testem"><span class="nav-number">5.2.15.</span> <span class="nav-text">testem</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考bibliographies"><span class="nav-number">6.</span> <span class="nav-text">参考(Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用references"><span class="nav-number">7.</span> <span class="nav-text">引用(References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'BDD-in-nodejs.html';
+      var disqus_title = "BDD In NodeJS";
+      var disqus_url = 'http://adoyle.me/blog/BDD-in-nodejs.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

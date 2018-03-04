@@ -1,0 +1,1087 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Git,Git Flow," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言 (Intro) 什么是 Gitflow？ 不是指 git-flow 这种工具。 Gitflow 是一种工作流 (Workflow)。 正如软件产品的架构，能够体现出其团队组织的结构。 Git 工作流的组织，离不开产品开发的组织结构以及团队的协作流程。 所以，论 Gitflow 如何组织，我认为主要取决于三个因素：人、工具、流程。   概览 (Overview)   场景 现有可供借鉴的工">
+<meta name="keywords" content="Git,Git Flow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解 Gitflow">
+<meta property="og:url" content="http://adoyle.me/blog/git-flow.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="前言 (Intro) 什么是 Gitflow？ 不是指 git-flow 这种工具。 Gitflow 是一种工作流 (Workflow)。 正如软件产品的架构，能够体现出其团队组织的结构。 Git 工作流的组织，离不开产品开发的组织结构以及团队的协作流程。 所以，论 Gitflow 如何组织，我认为主要取决于三个因素：人、工具、流程。   概览 (Overview)   场景 现有可供借鉴的工">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/Centralized.svg">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/Feature.svg">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/07.svg">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/fork-flow.svg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006aQyYMgw1f418mdb132j30vy16cai2.jpg">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share%2FGitflow.svg">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/environment_branches.png">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/release_branches.png">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/one-line.png">
+<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share%2Fmix-feature.png">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/006aQyYMgw1f418mzcmb0j30m815odn9.jpg">
+<meta property="og:updated_time" content="2018-02-25T16:30:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解 Gitflow">
+<meta name="twitter:description" content="前言 (Intro) 什么是 Gitflow？ 不是指 git-flow 这种工具。 Gitflow 是一种工作流 (Workflow)。 正如软件产品的架构，能够体现出其团队组织的结构。 Git 工作流的组织，离不开产品开发的组织结构以及团队的协作流程。 所以，论 Gitflow 如何组织，我认为主要取决于三个因素：人、工具、流程。   概览 (Overview)   场景 现有可供借鉴的工">
+<meta name="twitter:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/Centralized.svg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/git-flow.html"/>
+
+
+  <title> 理解 Gitflow | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                理解 Gitflow
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-26T00:30:50+08:00" content="2018-02-26">
+              2018-02-26
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/git-flow.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="git-flow.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/Git/" rel="tag">#Git</a>
+              
+                <a href="/blog/tags/Git-Flow/" rel="tag">#Git Flow</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <hr>
+<p><a name="&#x524D;&#x8A00;-intro"></a></p>
+<h2 id="&#x524D;&#x8A00;-intro">&#x524D;&#x8A00; (Intro)</h2>
+<p>&#x4EC0;&#x4E48;&#x662F; Gitflow&#xFF1F;</p>
+<p>&#x4E0D;&#x662F;&#x6307; <a href="https://github.com/nvie/gitflow" target="_blank" rel="noopener">git-flow</a> &#x8FD9;&#x79CD;&#x5DE5;&#x5177;&#x3002;</p>
+<p>Gitflow &#x662F;&#x4E00;&#x79CD;&#x5DE5;&#x4F5C;&#x6D41; (Workflow)&#x3002;</p>
+<p>&#x6B63;&#x5982;&#x8F6F;&#x4EF6;&#x4EA7;&#x54C1;&#x7684;&#x67B6;&#x6784;&#xFF0C;&#x80FD;&#x591F;&#x4F53;&#x73B0;&#x51FA;&#x5176;&#x56E2;&#x961F;&#x7EC4;&#x7EC7;&#x7684;&#x7ED3;&#x6784;&#x3002;</p>
+<p>Git &#x5DE5;&#x4F5C;&#x6D41;&#x7684;&#x7EC4;&#x7EC7;&#xFF0C;&#x79BB;&#x4E0D;&#x5F00;&#x4EA7;&#x54C1;&#x5F00;&#x53D1;&#x7684;&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;&#x4EE5;&#x53CA;&#x56E2;&#x961F;&#x7684;&#x534F;&#x4F5C;&#x6D41;&#x7A0B;&#x3002;</p>
+<p>&#x6240;&#x4EE5;&#xFF0C;&#x8BBA; Gitflow &#x5982;&#x4F55;&#x7EC4;&#x7EC7;&#xFF0C;&#x6211;&#x8BA4;&#x4E3A;&#x4E3B;&#x8981;&#x53D6;&#x51B3;&#x4E8E;&#x4E09;&#x4E2A;&#x56E0;&#x7D20;&#xFF1A;&#x4EBA;&#x3001;&#x5DE5;&#x5177;&#x3001;&#x6D41;&#x7A0B;&#x3002;</p>
+<hr>
+<p><a name="&#x6982;&#x89C8;-overview"></a></p>
+<h2 id="&#x6982;&#x89C8;-overview">&#x6982;&#x89C8; (Overview)</h2>
+<!-- MarkdownTOC -->
+<ul>
+<li><a href="#%E5%9C%BA%E6%99%AF">&#x573A;&#x666F;</a></li>
+<li><a href="#%E7%8E%B0%E6%9C%89%E5%8F%AF%E4%BE%9B%E5%80%9F%E9%89%B4%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81">&#x73B0;&#x6709;&#x53EF;&#x4F9B;&#x501F;&#x9274;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;</a>
+<ul>
+<li><a href="#%E8%AF%8D%E6%B1%87%E5%AE%9A%E4%B9%89">&#x8BCD;&#x6C47;&#x5B9A;&#x4E49;</a></li>
+<li><a href="#1-centralized-workflow">1. Centralized Workflow</a></li>
+<li><a href="#2-feature-branch-workflowgithub-workflow">2. Feature Branch Workflow/Github Workflow</a></li>
+<li><a href="#3-forking-workflow">3. Forking Workflow</a></li>
+<li><a href="#4-gitflow-workflow">4. Gitflow Workflow</a></li>
+<li><a href="#5-gitlab-workflow">5. Gitlab Workflow</a></li>
+<li><a href="#6-one-line-workflow">6. One-Line Workflow</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%A7%E8%A1%8C-gitflow-%E6%97%B6%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E5%9B%A0%E7%B4%A0">&#x6267;&#x884C; Gitflow &#x65F6;&#x8981;&#x8003;&#x8651;&#x7684;&#x56E0;&#x7D20;</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98-faq">&#x95EE;&#x9898; (FAQ)</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">&#x5176;&#x4ED6;</a>
+<ul>
+<li><a href="#commit">Commit</a></li>
+<li><a href="#branch">Branch</a></li>
+<li><a href="#tag">Tag</a></li>
+<li><a href="#merge-vs-rebase-vs-cherry-pick">Merge vs Rebase vs Cherry-pick</a></li>
+<li><a href="#feature-toggle">Feature Toggle</a></li>
+<li><a href="#%E7%89%A9%E4%BB%B6%E6%88%96%E6%B5%81%E7%A8%8B%E7%9A%84%E7%BB%84%E7%BB%87%EF%BC%8C%E8%84%B1%E7%A6%BB%E4%B8%8D%E4%BA%86%E4%BA%BA%E7%9A%84%E7%BB%84%E7%BB%87">&#x7269;&#x4EF6;&#x6216;&#x6D41;&#x7A0B;&#x7684;&#x7EC4;&#x7EC7;&#xFF0C;&#x8131;&#x79BB;&#x4E0D;&#x4E86;&#x4EBA;&#x7684;&#x7EC4;&#x7EC7;</a></li>
+</ul>
+</li>
+</ul>
+<!-- /MarkdownTOC -->
+<a id="more"></a>
+<hr>
+<p><a name="&#x573A;&#x666F;"></a></p>
+<h2 id="&#x573A;&#x666F;">&#x573A;&#x666F;</h2>
+<p>Git &#x5DE5;&#x4F5C;&#x6D41;&#x53EA;&#x662F;&#x4E00;&#x4E2A;&#x7ECF;&#x9A8C;&#x8C08;&#xFF0C;<strong>&#x5B83;&#x4E0D;&#x662F;&#x4E07;&#x80FD;&#x7684;</strong>&#x3002;</p>
+<p>&#x4E0D;&#x540C;&#x573A;&#x666F;&#x4E0B;&#x53EF;&#x80FD;&#x4F1A;&#x91C7;&#x53D6;&#x4E0D;&#x4E00;&#x6837;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;&#x3002;</p>
+<p>&#x56DE;&#x5FC6;&#x6216;&#x8005;&#x8BBE;&#x60F3;&#x4E00;&#x4E0B;&#xFF0C;&#x5F53;&#x4EE5;&#x4E0B;&#x4EBA;&#x5458;&#x4E00;&#x8D77;&#x534F;&#x4F5C;&#x65F6;&#xFF0C;&#x4F60;&#x662F;&#x600E;&#x6837;&#x4F7F;&#x7528; Git &#x7684;&#xFF1F;</p>
+<ul>
+<li>&#x4E00;&#x4E2A;&#x4EBA;
+<ul>
+<li>&#x60F3;&#x600E;&#x4E48;&#x505A;&#x5C31;&#x600E;&#x4E48;&#x505A;&#x3002;(DWYWD, Do what you wanna do)</li>
+</ul>
+</li>
+<li>&#x4E24;&#x4E2A;&#x4EBA;
+<ul>
+<li>&#x53EF;&#x4EE5;&#x5F88;&#x6B63;&#x89C4;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x6BD4;&#x8F83;&#x968F;&#x610F;&#xFF0C;&#x9047;&#x5230;&#x51B2;&#x7A81;&#xFF0C;&#x6C9F;&#x901A;&#x4E00;&#x4E0B;&#x7ACB;&#x523B;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x3002;</li>
+</ul>
+</li>
+<li>&#x4E00;&#x7FA4;&#x4EBA;
+<ul>
+<li>&#x6B63;&#x89C4;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;&#xFF0C;&#x907F;&#x514D;&#x51B2;&#x7A81;&#xFF0C;&#x51CF;&#x5C11;&#x6C9F;&#x901A;&#x65F6;&#x95F4;&#x3002;</li>
+</ul>
+</li>
+</ul>
+<p>&#x8981;&#x505A;&#x4EC0;&#x4E48;&#x6837;&#x7684;&#x4E1C;&#x897F;&#xFF1F;</p>
+<ul>
+<li>&#x7C7B;&#x5E93; (Library)</li>
+<li>&#x6846;&#x67B6; (Framework)</li>
+<li>&#x4EA7;&#x54C1; (Product)</li>
+<li>&#x6587;&#x6863; (Document)</li>
+<li>&#x56FE;&#x7247; (Picture)</li>
+</ul>
+<hr>
+<p><a name="&#x73B0;&#x6709;&#x53EF;&#x4F9B;&#x501F;&#x9274;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;"></a></p>
+<h2 id="&#x73B0;&#x6709;&#x53EF;&#x4F9B;&#x501F;&#x9274;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;">&#x73B0;&#x6709;&#x53EF;&#x4F9B;&#x501F;&#x9274;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;</h2>
+<p>&#x5F3A;&#x70C8;&#x63A8;&#x8350;&#x9605;&#x8BFB; <a href="https://www.atlassian.com/git/tutorials/comparing-workflows" target="_blank" rel="noopener">Atlassian - Comparing Workflows</a>&#x3002;</p>
+<ol>
+<li>Centralized Workflow</li>
+<li>Feature Branch Workflow/<a href="https://guides.github.com/introduction/flow/" target="_blank" rel="noopener">Github Workflow</a></li>
+<li>Forking Workflow</li>
+<li>Gitflow Workflow</li>
+<li>Gitlab Workflow</li>
+<li>One-Line Workflow</li>
+</ol>
+<hr>
+<p><a name="&#x8BCD;&#x6C47;&#x5B9A;&#x4E49;"></a></p>
+<h3 id="&#x8BCD;&#x6C47;&#x5B9A;&#x4E49;">&#x8BCD;&#x6C47;&#x5B9A;&#x4E49;</h3>
+<ul>
+<li>&#x8282;&#x70B9;/&#x63D0;&#x4EA4;&#xFF1A;&#x4E00;&#x6B21; git commit &#x6240;&#x4EA7;&#x751F;&#x7684;&#x63D0;&#x4EA4;</li>
+<li>&#x7EBF;&#xFF1A;&#x4E00;&#x6761;&#x5206;&#x652F;&#x5386;&#x53F2;&#x7EBF;</li>
+<li>&#x53D1;&#x5E03;/release&#xFF1A;&#x4EE3;&#x7801;&#x5F00;&#x53D1;&#x73AF;&#x5883;&#x53D1;&#x5E03;&#x5230;&#x7EBF;&#x4E0A;&#x73AF;&#x5883;</li>
+<li>&#x53EF;&#x90E8;&#x7F72;/deployable&#xFF1A;&#x80FD;&#x591F;&#x901A;&#x8FC7;&#x751F;&#x4EA7;&#x73AF;&#x5883;&#x7684;&#x5192;&#x70DF;&#x6D4B;&#x8BD5;&#xFF08;&#x4E0D;&#x80FD;&#x4FDD;&#x8BC1;&#x6CA1;&#x6709;&#x529F;&#x80FD;&#x6027;&#x9519;&#x8BEF;&#x6216;&#x8005;&#x5176;&#x4ED6;&#x4E0D;&#x660E;&#x663E;&#x7684; Bug&#xFF09;</li>
+</ul>
+<hr>
+<p><a name="1-centralized-workflow"></a></p>
+<h3 id="1-centralized-workflow">1. Centralized Workflow</h3>
+<p>&#x4E2D;&#x5FC3;&#x5316;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;&#x3002;</p>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/Centralized.svg" alt="Centralized.svg"></p>
+<p>&#x91C7;&#x7528; rebase &#x65B9;&#x5F0F;&#x66F4;&#x65B0; master &#x5206;&#x652F;&#x3002;</p>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x56DE;&#x6EAF;&#x5386;&#x53F2;&#x6E05;&#x6670;</li>
+</ul>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x65E0;&#x6CD5;&#x591A;&#x4EBA;&#x534F;&#x4F5C;&#x5F00;&#x53D1;&#x5927;&#x529F;&#x80FD;</li>
+</ul>
+<hr>
+<p><a name="2-feature-branch-workflowgithub-workflow"></a></p>
+<h3 id="2-feature-branch-workflowgithub-workflow">2. Feature Branch Workflow/<a href="https://guides.github.com/introduction/flow/" target="_blank" rel="noopener">Github Workflow</a></h3>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/Feature.svg" alt=""></p>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/07.svg" alt="Feature &#x5206;&#x652F;"></p>
+<p><a href="http://scottchacon.com/2011/08/31/github-flow.html" target="_blank" rel="noopener">&#x8BE6;&#x7EC6;&#x6587;&#x7AE0;</a></p>
+<p>Feature Branch Workflow &#x548C; Github Workflow &#x7684;&#x4E3B;&#x8981;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x4E3B;&#x5206;&#x652F;&#x4E0A;&#x7684;&#x8282;&#x70B9;&#x662F;&#x5426;&#x968F;&#x65F6;&#x53EF;&#x53D1;&#x5E03;&#x3002;</p>
+<p>&#x7F3A;&#x70B9;:</p>
+<ul>
+<li>&#x65E0;&#x6CD5;&#x7EF4;&#x62A4;&#x591A;&#x7248;&#x672C;</li>
+</ul>
+<hr>
+<p><a name="3-forking-workflow"></a></p>
+<h3 id="3-forking-workflow">3. Forking Workflow</h3>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/fork-flow.svg" alt="fork-flow.svg"></p>
+<p>&#x5F00;&#x6E90;&#x5E73;&#x53F0;&#x7528;&#x7684;&#x591A;&#xFF0C;&#x56E0;&#x4E3A;&#x81EA;&#x5DF1;&#x4E0D;&#x662F;&#x67D0;&#x4E2A;&#x9879;&#x76EE;&#x7684;&#x6210;&#x5458;&#xFF0C;&#x53EA;&#x80FD; Fork &#x7136;&#x540E;&#x63D0; PR&#x3002;</p>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x53CD;&#x9988;&#x53EF;&#x80FD;&#x4F1A;&#x5F88;&#x6162;&#xFF0C;&#x8FDB;&#x5EA6;&#x53D8;&#x6162;</li>
+<li>&#x65E0;&#x6CD5;&#x591A;&#x4EBA;&#x534F;&#x4F5C;&#x5F00;&#x53D1;&#x5927;&#x529F;&#x80FD;</li>
+</ul>
+<hr>
+<p><a name="4-gitflow-workflow"></a></p>
+<h3 id="4-gitflow-workflow">4. Gitflow Workflow</h3>
+<p><img src="http://ww3.sinaimg.cn/large/006aQyYMgw1f418mdb132j30vy16cai2.jpg" alt=""></p>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share%2FGitflow.svg" alt="Gitflow.svg"></p>
+<p>&#x6700;&#x6709;&#x540D;&#xFF0C;&#x6700;&#x7ECF;&#x5178;&#x7684;&#x5DE5;&#x4F5C;&#x6D41;&#x3002;</p>
+<ul>
+<li><a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener">Vincent Driessen &#x7684;&#x300A;A successful Git branching model&#x300B;</a></li>
+<li><a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html" target="_blank" rel="noopener">Git-Flow Cheatsheet</a></li>
+<li><a href="https://github.com/petervanderdoes/gitflow-avh" target="_blank" rel="noopener">Gitflow &#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;</a></li>
+</ul>
+<p>&#x4F18;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x9488;&#x5BF9;&#x5404;&#x4E2A;&#x60C5;&#x51B5;&#x90FD;&#x6709;&#x59A5;&#x5584;&#x7684;&#x5E94;&#x5BF9;&#x63AA;&#x65BD;</li>
+</ul>
+<p>&#x7F3A;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x6982;&#x5FF5;&#x591A;&#xFF0C;&#x5B66;&#x4E60;&#x6210;&#x672C;&#x76F8;&#x5BF9;&#x8F83;&#x9AD8;</li>
+<li>&#x6267;&#x884C;&#x8D77;&#x6765;&#x7565;&#x9EBB;&#x70E6;</li>
+</ul>
+<hr>
+<p><a name="5-gitlab-workflow"></a></p>
+<h3 id="5-gitlab-workflow">5. Gitlab Workflow</h3>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/environment_branches.png" alt=""><br>
+<img src="http://7xniyb.com1.z0.glb.clouddn.com/share/release_branches.png" alt=""></p>
+<p>&#x7ED3;&#x5408; Gitflow &#x548C; Github-flow&#x3002;</p>
+<p>&#x7279;&#x70B9;&#xFF1A;</p>
+<ul>
+<li>&#x591A;&#x73AF;&#x5883;&#x591A;&#x5206;&#x652F;&#xFF0C;&#x5982; staging&#x3001;pre-production&#x3001;production</li>
+<li>&#x4E0A;&#x6E38; (master) &#x4F18;&#x5148;</li>
+<li>&#x6D3B;&#x7528; merge &#x548C; cherry-pick</li>
+</ul>
+<hr>
+<p><a name="6-one-line-workflow"></a></p>
+<h3 id="6-one-line-workflow">6. One-Line Workflow</h3>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/one-line.png" alt=""></p>
+<p>One-Line Workflow &#x8868;&#x9762;&#x770B;&#x8D77;&#x6765;&#x8DDF; Centralized Workflow &#x4E00;&#x6837;&#x3002;&#x4F46;&#x5B9E;&#x9645;&#x64CD;&#x4F5C;&#x6709;&#x7740;&#x5F88;&#x9AD8;&#x7684;&#x8981;&#x6C42;&#x3002;</p>
+<p>&#x4E3E;&#x4E2A;&#x4F8B;&#x5B50;&#xFF1A;<a href="https://github.com/phacility/phabricator" target="_blank" rel="noopener">phabricator</a></p>
+<p>&#x53EA;&#x6709;&#x4E00;&#x6761;&#x7EBF;&#xFF0C;&#x4F46;&#x662F;&#x6BCF;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x90FD;&#x662F;&#x53EF;&#x90E8;&#x7F72;&#x7684;&#x3002;&#x6BCF;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x5B8C;&#x6574;&#x7684;&#x4FEE;&#x6539;&#xFF08;&#x4FEE;&#x4E00;&#x4E2A; Bug&#xFF0C;&#x6216;&#x8005;&#x65B0;&#x589E;&#x4E00;&#x4E2A; Feature&#xFF09;&#x3002;</p>
+<p><strong>&#x4F18;&#x70B9;</strong></p>
+<ul>
+<li>&#x5386;&#x53F2;&#x7EBF;&#x770B;&#x8D77;&#x6765;&#x5F88;&#x6E05;&#x6670;</li>
+</ul>
+<p><strong>&#x7F3A;&#x70B9;</strong></p>
+<ul>
+<li>&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x9700;&#x8981;&#x53EF;&#x53D1;&#x5E03;&#xFF0C;&#x5B9E;&#x8DF5;&#x95E8;&#x69DB;&#x4F1A;&#x975E;&#x5E38;&#x9AD8;</li>
+<li>&#x65E0;&#x6CD5;&#x7EF4;&#x62A4;&#x591A;&#x7248;&#x672C;</li>
+</ul>
+<hr>
+<p><a name="&#x6267;&#x884C;-gitflow-&#x65F6;&#x8981;&#x8003;&#x8651;&#x7684;&#x56E0;&#x7D20;"></a></p>
+<h2 id="&#x6267;&#x884C;-gitflow-&#x65F6;&#x8981;&#x8003;&#x8651;&#x7684;&#x56E0;&#x7D20;">&#x6267;&#x884C; Gitflow &#x65F6;&#x8981;&#x8003;&#x8651;&#x7684;&#x56E0;&#x7D20;</h2>
+<p><strong>&#x524D;&#x63D0;&#xFF1A;</strong></p>
+<ul>
+<li>&#x5B66;&#x4E60;&#x6210;&#x672C;
+<ul>
+<li>&#x5F15;&#x5165;&#x7684;&#x6982;&#x5FF5;&#x8D8A;&#x591A;&#xFF0C;&#x5B66;&#x4E60;&#x6210;&#x672C;&#x5C31;&#x8D8A;&#x9AD8;</li>
+<li>&#x5B89;&#x88C5;&#x7684;&#x5DE5;&#x5177;&#x3001;&#x73AF;&#x5883;&#x4F9D;&#x8D56;&#x7684;&#x590D;&#x6742;&#x7A0B;&#x5EA6;</li>
+</ul>
+</li>
+<li>&#x4F7F;&#x7528;&#x6548;&#x7387;
+<ul>
+<li>Git &#x547D;&#x4EE4;&#x64CD;&#x4F5C;&#x719F;&#x7EC3;&#x5EA6;</li>
+<li>&#x5176;&#x4ED6;&#x5DE5;&#x5177;&#x7684;&#x4F7F;&#x7528;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>&#x56E0;&#x7D20;&#xFF1A;</strong></p>
+<blockquote>
+<p>&#x6253;&#x661F;&#x53F7;&#x7684;&#x4E3A;&#x4E3B;&#x8981;&#x8003;&#x91CF;&#x56E0;&#x7D20;</p>
+</blockquote>
+<ul>
+<li>*&#x9879;&#x76EE;&#x6027;&#x8D28;
+<ul>
+<li>&#x7C7B;&#x5E93; (Library)</li>
+<li>&#x6846;&#x67B6; (Framework)</li>
+<li>&#x4EA7;&#x54C1; (Product)</li>
+<li>&#x6587;&#x6863; (Document)</li>
+<li>&#x8BBE;&#x8BA1; (Design)</li>
+</ul>
+</li>
+<li>*&#x8FED;&#x4EE3;/&#x53D1;&#x5E03;&#x5468;&#x671F;
+<ul>
+<li>&#x56FA;&#x5B9A;&#x957F;&#x5468;&#x671F;&#xFF0C;Gitflow &#x66F4;&#x9002;&#x5408;&#xFF0C;&#x9762;&#x5BF9;&#x5404;&#x79CD;&#x60C5;&#x51B5;&#x6709;&#x5BF9;&#x5E94;&#x7684;&#x5904;&#x7406;&#x65B9;&#x5F0F;</li>
+<li>&#x77ED;&#x5468;&#x671F;&#xFF08;1~3 &#x5C0F;&#x65F6;&#xFF0C;1~2 &#x5929;&#xFF09;&#xFF0C;Github Flow &#x66F4;&#x5408;&#x9002;</li>
+</ul>
+</li>
+<li>*&#x5982;&#x4F55;&#x4FEE;&#x590D; Bug</li>
+<li>*&#x5982;&#x4F55;&#x5F00;&#x53D1; Feature
+<ul>
+<li>&#x5E76;&#x884C;&#x5F00;&#x53D1;</li>
+<li>&#x5927;&#x529F;&#x80FD;&#x4E2D;&#x7684;&#x5B50;&#x529F;&#x80FD;</li>
+</ul>
+</li>
+<li>*&#x5982;&#x4F55;&#x5FEB;&#x901F;&#x53D1;&#x5E03;&#x7D27;&#x6025;&#x4FEE;&#x6539;
+<ul>
+<li>&#x4FEE;&#x590D;&#x7D27;&#x6025; Bug</li>
+<li>&#x4E34;&#x65F6;&#x4FEE;&#x6539;&#x6587;&#x6848;</li>
+</ul>
+</li>
+<li>&#x5982;&#x4F55;&#x6D4B;&#x8BD5;
+<ul>
+<li>&#x5355;&#x5143;&#x6D4B;&#x8BD5;</li>
+<li>&#x96C6;&#x6210;&#x6D4B;&#x8BD5;</li>
+<li>&#x7AEF;&#x5230;&#x7AEF;&#x6D4B;&#x8BD5;</li>
+<li>&#x5192;&#x70DF;&#x6D4B;&#x8BD5;</li>
+</ul>
+</li>
+<li>&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x4EE3;&#x7801;&#x5BA1;&#x6838;</li>
+<li>&#x53D1;&#x5E03;&#x65F6;&#x95F4;
+<ul>
+<li>&#x53D1;&#x5E03;&#x5EF6;&#x65F6;&#x662F;&#x5426;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x5F00;&#x53D1;&#x540E;&#x7EED;&#x529F;&#x80FD;</li>
+</ul>
+</li>
+<li>&#x5982;&#x4F55;&#x7EF4;&#x62A4;&#x7248;&#x672C;
+<ul>
+<li>*&#x662F;&#x5426;&#x8981;&#x957F;&#x671F;&#x7EF4;&#x62A4;&#x591A;&#x4E2A;&#x7248;&#x672C;</li>
+<li>patch</li>
+<li>fix</li>
+</ul>
+</li>
+<li>&#x662F;&#x5426;&#x5177;&#x5907;&#x4EE3;&#x7801;&#x56DE;&#x6EDA;&#x7684;&#x80FD;&#x529B;</li>
+<li>&#x53D1;&#x5E03; (release) &#x7684;&#x590D;&#x6742;&#x7A0B;&#x5EA6;
+<ul>
+<li>&#x662F;&#x5426;&#x8981;&#x66F4;&#x65B0;&#x7248;&#x672C;&#x53F7;</li>
+<li>&#x662F;&#x5426;&#x8981;&#x66F4;&#x65B0; Changelog</li>
+<li>&#x662F;&#x5426;&#x8981;&#x7F16;&#x8BD1;&#x6253;&#x5305;&#x4EE3;&#x7801;&#x53CA;&#x73AF;&#x5883;</li>
+</ul>
+</li>
+<li>&#x7C92;&#x5EA6;
+<ul>
+<li>&#x529F;&#x80FD;&#x7684;&#x7C92;&#x5EA6;</li>
+<li>&#x63D0;&#x4EA4;&#x7684;&#x7C92;&#x5EA6;</li>
+</ul>
+</li>
+<li>CI&#x3001;CD &#x7B49;&#x81EA;&#x52A8;&#x5316;&#x7CFB;&#x7EDF;&#x7684;&#x914D;&#x5408;
+<ul>
+<li>&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;</li>
+<li>&#x81EA;&#x52A8;&#x5316;&#x53D1;&#x5E03;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>&#x8981;&#x6C42;:</strong></p>
+<ul>
+<li>&#x4E0D;&#x5F71;&#x54CD;&#x5176;&#x4ED6;&#x4EBA;&#x7684;&#x5F00;&#x53D1;</li>
+<li>&#x5F00;&#x53D1;&#x8FC7;&#x7A0B;&#x4E2D;&#x4E0D;&#x5F71;&#x54CD;&#x7EBF;&#x4E0A;&#x8FD0;&#x884C;</li>
+<li>&#x72EC;&#x7ACB;&#x7684;&#x529F;&#x80FD;&#x4E4B;&#x95F4;&#x4E0D;&#x4F1A;&#x76F8;&#x4E92;&#x5F71;&#x54CD;</li>
+<li>&#x89C6;&#x89C9;&#x8981;&#x6C42;
+<ul>
+<li>&#x56DE;&#x6EAF;&#x5386;&#x53F2;&#x6E05;&#x6670;</li>
+<li>commit message &#x5982;&#x4F55;&#x64B0;&#x5199;</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><a name="&#x95EE;&#x9898;-faq"></a></p>
+<h2 id="&#x95EE;&#x9898;-faq">&#x95EE;&#x9898; (FAQ)</h2>
+<blockquote>
+<p>&#x524D;&#x540E;&#x7AEF;&#x5171;&#x540C;&#x5F00;&#x53D1;&#xFF0C;&#x9700;&#x8981;&#x8054;&#x8C03;&#xFF0C;&#x5982;&#x679C;&#x8054;&#x8C03;&#x51FA;&#x95EE;&#x9898;&#x8981;&#x7EE7;&#x7EED;&#x8C03;&#x6574;&#xFF0C;&#x5206;&#x652F;&#x5E94;&#x8BE5;&#x5982;&#x4F55;&#x7EC4;&#x7EC7;&#xFF1F;</p>
+</blockquote>
+<p>&#x9700;&#x8981;&#x8003;&#x8651;&#x4E09;&#x4E2A;&#x56E0;&#x7D20;&#xFF1A;</p>
+<ol>
+<li>&#x5BF9;&#x4E8E;&#x53D1;&#x5E03;&#x7248;&#x672C;&#x7684;&#x5F71;&#x54CD;</li>
+<li>&#x5BF9;&#x4E8E;&#x5F00;&#x53D1;&#x7684;&#x4E92;&#x76F8;&#x5F71;&#x54CD;</li>
+<li>&#x7EBF;&#x7684;&#x5408;&#x5E76;&#x95EE;&#x9898;</li>
+</ol>
+<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share%2Fmix-feature.png" alt=""></p>
+<hr>
+<blockquote>
+<p>&#x4F55;&#x65F6;&#x6D4B;&#x8BD5;&#x4EE3;&#x7801;&#xFF1F;</p>
+</blockquote>
+<p>&#x81F3;&#x5C11;&#x5728;&#x5408;&#x5E76;&#x5206;&#x652F;&#x524D;&#x8FDB;&#x884C;&#x4E00;&#x6B21;&#x6D4B;&#x8BD5;&#x3002;</p>
+<hr>
+<blockquote>
+<p>&#x4F55;&#x65F6;&#x5BA1;&#x6838;&#x4EE3;&#x7801;&#xFF1F;</p>
+</blockquote>
+<p>&#x5408;&#x5E76;&#x5206;&#x652F;&#x524D;&#x5BA1;&#x6838;&#x3002;&#x5982;&#x679C;&#x4E00;&#x4E2A; PR &#x65E2;&#x5305;&#x542B;&#x524D;&#x7AEF;&#xFF0C;&#x4E5F;&#x5305;&#x542B;&#x540E;&#x7AEF;&#x4EE3;&#x7801;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6587;&#x4EF6;&#x76EE;&#x5F55;&#x6765;&#x5206;&#x522B;&#x5BA1;&#x6838;&#x3002;</p>
+<hr>
+<blockquote>
+<p>&#x591A;&#x4EBA;&#x5171;&#x540C;&#x5F00;&#x53D1;&#x4E00;&#x4E2A;&#x6A21;&#x5757;&#xFF0C;&#x5BFC;&#x81F4;&#x5F88;&#x591A;&#x51B2;&#x7A81;&#xFF0C;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#xFF1F;</p>
+</blockquote>
+<p>&#x5F88;&#x591A;&#x60C5;&#x51B5;&#x4E0B;&#x662F;&#x56E0;&#x4E3A;&#x5206;&#x5DE5;&#x4E0D;&#x660E;&#x786E;&#xFF0C;&#x6216;&#x662F;&#x9879;&#x76EE;&#x76EE;&#x5F55;&#x7ED3;&#x6784;&#x5206;&#x914D;&#x4E0D;&#x79D1;&#x5B66;&#x5BFC;&#x81F4;&#x7684;&#x3002;</p>
+<p>&#x5176;&#x4ED6;&#x60C5;&#x51B5;&#x4F8B;&#x5982;&#x540C;&#x65F6;&#x4FEE;&#x6539;&#x4E86;&#x67D0;&#x4E00;&#x5757;&#x57FA;&#x7840;&#x7C7B;&#x5E93;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5904;&#x7406;&#x4E00;&#x4E0B;&#x51B2;&#x7A81;&#x5373;&#x53EF;&#xFF0C;&#x4E0D;&#x4F1A;&#x5F88;&#x9891;&#x7E41;&#x7684;&#x53D1;&#x751F;&#x3002;</p>
+<hr>
+<p><a name="&#x5176;&#x4ED6;"></a></p>
+<h2 id="&#x5176;&#x4ED6;">&#x5176;&#x4ED6;</h2>
+<p><a name="commit"></a></p>
+<h3 id="commit">Commit</h3>
+<p>&#x4E00;&#x4E2A; commit &#x53EA;&#x505A;&#x4E00;&#x4EF6;&#x4E8B;&#x3002;</p>
+<hr>
+<p><a name="branch"></a></p>
+<h3 id="branch">Branch</h3>
+<ul>
+<li>&#x516C;&#x5171;&#x5206;&#x652F;</li>
+<li>&#x4E2A;&#x4EBA;&#x5206;&#x652F;</li>
+</ul>
+<p>&#x516C;&#x5171;&#x5206;&#x652F;&#x7EDD;&#x5BF9;&#x4E0D;&#x80FD;&#x4FEE;&#x6539;&#x5386;&#x53F2;&#x4FE1;&#x606F;&#xFF08;&#x5BFC;&#x81F4; commit hash &#x6539;&#x53D8;&#xFF09;&#x3002;<br>
+&#x800C;&#x4E2A;&#x4EBA;&#x5206;&#x652F;&#x4E0A;&#x60F3;&#x600E;&#x4E48;&#x5E72;&#x5C31;&#x600E;&#x4E48;&#x5E72;&#x3002;</p>
+<p>&#x516C;&#x5171;&#x5206;&#x652F;&#x53EF;&#x4EE5;&#x5BF9;&#x5E94;&#x4EE3;&#x7801;&#x8FD0;&#x884C;&#x73AF;&#x5883;&#xFF0C;&#x6BD4;&#x5982; develop&#x3001;test&#x3001;stage&#x3001;production&#x3002;<br>
+&#x4E5F;&#x53EF;&#x4EE5;&#x5BF9;&#x5E94;&#x804C;&#x80FD;&#xFF0C;&#x6BD4;&#x5982; feature/xxx&#x3001;fix/xxx&#x3002;</p>
+<p>&#x5F53;&#x81EA;&#x5DF1;&#x5728;&#x4E2A;&#x4EBA;&#x5206;&#x652F;&#x4E0A;&#x5F00;&#x53D1;&#xFF0C;rebase &#x4F18;&#x4E8E; merge&#x3002;<br>
+&#x800C;&#x5728;&#x516C;&#x5171;&#x5206;&#x652F;&#x4E0A;&#xFF0C;&#x5219;&#x53EA;&#x80FD;&#x4F7F;&#x7528; merge&#x3002;</p>
+<hr>
+<p><a name="tag"></a></p>
+<h3 id="tag">Tag</h3>
+<p>&#x7528;&#x6765;&#x6807;&#x8BB0;&#x7248;&#x672C;&#x53F7;&#xFF0C;&#x65E0;&#x5176;&#x4ED6;&#x4F5C;&#x7528;&#x3002;</p>
+<hr>
+<p><a name="merge-vs-rebase-vs-cherry-pick"></a></p>
+<h3 id="merge-vs-rebase-vs-cherry-pick">Merge vs Rebase vs Cherry-pick</h3>
+<hr>
+<p><a name="feature-toggle"></a></p>
+<h3 id="feature-toggle">Feature Toggle</h3>
+<p>&#x5F53;&#x5F00;&#x53D1;&#x5927;&#x529F;&#x80FD;&#x65F6;&#xFF0C;&#x9700;&#x8981;&#x5F88;&#x957F;&#x65F6;&#x95F4;&#xFF0C;&#x53EF;&#x80FD;&#x8981;&#x5F00;&#x5F88;&#x591A;&#x5B50;&#x5206;&#x652F;&#x3002;<br>
+&#x4E3A;&#x4E86;&#x4FDD;&#x8BC1;&#x90E8;&#x5206;&#x5B8C;&#x6210;&#x4F46;&#x603B;&#x4F53;&#x8FD8;&#x4E0D;&#x80FD;&#x4E0A;&#x7EBF;&#x7684;&#x4EE3;&#x7801;&#x4E0D;&#x5F71;&#x54CD;&#x5DE5;&#x7A0B;&#xFF0C;&#x529F;&#x80FD;&#x201C;&#x5F00;&#x5173;&#x201D;&#x662F;&#x4E00;&#x79CD;&#x63A7;&#x5236;&#x65B9;&#x5F0F;&#x3002;&#x7C7B;&#x4F3C; AB Test&#x3002;</p>
+<hr>
+<p><a name="&#x7269;&#x4EF6;&#x6216;&#x6D41;&#x7A0B;&#x7684;&#x7EC4;&#x7EC7;&#xFF0C;&#x8131;&#x79BB;&#x4E0D;&#x4E86;&#x4EBA;&#x7684;&#x7EC4;&#x7EC7;"></a></p>
+<h3 id="&#x7269;&#x4EF6;&#x6216;&#x6D41;&#x7A0B;&#x7684;&#x7EC4;&#x7EC7;&#x8131;&#x79BB;&#x4E0D;&#x4E86;&#x4EBA;&#x7684;&#x7EC4;&#x7EC7;">&#x7269;&#x4EF6;&#x6216;&#x6D41;&#x7A0B;&#x7684;&#x7EC4;&#x7EC7;&#xFF0C;&#x8131;&#x79BB;&#x4E0D;&#x4E86;&#x4EBA;&#x7684;&#x7EC4;&#x7EC7;</h3>
+<p><img src="http://ww3.sinaimg.cn/large/006aQyYMgw1f418mzcmb0j30m815odn9.jpg" alt="&#x7EC4;&#x7EC7;&#x7ED3;&#x6784;&#x56FE;"></p>
+<blockquote>
+<p>&#x56FE;&#x53D6;&#x81EA; <a href="http://www.fastcodesign.com/3047939/infographic-of-the-day/comically-explained-the-6-kinds-of-corporate-org-charts/4" target="_blank" rel="noopener">FastCodesign - Comically Explained: The 6 Kinds Of Corporate Org Charts</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/how-i-define-function-arguments-in-js.html" rel="next" title="如何定义 JS 函数的参数">
+                <i class="fa fa-chevron-left"></i> 如何定义 JS 函数的参数
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/error-in-stream-pipeling.html" rel="prev" title="NodeJS Stream 的错误处理">
+                NodeJS Stream 的错误处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">93</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-intro"><span class="nav-number">1.</span> <span class="nav-text">前言 (Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#概览-overview"><span class="nav-number">2.</span> <span class="nav-text">概览 (Overview)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">3.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现有可供借鉴的工作流"><span class="nav-number">4.</span> <span class="nav-text">现有可供借鉴的工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#词汇定义"><span class="nav-number">4.1.</span> <span class="nav-text">词汇定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-centralized-workflow"><span class="nav-number">4.2.</span> <span class="nav-text">1. Centralized Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-feature-branch-workflowgithub-workflow"><span class="nav-number">4.3.</span> <span class="nav-text">2. Feature Branch Workflow/Github Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-forking-workflow"><span class="nav-number">4.4.</span> <span class="nav-text">3. Forking Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-gitflow-workflow"><span class="nav-number">4.5.</span> <span class="nav-text">4. Gitflow Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-gitlab-workflow"><span class="nav-number">4.6.</span> <span class="nav-text">5. Gitlab Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-one-line-workflow"><span class="nav-number">4.7.</span> <span class="nav-text">6. One-Line Workflow</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行-gitflow-时要考虑的因素"><span class="nav-number">5.</span> <span class="nav-text">执行 Gitflow 时要考虑的因素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-faq"><span class="nav-number">6.</span> <span class="nav-text">问题 (FAQ)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">7.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#commit"><span class="nav-number">7.1.</span> <span class="nav-text">Commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branch"><span class="nav-number">7.2.</span> <span class="nav-text">Branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tag"><span class="nav-number">7.3.</span> <span class="nav-text">Tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge-vs-rebase-vs-cherry-pick"><span class="nav-number">7.4.</span> <span class="nav-text">Merge vs Rebase vs Cherry-pick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#feature-toggle"><span class="nav-number">7.5.</span> <span class="nav-text">Feature Toggle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物件或流程的组织脱离不了人的组织"><span class="nav-number">7.6.</span> <span class="nav-text">物件或流程的组织，脱离不了人的组织</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'git-flow.html';
+      var disqus_title = "理解 Gitflow";
+      var disqus_url = 'http://adoyle.me/blog/git-flow.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>
