@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://adoyle.me/blog/how-to-interview-others.html</loc>
+    
+    <lastmod>2018-05-05T08:43:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/a-declarative-programming-language.html</loc>
     
     <lastmod>2018-03-04T10:11:11.000Z</lastmod>
@@ -16,6 +23,13 @@
   </url>
   
   <url>
+    <loc>http://adoyle.me/blog/categories/index.html</loc>
+    
+    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/404.html</loc>
     
     <lastmod>2018-02-25T16:30:50.000Z</lastmod>
@@ -24,13 +38,6 @@
   
   <url>
     <loc>http://adoyle.me/blog/tags/index.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/categories/index.html</loc>
     
     <lastmod>2018-02-25T16:30:50.000Z</lastmod>
     

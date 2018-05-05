@@ -295,6 +295,147 @@
             
               
                 
+                <a class="post-title-link" href="/blog/silent-fail-in-promise.html" itemprop="url">
+                  Promise 吞掉报错信息的问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-14T16:29:40+08:00" content="2016-04-14">
+              2016-04-14
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/silent-fail-in-promise.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="silent-fail-in-promise.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/Promise/" rel="tag">#Promise</a>
+              
+                <a href="/blog/tags/JS/" rel="tag">#JS</a>
+              
+                <a href="/blog/tags/silent-fail/" rel="tag">#silent-fail</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言-intro">前言(Intro)</h2>
+<p>当运行下面一段代码，会发生什么？</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Promise</span>.resolve().then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Ouch!'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>恩，你看不到任何错误信息。<br>
+沉默的失败非常可怕。当发生错误时，你无法获知任何当时上下文的信息，仅有的线索只有程序没按正常的流程走。你甚至可能都没有机会察觉到发生了错误。</p>
+<p>也许这是一个 Feature，而非 Bug。但我觉得这是一大隐患，所幸有些人也注意到这个问题，并已经在修正了。看看这个<a href="https://gist.github.com/benjamingr/0237932cee84712951a2" target="_blank" rel="noopener">提案</a>。</p>
+<p><a href="https://github.com/nodejs/node/pull/758" target="_blank" rel="noopener">在 nodejs 1.x 起</a>，process 加入了两个事件 <code>rejectionHandled</code> 和 <code>unhandledRejection</code>，并且在大部分主流 Promise 库中也实现了这样的特性。为了捕获没有处理的 rejected promise。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/blog/silent-fail-in-promise.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/blog/how-csrf-works.html" itemprop="url">
                   CSRF 攻击原理
                 </a>
@@ -617,9 +758,9 @@
             <div class="post-tags">
               <span class="post-tags-item-text">标签</span>
               
-                <a href="/blog/tags/debug/" rel="tag">#debug</a>
-              
                 <a href="/blog/tags/经验谈/" rel="tag">#经验谈</a>
+              
+                <a href="/blog/tags/debug/" rel="tag">#debug</a>
               
             </div>
           
@@ -1203,9 +1344,9 @@
             <div class="post-tags">
               <span class="post-tags-item-text">标签</span>
               
-                <a href="/blog/tags/响应式编程/" rel="tag">#响应式编程</a>
-              
                 <a href="/blog/tags/架构/" rel="tag">#架构</a>
+              
+                <a href="/blog/tags/响应式编程/" rel="tag">#响应式编程</a>
               
                 <a href="/blog/tags/FRP/" rel="tag">#FRP</a>
               
@@ -1562,154 +1703,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/my-basic-linux-commands-cheatsheet.html" itemprop="url">
-                  我的 Linux 基础命令速查表
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-10-14T14:09:59+08:00" content="2015-10-14">
-              2015-10-14
-            </time>
-          </span>
-
-          
-          <span class="update-time">
-            &nbsp; | &nbsp;
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">更新于</span>
-            <time itemprop="dateUpdated" datetime="2016-02-18T19:33:40+08:00" content="2016-02-18">
-              2016-02-18
-            </time>
-          </span>
-          
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/blog/my-basic-linux-commands-cheatsheet.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="my-basic-linux-commands-cheatsheet.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-tags">
-              <span class="post-tags-item-text">标签</span>
-              
-                <a href="/blog/tags/Linux/" rel="tag">#Linux</a>
-              
-                <a href="/blog/tags/命令/" rel="tag">#命令</a>
-              
-                <a href="/blog/tags/cheatsheet/" rel="tag">#cheatsheet</a>
-              
-            </div>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言-intro">前言(Intro)</h2>
-<p>这是一份随时更新的列表，列出了一些常用的命令组合，供自己日常使用查阅，欢迎交流。</p>
-<p>本文内容整合在<a href="https://github.com/adoyle-h/my-command-cheat" target="_blank" rel="noopener">我的命令速查表</a> 中，可以使用 <a href="https://github.com/chrisallenlane/cheat" target="_blank" rel="noopener">chrisallenlane/cheat</a> 来快速查询命令。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/blog/my-basic-linux-commands-cheatsheet.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1755,7 +1748,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1772,7 +1765,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">83</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
