@@ -1,5 +1,5 @@
 ---
-title: Redefined Web App
+title: Web App 的分层结构
 author: ADoyle <adoyle.h@gmail.com>
 tags: ['前端', '架构', 'Web App']
 categories: ['技术']
