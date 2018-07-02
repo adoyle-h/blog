@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://adoyle.me/blog/the-dsl-design-reference.html</loc>
+    
+    <lastmod>2018-07-02T18:34:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/why-zip-file-checksum-changed.html</loc>
     
     <lastmod>2018-06-30T11:45:29.000Z</lastmod>
@@ -30,14 +37,14 @@
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/categories/index.html</loc>
+    <loc>http://adoyle.me/blog/tags/index.html</loc>
     
     <lastmod>2018-02-25T16:30:50.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://adoyle.me/blog/tags/index.html</loc>
+    <loc>http://adoyle.me/blog/categories/index.html</loc>
     
     <lastmod>2018-02-25T16:30:50.000Z</lastmod>
     

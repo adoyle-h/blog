@@ -1,0 +1,840 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.css"/>
+<!--[if lt IE 9]>
+  <link rel="stylesheet" type="text/css" href="/blog/vendors/github-fork-ribbon-css/gh-fork-ribbon.ie.css"/>
+<![endif]-->
+
+
+  
+  
+  <link href="/blog/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="DSL," />
+
+
+
+
+
+  <link rel="alternate" href="/blog/atom.xml" title="ADoyle 的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前言 (Intro) 向想要自己设计 DSL 的新手，分享一点我的经验总结。很多概念想法代入了个人见解，不具备权威性，请辩证看待。 本文不介绍 DSL 适合的场景，不解释为什么要用 DSL。以后我会另写一篇文章进行说明的。 本文主要介绍某种风格的 DSL 设计参考：基于 YAML 等通用数据结构设计 DSL。">
+<meta name="keywords" content="DSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DSL 设计参考">
+<meta property="og:url" content="http://adoyle.me/blog/the-dsl-design-reference.html">
+<meta property="og:site_name" content="ADoyle 的博客">
+<meta property="og:description" content="前言 (Intro) 向想要自己设计 DSL 的新手，分享一点我的经验总结。很多概念想法代入了个人见解，不具备权威性，请辩证看待。 本文不介绍 DSL 适合的场景，不解释为什么要用 DSL。以后我会另写一篇文章进行说明的。 本文主要介绍某种风格的 DSL 设计参考：基于 YAML 等通用数据结构设计 DSL。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pandolia.net/tinyc/images/compiler_overview.png">
+<meta property="og:updated_time" content="2018-07-02T18:34:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DSL 设计参考">
+<meta name="twitter:description" content="前言 (Intro) 向想要自己设计 DSL 的新手，分享一点我的经验总结。很多概念想法代入了个人见解，不具备权威性，请辩证看待。 本文不介绍 DSL 适合的场景，不解释为什么要用 DSL。以后我会另写一篇文章进行说明的。 本文主要介绍某种风格的 DSL 设计参考：基于 YAML 等通用数据结构设计 DSL。">
+<meta name="twitter:image" content="http://pandolia.net/tinyc/images/compiler_overview.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://adoyle.me/blog/the-dsl-design-reference.html"/>
+
+
+  <title> DSL 设计参考 | ADoyle 的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/blog/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">ADoyle 的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'eUdmsfTBcL_wCMM1kNdP','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                DSL 设计参考
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-07-03T02:34:39+08:00" content="2018-07-03">
+              2018-07-03
+            </time>
+          </span>
+
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/the-dsl-design-reference.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="the-dsl-design-reference.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/DSL/" rel="tag">#DSL</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <div class="post-pre-text">
+            未经授权，不得全文转载。转载前请先阅读<a href="http://adoyle.me/blog/copyright.html">本站版权声明</a>。
+          </div>
+        
+        <h2 id="&#x524D;&#x8A00;-intro">&#x524D;&#x8A00; (Intro)</h2>
+<p>&#x5411;&#x60F3;&#x8981;&#x81EA;&#x5DF1;&#x8BBE;&#x8BA1; DSL &#x7684;&#x65B0;&#x624B;&#xFF0C;&#x5206;&#x4EAB;&#x4E00;&#x70B9;&#x6211;&#x7684;&#x7ECF;&#x9A8C;&#x603B;&#x7ED3;&#x3002;&#x5F88;&#x591A;&#x6982;&#x5FF5;&#x60F3;&#x6CD5;&#x4EE3;&#x5165;&#x4E86;&#x4E2A;&#x4EBA;&#x89C1;&#x89E3;&#xFF0C;&#x4E0D;&#x5177;&#x5907;&#x6743;&#x5A01;&#x6027;&#xFF0C;&#x8BF7;&#x8FA9;&#x8BC1;&#x770B;&#x5F85;&#x3002;<br>
+&#x672C;&#x6587;&#x4E0D;&#x4ECB;&#x7ECD; DSL &#x9002;&#x5408;&#x7684;&#x573A;&#x666F;&#xFF0C;&#x4E0D;&#x89E3;&#x91CA;&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x7528; DSL&#x3002;&#x4EE5;&#x540E;&#x6211;&#x4F1A;&#x53E6;&#x5199;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#x8FDB;&#x884C;&#x8BF4;&#x660E;&#x7684;&#x3002;<br>
+&#x672C;&#x6587;&#x4E3B;&#x8981;&#x4ECB;&#x7ECD;&#x67D0;&#x79CD;&#x98CE;&#x683C;&#x7684; DSL &#x8BBE;&#x8BA1;&#x53C2;&#x8003;&#xFF1A;&#x57FA;&#x4E8E; YAML &#x7B49;&#x901A;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x8BBE;&#x8BA1; DSL&#x3002;</p>
+<a id="more"></a>
+<h2 id="&#x8BED;&#x8A00;&#x7ED3;&#x6784;">&#x8BED;&#x8A00;&#x7ED3;&#x6784;</h2>
+<p>&#x603B;&#x7ED3;&#x4E86;&#x56DB;&#x79CD;&#x7ED3;&#x6784;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;&#x4F8B;&#x5982;&#x57FA;&#x4E8E; YAML &#x7684; Dockerfile&#x3001;docker-compose.yml&#x3001;Ansible playbook&#xFF0C;&#x57FA;&#x4E8E; XML &#x7684; HTML&#x3002;</li>
+<li>&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6CD5;&#x7ED3;&#x6784;&#x3002;&#x4F8B;&#x5982; CSS&#xFF0C;Nginx.conf&#xFF0C;GraphQL&#xFF0C;SQL&#x3002;</li>
+<li>&#x8BED;&#x4E49;&#x5316;&#x7684;&#x6587;&#x5B57;&#x6BB5;&#x843D;&#x3002;&#x4F8B;&#x5982;&#x6587;&#x5B66;&#x7F16;&#x7A0B; (Literate programming)&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x5185;&#x90E8;&#x7ED3;&#x6784;&#x5B9E;&#x73B0;&#x7684; DSL (Embedded DSL)&#x3002;&#x4F8B;&#x5982; Ruby&#xFF0C;Lisp&#x3002;</li>
+</ol>
+<h3 id="&#x901A;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;">&#x901A;&#x7528;&#x6570;&#x636E;&#x7ED3;&#x6784;</h3>
+<p>&#x6211;&#x63A8;&#x8350;&#x65B9;&#x6848; 1&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x57FA;&#x4E8E; JSON/YAML/TOML &#x6765;&#x8BBE;&#x8BA1; DSL&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x5728;&#x5927;&#x90E8;&#x5206;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x90FD;&#x6709;&#x5176;&#x89E3;&#x6790;&#x5E93;&#x3002;&#x793E;&#x533A;&#x7684;&#x652F;&#x6301;&#x5EA6;&#x5F88;&#x9AD8;&#xFF0C;&#x6709;&#x5F88;&#x591A;&#x7F16;&#x8F91;&#x5668;&#xFF0C;&#x53EF;&#x89C6;&#x5316;&#x5DE5;&#x5177;&#x7B49;&#x3002;&#x57FA;&#x4E8E;&#x793E;&#x533A;&#x901A;&#x7528;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x53EF;&#x4EE5;&#x51CF;&#x5C11;&#x5F88;&#x591A;&#x5DE5;&#x4F5C;&#x91CF;&#x3002;</p>
+<p>&#x771F;&#x6B63;&#x9700;&#x8981;&#x7528;&#x6237;&#x586B;&#x7684;&#x662F;&#x6570;&#x636E;&#xFF0C;&#x800C;&#x7ED3;&#x6784;&#x5316;&#x7684;&#x683C;&#x5F0F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x522B;&#x7684;&#x9014;&#x5F84;&#x751F;&#x6210;&#xFF0C;&#x6BD4;&#x5982;&#x4E13;&#x95E8;&#x505A;&#x4E00;&#x4E2A;&#x7F16;&#x8F91;&#x5668;&#xFF0C;&#x81EA;&#x52A8;&#x8865;&#x5168;&#x63D0;&#x793A;&#xFF1B;&#x6216;&#x8005;&#x505A;&#x6A21;&#x677F;&#x811A;&#x624B;&#x67B6;&#xFF0C;&#x901A;&#x8FC7;&#x547D;&#x4EE4;&#x884C;&#x6765;&#x751F;&#x6210;&#x9AA8;&#x67B6;&#x3002;</p>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x8BB2;&#x7684;&#x662F;&#x57FA;&#x4E8E;&#x8BE5;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684; DSL &#x8BBE;&#x8BA1;&#x3002;</p>
+<h3 id="&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6CD5;&#x7ED3;&#x6784;">&#x81EA;&#x5B9A;&#x4E49;&#x8BED;&#x6CD5;&#x7ED3;&#x6784;</h3>
+<p>&#x5BF9;&#x4E8E;&#x65B9;&#x6848; 2&#xFF0C;&#x5927;&#x90E8;&#x5206;&#x573A;&#x666F;&#x6211;&#x662F;&#x4E0D;&#x63A8;&#x8350;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x4F60;&#x81F3;&#x5C11;&#x5F97;&#x5199;&#x4E00;&#x5957;&#x5BF9;&#x5E94;&#x7684;&#x8BCD;&#x6CD5;&#x5206;&#x6790;&#x5668; (Scanner)&#x3001;&#x8BED;&#x6CD5;&#x89E3;&#x6790;&#x5668; (Parser)&#x3001;&#x89E3;&#x91CA;&#x5668; (Interpreter)&#xFF0C;&#x5982;&#x679C;&#x8981;&#x8DE8;&#x8BED;&#x8A00;&#xFF0C;n &#x4E2A;&#x8BED;&#x8A00;&#x8981;&#x5199; n &#x4EFD;&#x89E3;&#x6790;&#x5668;&#x548C;&#x6267;&#x884C;&#x5668;&#x3002;</p>
+<p>&#x53EF;&#x80FD;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x7ED3;&#x6784;&#xFF1A;<br>
+<img src="http://pandolia.net/tinyc/images/compiler_overview.png" alt="compiler_overview.png"></p>
+<blockquote>
+<p>&#x4E0A;&#x56FE;&#x6765;&#x81EA;<a href="http://pandolia.net/tinyc/ch6_compiler_overview.html" target="_blank" rel="noopener">&#x8FD9;&#x4E2A;&#x7F51;&#x7AD9;</a></p>
+</blockquote>
+<p>&#x5F53;&#x524D;&#x65B9;&#x6848; 1 &#x4E5F;&#x662F;&#x8981;&#x5199;&#x8FD9;&#x4E9B;&#xFF0C;&#x4E0D;&#x8FC7;&#x7701;&#x53BB;&#x4E86;&#x8BCD;&#x6CD5;&#x548C;&#x8BED;&#x6CD5;&#x5206;&#x6790;&#xFF0C;&#x76F4;&#x63A5;&#x505A;&#x8BED;&#x4E49;&#x5206;&#x6790;&#x3002;</p>
+<h3 id="&#x8BED;&#x4E49;&#x5316;&#x7684;&#x6587;&#x5B57;&#x6BB5;&#x843D;">&#x8BED;&#x4E49;&#x5316;&#x7684;&#x6587;&#x5B57;&#x6BB5;&#x843D;</h3>
+<p>&#x65B9;&#x6848; 3 &#x4F1A;&#x4EA7;&#x751F;&#x5F88;&#x591A;&#x5197;&#x4F59;&#x5B57;&#x6BB5;&#xFF0C;&#x4E66;&#x5199;&#x548C;&#x9605;&#x8BFB;&#x90FD;&#x5F88;&#x4F4E;&#x6548;&#x3002;&#x53EF;&#x80FD;&#x53EA;&#x9002;&#x5408;&#x67D0;&#x4E9B;&#x7279;&#x522B;&#x7684;&#x573A;&#x666F;&#x3002;&#x6545;&#x4E0D;&#x8D58;&#x8FF0;&#x3002;</p>
+<h3 id="&#x901A;&#x8FC7;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x5185;&#x90E8;&#x7ED3;&#x6784;&#x5B9E;&#x73B0;&#x7684;-dsl">&#x901A;&#x8FC7;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x5185;&#x90E8;&#x7ED3;&#x6784;&#x5B9E;&#x73B0;&#x7684; DSL</h3>
+<p>&#x53C2;&#x8003;<a href="https://ruby-china.org/topics/33712" target="_blank" rel="noopener">&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;</a>&#x3002;<br>
+&#x8FD9;&#x7C7B; DSL &#x53EA;&#x80FD;&#x5B58;&#x5728;&#x4E8E;&#x7279;&#x5B9A;&#x7684;&#x8BED;&#x8A00;&#x91CC;&#xFF0C;&#x4E0D;&#x5177;&#x5907;&#x8DE8;&#x8BED;&#x8A00;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+<h3 id="&#x5185;&#x90E8;-dsl-vs-&#x5916;&#x90E8;-dsl">&#x5185;&#x90E8; DSL vs &#x5916;&#x90E8; DSL</h3>
+<p>Martin Fowler &#x5C06; DSL &#x5206;&#x4E3A; &#x5185;&#x90E8; (internal) DSL &#x548C; &#x5916;&#x90E8; (external) DSL&#xFF0C;&#x51FA;&#x81EA;<a href="https://martinfowler.com/books/dsl.html" target="_blank" rel="noopener">&#x8FD9;&#x672C;&#x4E66;</a>&#xFF0C;&#x6709;&#x5174;&#x8DA3;&#x53EF;&#x4EE5;&#x8BFB;&#x4E00;&#x4E0B;&#x3002;&#x7F51;&#x4E0A;&#x4E5F;&#x6709;&#x5F88;&#x591A;&#x597D;&#x6587;&#x7AE0;&#xFF0C;&#x8BF7;&#x81EA;&#x884C;&#x67E5;&#x9605;&#x3002;<br>
+&#x300C;<a href="#%E8%AF%AD%E8%A8%80%E7%BB%93%E6%9E%84">&#x8BED;&#x8A00;&#x7ED3;&#x6784;</a>&#x300D;&#x7AE0;&#x8282;&#x5217;&#x51FA;&#x7684;&#x56DB;&#x79CD;&#x5F62;&#x5F0F; DSL&#xFF0C;&#x5DF2;&#x7ECF;&#x5305;&#x62EC;&#x4E86;&#x8FD9;&#x4E24;&#x79CD;&#x60C5;&#x51B5;&#x3002;</p>
+<h2 id="&#x601D;&#x60F3;&#x8BA4;&#x77E5;">&#x601D;&#x60F3;&#x8BA4;&#x77E5;</h2>
+<p>&#x5728;&#x8BBE;&#x8BA1; DSL &#x8BED;&#x6CD5;&#x4E4B;&#x524D;&#xFF0C;&#x5148;&#x94FA;&#x57AB;&#x4E00;&#x4E0B;&#x6211;&#x5BF9; DSL &#x7684;&#x8BA4;&#x77E5;&#x3002;</p>
+<h3 id="&#x7A0B;&#x5E8F;&#x4E0E;&#x4EBA;">&#x7A0B;&#x5E8F;&#x4E0E;&#x4EBA;</h3>
+<p>&#x8BBE;&#x8BA1; DSL &#x7684;&#x672C;&#x8D28;&#x662F;&#x8BBE;&#x8BA1;&#x4EBA;&#x4E0E;&#x7A0B;&#x5E8F;&#x5982;&#x4F55;&#x4EA4;&#x4E92;&#x3002;</p>
+<p>&#x6211;&#x8BA4;&#x4E3A; DSL &#x4E0E;&#x4EBA;&#x4E0E;&#x7A0B;&#x5E8F;&#x5E94;&#x8BE5;&#x662F;&#x8FD9;&#x6837;&#x7684;&#x5173;&#x7CFB;&#xFF1A;<br>
+&#x7528;&#x6237;&#x4E66;&#x5199; DSL (YAML)&#xFF0C;Parser &#x628A; YAML &#x8F6C;&#x6210;&#x7A0B;&#x5E8F;&#x53CB;&#x597D;&#x7684; JSON &#x683C;&#x5F0F;&#x914D;&#x7F6E;&#xFF0C;&#x7136;&#x540E;&#x5B58;&#x6570;&#x636E;&#x5E93;&#x6216;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#xFF0C;Interpreter &#x518D;&#x53BB;&#x89E3;&#x6790; JSON &#x914D;&#x7F6E;&#x505A;&#x51FA;&#x76F8;&#x5E94;&#x7684;&#x8BA1;&#x7B97;&#x3002;<br>
+&#x7528;&#x6237;&#x901A;&#x8FC7; DSL &#x95F4;&#x63A5;&#x63A7;&#x5236;&#x7A0B;&#x5E8F;&#x7684;&#x884C;&#x4E3A;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">                                  &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">                                  &#x2502;  Parser   &#x2502;</span><br><span class="line">                                  &#x2502;  Program  &#x2502;</span><br><span class="line">                                  &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">                                        &#x2502;</span><br><span class="line">                                        &#x2502;</span><br><span class="line">                                        &#x2502;</span><br><span class="line">                     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;       &#x2502;        &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;  Write   &#x2502;          &#x2502;       &#x2502;        &#x2502;          &#x2502;     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">&#x2502;  Human  &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;   YAML   &#x2502;&#x2500;&#x2500;&#x2500;translate&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;   JSON   &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2502;  Interpreter   &#x2502;</span><br><span class="line">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;          &#x2502;          &#x2502;                &#x2502;          &#x2502;     &#x2502;    Program     &#x2502;</span><br><span class="line">     &#x25CE;               &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;                &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">     &#x2502;                     &#x2502;                           &#x2502;                   &#x25CE;</span><br><span class="line">     &#x2502;                     &#x2502;                           &#x2502;                   &#x2502;</span><br><span class="line">     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;                           &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">      human-friendly syntax                           program-friendly syntax</span><br></pre></td></tr></table></figure>
+<p>YAML &#x662F;&#x9762;&#x5411;&#x4EBA;&#x7C7B;&#x7684;&#x914D;&#x7F6E;&#xFF0C;JSON &#x662F;&#x9762;&#x5411;&#x673A;&#x5668;&#x7684;&#x914D;&#x7F6E;&#x3002;YAML &#x548C; JSON &#x5728;&#x81EA;&#x8EAB;&#x8BED;&#x6CD5;&#x5C42;&#x9762;&#x5E76;&#x4E0D;&#x80FD;&#x5E26;&#x6765;&#x8FD9;&#x79CD;&#x5DEE;&#x5F02;&#xFF0C;&#x53EA;&#x662F;&#x6211;&#x7279;&#x610F;&#x5BF9; DSL &#x8BBE;&#x8BA1;&#x4E0E;&#x89E3;&#x6790;&#x8FDB;&#x884C;&#x8FD9;&#x6837;&#x7684;&#x6982;&#x5FF5;&#x5B9A;&#x4E49;&#x3002;</p>
+<p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x52A0;&#x5165; JSON &#x4F5C;&#x4E3A;&#x4E2D;&#x95F4;&#x8868;&#x793A;&#x5C42;&#xFF1F;&#x5982;&#x679C;&#x53BB;&#x6389; JSON&#xFF0C;&#x5C31;&#x4F1A;&#x53D8;&#x6210;&#x4E0B;&#x56FE;&#x8FD9;&#x6837;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">                                  &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">                                  &#x2502;  Parser   &#x2502;</span><br><span class="line">                                  &#x2502;  Program  &#x2502;</span><br><span class="line">                                  &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">                                        &#x2502;</span><br><span class="line">                                        &#x2502;</span><br><span class="line">                                        &#x2502;</span><br><span class="line">                     &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;       &#x2502;        &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">&#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;  Write   &#x2502;          &#x2502;       &#x2502;        &#x2502;  Interpreter   &#x2502;</span><br><span class="line">&#x2502;  Human  &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;   YAML   &#x2502;&#x2500;&#x2500;&#x2500;translate&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;    Program     &#x2502;</span><br><span class="line">&#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;          &#x2502;          &#x2502;                &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">     &#x25CE;               &#x2514;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2500;&#x2500;&#x252C;&#x2500;&#x2500;&#x2518;                         &#x25CE;</span><br><span class="line">     &#x2502;                  &#x2502;    &#x2502;                            &#x2502;</span><br><span class="line">     &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;    &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br><span class="line">     human-friendly syntax     program-unfriendly syntax</span><br></pre></td></tr></table></figure>
+<p>&#x8BBE;&#x8BA1; DSL &#x4F1A;&#x4EA7;&#x751F;&#x95EE;&#x9898;&#x3002;&#x56E0;&#x4E3A;&#x8BED;&#x6CD5;&#x8BBE;&#x8BA1;&#x8005;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x5728; DSL &#x5C42;&#x9762;&#x8FDB;&#x884C;&#x8BED;&#x6CD5;&#x4F18;&#x5316;&#xFF08;&#x5982;&#x679C;&#x4E0D;&#x4F18;&#x5316;&#xFF0C;&#x7528;&#x6237;&#x4F1A;&#x5410;&#x69FD; DSL &#x597D;&#x96BE;&#x7528;&#xFF09;&#xFF0C;&#x6BD4;&#x5982;&#x52A0;&#x5165;&#x5F88;&#x591A;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x8FD9;&#x79CD;&#x4F18;&#x5316;&#x5BF9;&#x4EBA;&#x7C7B;&#x662F;&#x53CB;&#x597D;&#x7684;&#xFF0C;&#x4F46;&#x5BF9;&#x7A0B;&#x5E8F;&#x5206;&#x6790;&#x4E0D;&#x53CB;&#x597D;&#x3002;<br>
+Interpreter &#x4E0D;&#x5E94;&#x8BE5;&#x53BB;&#x517C;&#x5BB9;&#x6765;&#x81EA;&#x4EBA;&#x7684;&#x4E94;&#x82B1;&#x516B;&#x95E8;&#x7684;&#x9700;&#x6C42;&#xFF0C;&#x8FD9;&#x4F1A;&#x8BA9; Interpreter &#x7A0B;&#x5E8F;&#x5199;&#x5F88;&#x591A;&#x5197;&#x4F59;&#x4EE3;&#x7801;&#xFF0C;&#x5B83;&#x5E94;&#x8BE5;&#x53BB;&#x89E3;&#x6790;&#x56FA;&#x5B9A;&#x4E0D;&#x53D8;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x7528;&#x6237;&#x4E66;&#x5199;&#x8FD9;&#x6837;&#x7684; YAML&#xFF0C;</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">abc:</span> <span class="string">foo</span></span><br></pre></td></tr></table></figure>
+<p>Parser &#x89E3;&#x6790;&#x5F97;&#x5230;&#x8FD9;&#x6837;&#x7684; JSON&#xFF0C;</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{<span class="attr">&quot;rule&quot;</span>: <span class="string">&quot;abc&quot;</span>, <span class="attr">&quot;access&quot;</span>: <span class="string">&quot;foo&quot;</span>}</span><br></pre></td></tr></table></figure>
+<p>&#x6211;&#x8BF4;&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x4E2D; YAML &#x548C; JSON &#x5185;&#x5BB9;&#x662F;&#x4E00;&#x6837;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x5B83;&#x4EEC;&#x63CF;&#x8FF0;&#x4E86;<strong>&#x540C;&#x6837;&#x7684;&#x903B;&#x8F91;</strong>&#xFF0C;&#x53EA;&#x662F;<strong>&#x8868;&#x8FBE;&#x5F62;&#x5F0F;</strong>&#x4E0D;&#x4E00;&#x6837;&#x3002;<br>
+&#x540C;&#x6837;&#x7684; <code>abc: foo</code>&#xFF0C;&#x6839;&#x636E; parser &#x89C4;&#x5219;&#x4E0D;&#x540C;&#x4E5F;&#x53EF;&#x80FD;&#x4EA7;&#x751F;&#x8FD9;&#x6837;&#x7684; JSON &#x914D;&#x7F6E;&#x3002;</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">{<span class="attr">&quot;rule&quot;</span>: <span class="string">&quot;abc&quot;</span>, <span class="attr">&quot;access&quot;</span>: <span class="string">&quot;foo&quot;</span>, <span class="attr">&quot;any&quot;</span>: <span class="string">&quot;thing&quot;</span>, <span class="attr">&quot;attached&quot;</span>: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]}</span><br></pre></td></tr></table></figure>
+<p>YAML &#x53EF;&#x4EE5;&#x5F88;&#x7CBE;&#x7B80;&#xFF0C;&#x5F88;&#x62BD;&#x8C61;&#xFF0C;JSON &#x5FC5;&#x987B;&#x662F;&#x5177;&#x4F53;&#x7684;&#xFF0C;&#x5B57;&#x6BB5;&#x7ED3;&#x6784;&#x5206;&#x660E;&#x7684;&#x3002;JSON &#x4E2D;&#x95F4;&#x914D;&#x7F6E;&#x6839;&#x636E;&#x67D0;&#x4E9B;&#x89C4;&#x5219;&#x89E3;&#x91CA;&#x51FA;&#x6765;&#xFF0C;&#x8FD9;&#x770B;&#x5177;&#x4F53;&#x9700;&#x6C42;&#x3002;Parser &#x7684;&#x89E3;&#x6790;&#x8FC7;&#x7A0B;&#x53EF;&#x80FD;&#x4F1A;&#x6BD4;&#x8F83;&#x8017;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x989D;&#x5916;&#x7684;&#x5F00;&#x9500;&#xFF0C;&#x8FD9;&#x5C31;&#x66F4;&#x6709;&#x5FC5;&#x8981;&#x52A0;&#x5165;&#x4E2D;&#x95F4;&#x5C42;&#x6765;&#x505A;&#x7F13;&#x5B58;&#x3002;</p>
+<h3 id="&#x6743;&#x8861;">&#x6743;&#x8861;</h3>
+<p>&#x4F60;&#x5728;&#x8BBE;&#x8BA1; DSL &#x65F6;&#x9700;&#x8981;&#x505A;&#x5F88;&#x591A;&#x6743;&#x8861;&#xFF0C;&#x5927;&#x81F4;&#x662F;&#x8FD9;&#x4E9B;&#x6761;&#x4EF6;&#xFF1A;&#x4EBA;&#x7684;&#x4E66;&#x5199;&#x6548;&#x7387;&#x3001;DSL &#x7684;&#x5B66;&#x4E60;&#x6210;&#x672C;&#x3001;&#x7A0B;&#x5E8F;&#x7684;&#x5F00;&#x53D1;&#x7EF4;&#x62A4;&#x6548;&#x7387;&#x3001;&#x7A0B;&#x5E8F;&#x7684;&#x89E3;&#x6790; (parse) &#x6548;&#x7387;&#x3001;&#x7A0B;&#x5E8F;&#x7684;&#x89E3;&#x91CA; (interpret) &#x6548;&#x7387;&#x3001;DSL &#x53EF;&#x6269;&#x5C55;&#x6027;&#x3002;</p>
+<h3 id="&#x4EE3;&#x7801;-&#x914D;&#x7F6E;-dsl">&#x4EE3;&#x7801;&#x3001;&#x914D;&#x7F6E;&#x3001;DSL</h3>
+<p>&#x8FD9;&#x4E00;&#x6BB5;&#x662F;&#x9898;&#x5916;&#x8BDD;&#x3002;<br>
+&#x6211;&#x79F0;&#x547C; YAML DSL &#x548C;&#x4E2D;&#x95F4;&#x5C42; JSON &#x90FD;&#x662F;&#x914D;&#x7F6E;&#x3002;&#x662F;&#x56E0;&#x4E3A;&#x6211;&#x8BA4;&#x4E3A;&#x5B83;&#x4EEC;&#x5E94;&#x8BE5;&#x8DDF;&#x4EE3;&#x7801;&#x6709;&#x533A;&#x522B;&#x3002;&#x914D;&#x7F6E;&#x662F;&#x9759;&#x6001;&#x7684;&#xFF0C;&#x800C;&#x4EE3;&#x7801;&#x662F;&#x52A8;&#x6001;&#x7684;&#x3002;<br>
+&#x6211;&#x8BA4;&#x4E3A; DSL &#x7EDD;&#x4E0D;&#x5E94;&#x8BE5;&#x548C; <a href="https://www.wikiwand.com/en/General-purpose_programming_language" target="_blank" rel="noopener">GPPL</a> &#x7528;&#x540C;&#x6837;&#x7684;&#x7F16;&#x7A0B;&#x8303;&#x5F0F;&#x6765;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x3002;DSL &#x5E94;&#x8BE5;&#x662F;&#x5FEB;&#x901F;&#x89E3;&#x51B3;&#x67D0;&#x4E2A;&#x95EE;&#x9898;&#x57DF;&#x7684;&#x9014;&#x5F84;&#xFF0C;&#x800C;&#x6700;&#x5FEB;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x7684;&#x4E0D;&#x662F;&#x7F16;&#x7801;&#xFF0C;&#x800C;&#x662F;&#x5199;&#x914D;&#x7F6E;&#x6765;&#x63CF;&#x8FF0;&#x7A0B;&#x5E8F;&#x7684;&#x8D77;&#x59CB;&#x72B6;&#x6001;&#xFF0C;&#x4EE5;&#x53CA;&#x5B83;&#x7684;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x3002;<br>
+DSL &#x53EF;&#x4EE5;&#x662F;&#x914D;&#x7F6E; (configuration) &#x7684;&#x8FDB;&#x5316;&#xFF0C;&#x4E00;&#x79CD;&#x5177;&#x5907;&#x7279;&#x5B9A;&#x903B;&#x8F91;&#x5173;&#x7CFB;&#x7684;&#x914D;&#x7F6E;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x6211;&#x7684;&#x7406;&#x8BBA;&#x6A21;&#x578B;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF0C;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">            &#x2554;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2557;</span><br><span class="line">            &#x2551;           Program           &#x2551;</span><br><span class="line">            &#x2551;                             &#x2551;</span><br><span class="line">            &#x2551;      &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;      &#x2551;</span><br><span class="line"> Data Input &#x2551;      &#x2502;               &#x2502;      &#x2551; Data Output</span><br><span class="line">&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x256C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;&#x2502;  Code Module  &#x2502;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x256C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B6;</span><br><span class="line">            &#x2551;      &#x2502;               &#x2502;      &#x2551;</span><br><span class="line">            &#x2551;      &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x25B2;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;      &#x2551;</span><br><span class="line">            &#x2551;              &#x2502;              &#x2551;</span><br><span class="line">            &#x2551;           operate           &#x2551;</span><br><span class="line">            &#x255A;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x256C;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x255D;</span><br><span class="line">                           &#x2502;</span><br><span class="line">            &#x250C;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2510;</span><br><span class="line">            &#x2502;        Configuration        &#x2502;</span><br><span class="line">            &#x2514;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2518;</span><br></pre></td></tr></table></figure>
+<p>&#x89E3;&#x91CA;&#x8D77;&#x6765;&#x6587;&#x5B57;&#x91CF;&#x4E0D;&#x5C11;&#x6240;&#x4EE5;&#x4E0D;&#x89E3;&#x91CA;&#x4E86;&#x3002;&#x6211;&#x6B63;&#x5728;&#xFF08;&#x8FD9;&#x4E2A;&#x6B63;&#x5728;&#x62D6;&#x4E86;&#x6709;&#x534A;&#x5E74;&#x4E86;&#x5427;&#xFF09;&#x5199;&#x53E6;&#x4E00;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;&#x5173;&#x4E8E;&#x6570;&#x636E;&#x6D41;&#x3001;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x3001;&#x4EE3;&#x7801;&#x903B;&#x8F91;&#x3002;&#x656C;&#x8BF7;&#x671F;&#x5F85;&#x3002;</p>
+<h2 id="&#x5EFA;&#x7ACB;&#x903B;&#x8F91;">&#x5EFA;&#x7ACB;&#x903B;&#x8F91;</h2>
+<p>&#x786E;&#x5B9A;&#x4F7F;&#x7528;&#x4EC0;&#x4E48;&#x6837;&#x7684;&#x8BED;&#x8A00;&#x7ED3;&#x6784;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x5C31;&#x662F;&#x5982;&#x4F55;&#x63CF;&#x8FF0;&#x4F60;&#x7684;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x3002;</p>
+<p>&#x8BBE;&#x8BA1; DSL &#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x662F;&#x81EA;&#x9876;&#x5411;&#x4E0B;&#x7684;&#x8BBE;&#x8BA1;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x81EA;&#x5E95;&#x5411;&#x4E0A;&#x7684;&#x3002;&#x4F60;&#x4E0D;&#x9700;&#x8981;&#x77E5;&#x9053;&#x5E95;&#x5C42;&#x5177;&#x4F53;&#x662F;&#x600E;&#x4E48;&#x5B9E;&#x73B0;&#x7684;&#x3002;&#x4F60;&#x9700;&#x8981;&#x5173;&#x6CE8;&#x7684;&#x662F;&#x903B;&#x8F91;&#x7684;&#x5B8C;&#x5907;&#x6027;&#x3002;<br>
+&#x4F60;&#x7684;&#x4E1A;&#x52A1;&#x903B;&#x8F91;&#x7684;&#x57FA;&#x672C;&#x5355;&#x5143;&#x662F;&#x4EC0;&#x4E48;&#xFF0C;&#x5355;&#x5143;&#x4E4B;&#x95F4;&#x5982;&#x4F55;&#x5EFA;&#x7ACB;&#x903B;&#x8F91;&#x5173;&#x7CFB;&#x3002;DSL &#x8981;&#x63CF;&#x8FF0;&#x7684;&#x662F;&#x903B;&#x8F91;&#x72B6;&#x6001;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x903B;&#x8F91;&#x8FC7;&#x7A0B;&#x3002;DSL &#x8981;&#x63CF;&#x8FF0;&#x7684;&#x662F; WHAT&#xFF0C;&#x800C;&#x4E0D;&#x662F; HOW&#x3002;</p>
+<p>&#x53EA;&#x8981;&#x903B;&#x8F91;&#x80FD;&#x591F;&#x63CF;&#x8FF0;&#x5B8C;&#x6574;&#xFF0C;&#x5269;&#x4E0B;&#x7684;&#x5C31;&#x662F;&#x8BED;&#x8A00;&#x5F62;&#x5F0F;&#x4E0A;&#x7684;&#x4FEE;&#x6539;&#x7F62;&#x4E86;&#x3002;</p>
+<h2 id="&#x8BED;&#x6CD5;&#x6280;&#x5DE7;">&#x8BED;&#x6CD5;&#x6280;&#x5DE7;</h2>
+<p>DSL &#x9488;&#x5BF9;&#x4E0D;&#x540C;&#x95EE;&#x9898;&#x4EA7;&#x751F;&#x4E0D;&#x540C;&#x7684;&#x8BBE;&#x8BA1;&#xFF0C;&#x56E0;&#x6B64;&#x6CA1;&#x6709;&#x901A;&#x7528;&#x7684;&#x8BBE;&#x8BA1;&#x7ED3;&#x6784;&#x3002;&#x4E8E;&#x662F;&#x8FD9;&#x91CC;&#x53EA;&#x5217;&#x4E00;&#x4E9B;&#x4F60;&#x53EF;&#x80FD;&#x7528;&#x5F97;&#x7740;&#x7684;&#x5C0F;&#x6280;&#x5DE7;&#x3002;</p>
+<h3 id="&#x591A;&#x7248;&#x672C;">&#x591A;&#x7248;&#x672C;</h3>
+<p>&#x8FD9;&#x662F;&#x4ECE; Docker &#x7684;&#x8BBE;&#x8BA1;&#x4E0A;&#x5B66;&#x5230;&#x7684;&#x3002;</p>
+<p>&#x51E1;&#x662F;&#x8BBE;&#x8BA1; DSL&#xFF0C;&#x6700;&#x597D;&#x52A0;&#x4E0A;&#x4E00;&#x4E2A; <code>version</code> &#x5B57;&#x6BB5;&#xFF0C;&#x5176;&#x503C;&#x7528;&#x5B57;&#x7B26;&#x4E32;&#x5B58;&#x50A8;&#xFF0C;&#x5F62;&#x5982; <code>version: &apos;1.0.0&apos;</code>&#x3002;&#x8868;&#x793A;&#x5F53;&#x524D; DSL &#x4F7F;&#x7528;&#x7684;&#x8BED;&#x6CD5;&#x7248;&#x672C;&#x3002;</p>
+<p>&#x5F53;&#x4F60;&#x5B9E;&#x73B0; Parser &#x548C; Interpreter &#x65F6;&#xFF0C;&#x6839;&#x636E; version &#x7684;&#x503C;&#xFF0C;&#x9009;&#x62E9;&#x4E0D;&#x540C;&#x7684;&#x89E3;&#x6790;&#x5F15;&#x64CE;&#x3002;<br>
+&#x6709;&#x4E86;&#x7248;&#x672C;&#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x4F60;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9; DSL &#x8BED;&#x6CD5;&#x8FDB;&#x884C;&#x7248;&#x672C;&#x7BA1;&#x7406;&#xFF0C;&#x5347;&#x7EA7;&#x3002;&#x4E0D;&#x5FC5;&#x62C5;&#x5FC3;&#x8BBE;&#x8BA1; DSL &#x8003;&#x8651;&#x4E0D;&#x5468;&#x5BFC;&#x81F4;&#x4E0D;&#x517C;&#x5BB9;&#x7684;&#x4FEE;&#x6539;&#xFF0C;&#x53EA;&#x8981;&#x9075;&#x5FAA; Semver &#x589E;&#x52A0;&#x5927;&#x7248;&#x672C;&#x53F7;&#x5C31;&#x884C;&#x4E86;&#x3002;DSL &#x7684;&#x8BBE;&#x8BA1;&#x56E0;&#x6B64;&#x5177;&#x5907;&#x8FED;&#x4EE3;&#x6539;&#x8FDB;&#x7684;&#x80FD;&#x529B;&#x3002;</p>
+<p><code>version</code> &#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4E0D;&#x4E00;&#x5B9A;&#x662F; Semver &#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x5B83;&#x8FD8;&#x53EF;&#x4EE5;&#x662F; Tag &#x7684;&#x6982;&#x5FF5;&#xFF0C;&#x975E;&#x5E38;&#x7075;&#x6D3B;&#x597D;&#x7528;&#x3002;</p>
+<h3 id="&#x5197;&#x4F59;&#x5EA6;-&#x81EA;&#x7531;&#x5EA6;-&#x53EF;&#x6269;&#x5C55;&#x6027;">&#x5197;&#x4F59;&#x5EA6;&#x3001;&#x81EA;&#x7531;&#x5EA6;&#x3001;&#x53EF;&#x6269;&#x5C55;&#x6027;</h3>
+<p>&#x4F8B; 1</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- rule:</span> <span class="string">abc</span></span><br><span class="line"><span class="attr">  weight:</span> <span class="number">12</span></span><br><span class="line"><span class="attr">- rule:</span> <span class="string">def</span></span><br><span class="line"><span class="attr">  weight:</span> <span class="number">34</span></span><br></pre></td></tr></table></figure>
+<p>&#x4F8B; 2</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">- abc:</span> <span class="number">12</span></span><br><span class="line"><span class="attr">- def:</span> <span class="number">34</span></span><br></pre></td></tr></table></figure>
+<p>&#x4F8B; 1 &#x53EF;&#x6269;&#x5C55;&#x6027;&#x5F3A;&#xFF0C;&#x672A;&#x6765;&#x6709;&#x65B0;&#x529F;&#x80FD;&#x53EA;&#x8981;&#x65B0;&#x589E;&#x5B57;&#x6BB5;&#x5373;&#x53EF;&#x3002;&#x4F46;&#x662F;&#x5197;&#x4F59;&#x5EA6;&#x9AD8;&#xFF0C;&#x6570;&#x7EC4;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x90FD;&#x5FC5;&#x987B;&#x5199; rule &#x548C; weight &#x5B57;&#x6BB5;&#x3002;&#x8BED;&#x4E49;&#x5316;&#x9AD8;&#xFF0C;&#x5BB9;&#x6613;&#x7406;&#x89E3;&#x3002;<br>
+&#x4F8B; 2 &#x53EF;&#x6269;&#x5C55;&#x6027;&#x5F31;&#xFF0C;&#x4E0D;&#x80FD;&#x518D;&#x65B0;&#x589E;&#x5B57;&#x6BB5;&#x3002;&#x4F46;&#x662F;&#x5197;&#x4F59;&#x5C11;&#xFF0C;&#x7528;&#x6237;&#x586B;&#x7684;&#x5B57;&#x7B26;&#x5360;&#x6BD4;&#x9AD8;&#xFF0C;&#x5373;&#x4E66;&#x5199;&#x6548;&#x7387;&#x9AD8;&#x3002;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x8BED;&#x4E49;&#x5316;&#xFF0C;&#x4E00;&#x822C;&#x4EBA;&#x770B;&#x4E0D;&#x61C2;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x628A;&#x6570;&#x636E;&#x653E;&#x5230; key &#x91CC;&#xFF0C;&#x5C31;&#x4F1A;&#x9650;&#x5B9A;&#x7684;&#x5F88;&#x6B7B;&#x3002;&#x96BE;&#x4EE5;&#x6269;&#x5145;&#x8BED;&#x6CD5;&#x3002;&#x9002;&#x5EA6;&#x589E;&#x52A0;&#x4E00;&#x4E9B;&#x5197;&#x4F59;&#x5B57;&#x6BB5;&#xFF0C;&#x5C31;&#x80FD;&#x589E;&#x5F3A;&#x53EF;&#x6269;&#x5C55;&#x6027;&#xFF0C;&#x4F46;&#x662F;&#x7528;&#x6237;&#x5C31;&#x4F1A;&#x91CD;&#x590D;&#x5199;&#x5F88;&#x591A;&#x5197;&#x4F59;&#x7684; key&#x3002;<br>
+&#x5197;&#x4F59;&#x5EA6;&#x4E0E;&#x53EF;&#x6269;&#x5C55;&#x6027;&#x7684;&#x7F6E;&#x6362;&#xFF0C;&#x662F;&#x8BBE;&#x8BA1; DSL &#x6570;&#x636E;&#x7ED3;&#x6784;&#x7684;&#x4E00;&#x79CD;&#x6280;&#x5DE7;&#x3002;</p>
+<h3 id="&#x6570;&#x636E;&#x7ED3;&#x6784;">&#x6570;&#x636E;&#x7ED3;&#x6784;</h3>
+<p>array &#x4E0E; map&#x3002;&#x9700;&#x8981;&#x4FDD;&#x8BC1;&#x987A;&#x5E8F;&#x5C31;&#x7528; array&#xFF0C;&#x5176;&#x4F59;&#x4E00;&#x5F8B;&#x7528; map&#x3002;map &#x4F18;&#x5148;&#x3002;</p>
+<h3 id="&#x5D4C;&#x5957;">&#x5D4C;&#x5957;</h3>
+<p>&#x903B;&#x8F91;&#x4E0A;&#x7684;&#x5D4C;&#x5957;&#x4E0D;&#x8981;&#x592A;&#x591A;&#xFF0C;1~3 &#x5C42;&#x5D4C;&#x5957;&#x8DB3;&#x591F;&#x4E86;&#x3002;<br>
+&#x666E;&#x901A;&#x7684;&#x914D;&#x7F6E;&#x6570;&#x636E;&#x5982;&#x679C;&#x539F;&#x672C;&#x662F;&#x5D4C;&#x5957;&#x7684;&#xFF0C;&#x4E5F;&#x5C3D;&#x91CF;&#x5E73;&#x94FA;&#x5230;&#x4E00;&#x5C42;&#xFF0C;&#x8FD9;&#x6837;&#x5BB9;&#x6613;&#x4E66;&#x5199;&#x3002;<br>
+&#x53E6;&#x5916;&#xFF0C;&#x8D8A;&#x5E73;&#x94FA;&#x8D8A;&#x65B9;&#x4FBF;&#x7A0B;&#x5E8F;&#x89E3;&#x6790;&#x3002;</p>
+<h3 id="&#x8BED;&#x6CD5;&#x7CD6;">&#x8BED;&#x6CD5;&#x7CD6;</h3>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#xFF0C;&#x901A;&#x914D;&#x7B26; * &#x662F;&#x4E2A;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x7528;&#x6765;&#x5339;&#x914D;&#x591A;&#x4E2A;&#x6761;&#x4EF6;&#x3002;&#x8BED;&#x6CD5;&#x7CD6;&#x662F;&#x4E00;&#x79CD;&#x4F18;&#x5316;&#x624B;&#x6BB5;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x89E3;&#x51B3;&#x95EE;&#x9898;&#x7684;&#x9014;&#x5F84;&#x3002;&#x6CA1;&#x6709;&#x8BED;&#x6CD5;&#x7CD6;&#x4F60;&#x4F9D;&#x7136;&#x53EF;&#x4EE5;&#x7528; DSL &#x89E3;&#x51B3;&#x95EE;&#x9898;&#x57DF;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#x522B;&#x540D; (alias)&#xFF0C;&#x67D0;&#x4E9B;&#x5173;&#x952E;&#x8BCD;&#x5F88;&#x957F;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7ED9;&#x7528;&#x6237;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x8F83;&#x77ED;&#x7684;&#x522B;&#x540D;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x8BF4;&#x590D;&#x7528;&#xFF0C;YAML &#x6709;&#x300C;&#x951A;&#x70B9;&#x300D;&#x8FD9;&#x6837;&#x7684;&#x8BED;&#x6CD5;&#x7CD6;&#xFF0C;&#x5B83;&#x80FD;&#x5728;&#x8BED;&#x6CD5;&#x5C42;&#x9762;&#x4E0A;&#x89E3;&#x51B3;&#x91CD;&#x590D;&#x5B57;&#x6BB5;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<h3 id="&#x8868;&#x8FBE;&#x5F0F;">&#x8868;&#x8FBE;&#x5F0F;</h3>
+<p>&#x8868;&#x8FBE;&#x5F0F;&#x662F;&#x4E00;&#x79CD;&#x8FC7;&#x7A0B;&#x5F0F;&#x7684;&#x63CF;&#x8FF0;&#xFF0C;&#x5B83;&#x4E0E; DSL &#x7684;&#x8BBE;&#x8BA1;&#x7406;&#x5FF5;&#x76F8;&#x6096;&#x3002;&#x4F46;&#x7531;&#x4E8E;&#x4E66;&#x5199;&#x7075;&#x6D3B;&#x5EA6;&#x7684;&#x6743;&#x8861;&#xFF0C;&#x4F60;&#x5F88;&#x53EF;&#x80FD;&#x4F1A;&#x9700;&#x8981;&#x5305;&#x542B;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x529F;&#x80FD;&#xFF0C;&#x5373;&#x501F;&#x7528;&#x67D0;&#x4E2A; <a href="https://www.wikiwand.com/en/General-purpose_programming_language" target="_blank" rel="noopener">GPPL</a> &#x8BED;&#x8A00;&#x7684;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4EE5;&#x4E00;&#x884C;&#x6216;&#x4E00;&#x6BB5;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5F62;&#x5F0F;&#x5199;&#x5230; DSL &#x4E2D;&#x3002;</p>
+<p>&#x7406;&#x8BBA;&#x4E0A;&#x603B;&#x80FD;&#x8BBE;&#x8BA1;&#x51FA;&#x4E00;&#x79CD;&#x7ED3;&#x6784;&#x6765;&#x4EE3;&#x66FF;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#xFF0C;&#x4F46;&#x662F;&#x4E66;&#x5199;&#x8D77;&#x6765;&#x5FC5;&#x7136;&#x4F1A;&#x5F88;&#x7D2F;&#x8D58;&#xFF0C;&#x6BD4;&#x5982;&#x4FDD;&#x5E95;&#x65B9;&#x6848;&#x53EF;&#x4EE5;&#x662F;&#x624B;&#x5199;&#x62BD;&#x8C61;&#x8BED;&#x6CD5;&#x6811; (AST)&#x3002;&#x4F46;&#x8FD9;&#x6CA1;&#x6709;&#x5B9E;&#x73B0;&#x7684;&#x4EF7;&#x503C;&#xFF0C;&#x56E0;&#x6B64;&#x6211;&#x4E0D;&#x8BA8;&#x8BBA;&#x8FD9;&#x79CD;&#x7ED3;&#x6784;&#x3002;</p>
+<h3 id="&#x547D;&#x540D;&#x7A7A;&#x95F4;">&#x547D;&#x540D;&#x7A7A;&#x95F4;</h3>
+<p>&#x6784;&#x9020;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x6709;&#x5F88;&#x5927;&#x7684;&#x597D;&#x5904;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#x4F60;&#x53EF;&#x4EE5;&#x7528;&#x540D;&#x79F0;&#x6765;&#x552F;&#x4E00;&#x5B9A;&#x4F4D;&#x914D;&#x7F6E;&#x8D44;&#x6E90;&#xFF0C;&#x5728; DSL &#x91CC;&#x6CA1;&#x6709;&#x5B9E;&#x9645; id &#x7684;&#x5B58;&#x5728;&#xFF0C;&#x5F53;&#x4F60;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x914D;&#x7F6E;&#x9879;&#x95F4;&#x7684;&#x8054;&#x7CFB;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x6709;&#x4E2A;&#x540D;&#x5B57;&#x6765;&#x7D22;&#x5F15;&#x3002;<br>
+&#x6784;&#x5EFA;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x903B;&#x8F91;&#x4E0A;&#x6765;&#x5B9A;&#x4F4D;&#xFF0C;&#x6765;&#x907F;&#x514D;&#x91CD;&#x590D;&#xFF0C;&#x6765;&#x590D;&#x7528;&#x8D44;&#x6E90;&#x3002;<br>
+&#x547D;&#x540D;&#x8DDF;&#x903B;&#x8F91;&#x76F8;&#x5173;&#xFF0C;&#x8DDF;&#x7269;&#x7406;&#x8D44;&#x6E90;&#x4E0D;&#x8026;&#x5408;&#xFF0C;&#x8FD9;&#x5BF9;&#x6570;&#x636E;&#x8FC1;&#x79FB;&#x7684;&#x573A;&#x666F;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;</p>
+<h3 id="dsl-&#x7684;&#x8F7D;&#x4F53;&#x662F;&#x5185;&#x5BB9;&#x800C;&#x4E0D;&#x662F;&#x6587;&#x4EF6;">DSL &#x7684;&#x8F7D;&#x4F53;&#x662F;&#x5185;&#x5BB9;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x6587;&#x4EF6;</h3>
+<p>&#x5185;&#x5BB9;&#x662F; DSL &#x7684;&#x8F7D;&#x4F53;&#xFF0C;&#x6587;&#x4EF6;&#x662F;&#x5185;&#x5BB9;&#x7684;&#x8F7D;&#x4F53;&#x3002;<br>
+&#x5EFA;&#x8BAE;&#x4E0D;&#x8981;&#x628A; DSL &#x8DDF;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7ED1;&#x5B9A;&#xFF0C;&#x6BD4;&#x5982;&#x67D0;&#x4E2A; DSL &#x6587;&#x4EF6;&#x5E94;&#x8BE5;&#x9075;&#x5B88;&#x4EC0;&#x4E48;&#x547D;&#x540D;&#x89C4;&#x5219;&#xFF0C;&#x67D0;&#x4E2A; DSL &#x6587;&#x4EF6;&#x5E94;&#x8BE5;&#x653E;&#x5728;&#x54EA;&#x4E2A;&#x76EE;&#x5F55;&#x4E0B;&#x3002;&#x8FD9;&#x90FD;&#x662F;&#x4E0D;&#x597D;&#x7684;&#xFF0C;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x8026;&#x5408;&#x3002;<br>
+&#x4F60;&#x5E94;&#x8BE5;&#x4F7F;&#x7528;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x6765;&#x5212;&#x5206; DSL &#x91CC;&#x7684;&#x5185;&#x5BB9;&#x3002;</p>
+<h3 id="&#x6821;&#x9A8C;&#x7A0B;&#x5E8F;">&#x6821;&#x9A8C;&#x7A0B;&#x5E8F;</h3>
+<p>&#x7528;&#x6237;&#x4E66;&#x5199; DSL &#x7684;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x4F1A;&#x5199;&#x9519;&#x3002;&#x5728;&#x89E3;&#x6790; DSL &#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x7ED9;&#x7528;&#x6237;&#x9519;&#x8BEF;&#x53CD;&#x9988;&#xFF0C;&#x53CB;&#x597D;&#x7684;&#x63D0;&#x793A;&#x9519;&#x8BEF;&#x8BED;&#x6CD5;&#x7684;&#x4F4D;&#x7F6E;&#x3002;</p>
+<h2 id="&#x53C2;&#x8003;-bibliographies">&#x53C2;&#x8003; (Bibliographies)</h2>
+<ul>
+<li><a href="https://speakerdeck.com/svenefftinge/dsl-design-best-practices-xtextcon-2015?slide=6" target="_blank" rel="noopener">DSL Design - Best Practices (XtextCON 2015)</a> &#x261C; &#x8FD9;&#x4E2A; slide &#x975E;&#x5E38;&#x597D;</li>
+<li><a href="https://zhuanlan.zhihu.com/p/22824177" target="_blank" rel="noopener">&#x8C08;&#x8C08; DSL &#x4EE5;&#x53CA; DSL &#x7684;&#x5E94;&#x7528;&#xFF08;&#x4EE5; CocoaPods &#x4E3A;&#x4F8B;&#xFF09;</a></li>
+<li><a href="https://martinfowler.com/dslCatalog/" target="_blank" rel="noopener">Martin Fowler - List of DSL Patterns</a></li>
+<li><a href="http://www.yinwang.org/blog-cn/2017/05/25/dsl" target="_blank" rel="noopener">&#x738B;&#x57A0; - DSL</a>&#x3002;&#x6709;&#x53EF;&#x53D6;&#x4E4B;&#x5904;&#xFF0C;&#x503C;&#x5F97;&#x4E00;&#x770B;&#x3002;</li>
+</ul>
+<h2 id="&#x5F15;&#x7528;-references">&#x5F15;&#x7528; (References)</h2>
+<!-- 以下是相关链接 -->
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/why-zip-file-checksum-changed.html" rel="next" title="同一文件的两次 zip 内容不一致">
+                <i class="fa fa-chevron-left"></i> 同一文件的两次 zip 内容不一致
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/1998490?v=3&s=460"
+               alt="ADoyle" />
+          <p class="site-author-name" itemprop="name">ADoyle</p>
+          <p class="site-description motion-element" itemprop="description">大自然的搬运工</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/blog/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/blog/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              
+              <span class="links-of-author-item">
+                <a href="https://github.com/adoyle-h" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              
+              <span class="links-of-author-item">
+                <a href="http://www.douban.com/people/adoyle/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              
+                
+              
+              <span class="links-of-author-item">
+                <a href="mailto:adoyle.h@gmail.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言-intro"><span class="nav-number">1.</span> <span class="nav-text">前言 (Intro)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语言结构"><span class="nav-number">2.</span> <span class="nav-text">语言结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通用数据结构"><span class="nav-number">2.1.</span> <span class="nav-text">通用数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义语法结构"><span class="nav-number">2.2.</span> <span class="nav-text">自定义语法结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语义化的文字段落"><span class="nav-number">2.3.</span> <span class="nav-text">语义化的文字段落</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过编程语言内部结构实现的-dsl"><span class="nav-number">2.4.</span> <span class="nav-text">通过编程语言内部结构实现的 DSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内部-dsl-vs-外部-dsl"><span class="nav-number">2.5.</span> <span class="nav-text">内部 DSL vs 外部 DSL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思想认知"><span class="nav-number">3.</span> <span class="nav-text">思想认知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序与人"><span class="nav-number">3.1.</span> <span class="nav-text">程序与人</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#权衡"><span class="nav-number">3.2.</span> <span class="nav-text">权衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-配置-dsl"><span class="nav-number">3.3.</span> <span class="nav-text">代码、配置、DSL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立逻辑"><span class="nav-number">4.</span> <span class="nav-text">建立逻辑</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#语法技巧"><span class="nav-number">5.</span> <span class="nav-text">语法技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多版本"><span class="nav-number">5.1.</span> <span class="nav-text">多版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冗余度-自由度-可扩展性"><span class="nav-number">5.2.</span> <span class="nav-text">冗余度、自由度、可扩展性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">5.3.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套"><span class="nav-number">5.4.</span> <span class="nav-text">嵌套</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法糖"><span class="nav-number">5.5.</span> <span class="nav-text">语法糖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表达式"><span class="nav-number">5.6.</span> <span class="nav-text">表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命名空间"><span class="nav-number">5.7.</span> <span class="nav-text">命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dsl-的载体是内容而不是文件"><span class="nav-number">5.8.</span> <span class="nav-text">DSL 的载体是内容，而不是文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验程序"><span class="nav-number">5.9.</span> <span class="nav-text">校验程序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-bibliographies"><span class="nav-number">6.</span> <span class="nav-text">参考 (Bibliographies)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用-references"><span class="nav-number">7.</span> <span class="nav-text">引用 (References)</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  
+  
+  
+
+  Copyright © 2015-2018 by ADoyle. All rights reserved. 保留所有权利。
+</div>
+
+<div class="theme-info copyright-description">
+  文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'adoyle-blog';
+      var disqus_identifier = 'the-dsl-design-reference.html';
+      var disqus_title = "DSL 设计参考";
+      var disqus_url = 'http://adoyle.me/blog/the-dsl-design-reference.html';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  <div class="github-fork-ribbon-wrapper autofix">
+      <div class="github-fork-ribbon" style="background-color: #222;">
+          <a href="https://github.com/adoyle-h/blog">Star Blog on GitHub</a>
+      </div>
+  </div>
+</body>
+</html>

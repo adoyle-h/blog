@@ -295,6 +295,159 @@
             
               
                 
+                <a class="post-title-link" href="/blog/implicit-strict-mode.html" itemprop="url">
+                  告别 'use-strict'
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-17T13:43:38+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+
+          
+          <span class="update-time">
+            &nbsp; | &nbsp;
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">更新于</span>
+            <time itemprop="dateUpdated" datetime="2018-02-25T23:09:01+08:00" content="2018-02-25">
+              2018-02-25
+            </time>
+          </span>
+          
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/blog/categories/tech/" itemprop="url" rel="index">
+                    <span itemprop="name">技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/blog/implicit-strict-mode.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="implicit-strict-mode.html" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-tags">
+              <span class="post-tags-item-text">标签</span>
+              
+                <a href="/blog/tags/NodeJS/" rel="tag">#NodeJS</a>
+              
+            </div>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="概览-overview">概览 (Overview)</h2>
+<p><s>结论：如果你使用的 node 版本 &gt;= 2.0.0，可以不必再在每个文件头写 <code>'use-strict';</code>，因为 node 已经默认开启 strict 模式。</s></p>
+<p>------- 2018-02-25 updated -------</p>
+<p>很抱歉，并不是。截至 node v9.6.1，node 都没有默认开启 strict 模式，详见<a href="https://github.com/nodejs/node/blob/v9.6.1/deps/v8/src/flag-definitions.h#L183" target="_blank" rel="noopener">node 源码</a>。<br>
+对于 node 来说，执行 <code>node --use_strict</code> 才会生效 <code>implicit strict mode</code>，你可以通过 <code>node --v8-options</code> 找到这个 <code>--use_strict</code> 选项。<br>
+但是 <code>--use_strict</code> 不建议你使用，具体原因见下文。</p>
+<p>所以下文所说的部分内容，是不对的。<br>
+我做了对应的修正，另外下文还是默认以 node 8 为背景叙事，用到 node 9 的地方我会提示的。</p>
+<p>结论：<br>
+在 node 端，你最好在每个文件头加上 <code>'use-strict'</code>，并且不要使用 <code>node --use-strict</code> 选项；<br>
+在浏览器端，如果你使用的是 <code>&lt;script type=&quot;module&quot;&gt;</code>，则默认开启了 strict 模式，否则也还是要加 <code>'use-strict'</code> 的（不过一般有前端工具帮你处理这事）。</p>
+<p>------- 2018-02-25 updated end -------</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/blog/implicit-strict-mode.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/blog/trap-in-makefile.html" itemprop="url">
                   Makefile 的一个陷阱
                 </a>
@@ -1480,9 +1633,9 @@
             <div class="post-tags">
               <span class="post-tags-item-text">标签</span>
               
-                <a href="/blog/tags/架构/" rel="tag">#架构</a>
-              
                 <a href="/blog/tags/响应式编程/" rel="tag">#响应式编程</a>
+              
+                <a href="/blog/tags/架构/" rel="tag">#架构</a>
               
                 <a href="/blog/tags/FRP/" rel="tag">#FRP</a>
               
@@ -1505,165 +1658,6 @@
 </blockquote>
           <div class="post-more-link text-center">
             <a class="btn" href="/blog/unidirectional-user-interface-architectures.html#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/blog/meet-best.html" itemprop="url">
-                  《介绍 Famous 框架》之《相遇 BEST》
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-11-01T19:44:24+08:00" content="2015-11-01">
-              2015-11-01
-            </time>
-          </span>
-
-          
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/translation/" itemprop="url" rel="index">
-                    <span itemprop="name">翻译</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/translation/tech/" itemprop="url" rel="index">
-                    <span itemprop="name">技术</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/blog/categories/translation/tech/fe/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/blog/meet-best.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="meet-best.html" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-tags">
-              <span class="post-tags-item-text">标签</span>
-              
-                <a href="/blog/tags/框架/" rel="tag">#框架</a>
-              
-                <a href="/blog/tags/响应式编程/" rel="tag">#响应式编程</a>
-              
-            </div>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>本文节选翻译自<a href="https://blog.famous.org/introducing-the-famous-framework/" target="_blank" rel="noopener">《Introducing the Famous Framework》</a>的“Meet BEST”部分</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/blog/meet-best.html#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1736,7 +1730,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/blog/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">24</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
