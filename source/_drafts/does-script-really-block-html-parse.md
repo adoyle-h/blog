@@ -9,11 +9,14 @@ copyright: '未经授权，不得全文转载。转载前请先阅读[本站版�
 ## 前言 (Intro)
 
 加载 `<script>` 会阻塞 HTML 解析吗？
-你可能会说，当然会阻塞啊，不是常说“css 放 head，script 放 body 底部”吗？因此才有 `<script>` 的 async、defer 属性，要不然要它 (defer) 何用？
+你可能会说，当然会阻塞啊，不是常说“css 放 head，script 放 body 底部”吗？还有 `<script>` 的 async、defer 属性，要不然要它 (defer) 何用？
 
 如果你不确定，可以看下的 [How browsers work][B4] 的 [HTML Parser 章节](http://taligarsiel.com/Projects/howbrowserswork1.htm#HTML_Parser)。
 
-> html解析过程是至上而下的，当html解析器遇到诸如<script>、<link>等标签时，就会去下载相应内容。且加载、解析、执行JavaScript会阻止解析器往下执行。
+
+但是某天我查看 devtools 的 network 面板时发现，多个 script 几乎是统一时间发出请求的。
+
+我们都知道 HTML 解析过程是按 DOM 树结构至上而下的，当html解析器遇到诸如<script>、<link>等标签时，就会去下载相应内容。且加载、解析、执行JavaScript会阻止解析器往下执行。
 
 加载 `<script>` 的确会阻塞 HTML 解析，但是因为推测解析的功能，将 script 触发下载的时间大幅提前。
 
@@ -92,6 +95,10 @@ script 的耗时分成三部分：下载 + 编译 + 执行
 
 
 请阅读这篇译文：[《更快地构建DOM: 使用预解析, async, defer 以及 preload》][B1]
+
+https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#Speculative_parsing
+
+> Both WebKit and Firefox do this optimization. While executing scripts, another thread parses the rest of the document and finds out what other resources need to be loaded from the network and loads them. In this way, resources can be loaded on parallel connections and overall speed is improved. Note: the speculative parser only parses references to external resources like external scripts, style sheets and images: it doesn't modify the DOM tree–that is left to the main parser.
 
 
 Gecko 内核
