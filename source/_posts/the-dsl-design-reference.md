@@ -24,8 +24,8 @@ updated: 2018-07-03 02:34:39
 
 总结了四种结构：
 
-1. 通用数据结构。例如基于 YAML 的 Dockerfile、docker-compose.yml、Ansible playbook，基于 XML 的 HTML。
-2. 自定义语法结构。例如 CSS，Nginx.conf，GraphQL，SQL。
+1. 通用数据结构。例如基于 YAML 的 docker-compose.yml、Ansible playbook，基于 XML 的 HTML。
+2. 自定义语法结构。例如 CSS，Dockerfile，Nginx.conf，GraphQL，SQL。
 3. 语义化的文字段落。例如文学编程 (Literate programming)。
 4. 通过编程语言内部结构实现的 DSL (Embedded DSL)。例如 Ruby，Lisp。
 
