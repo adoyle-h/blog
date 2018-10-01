@@ -37,4 +37,4 @@ updated: 2018-05-05 16:43:21
 
 <!-- links -->
 
-[0]: http://7xniyb.com1.z0.glb.clouddn.com/share/%E5%A6%82%E4%BD%95%E9%9D%A2%E8%AF%95%E4%BB%96%E4%BA%BA-covered.png
+[0]: http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/%E5%A6%82%E4%BD%95%E9%9D%A2%E8%AF%95%E4%BB%96%E4%BA%BA-covered.png

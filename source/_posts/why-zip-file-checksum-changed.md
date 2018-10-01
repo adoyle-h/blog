@@ -132,8 +132,8 @@ zip 最后是目录记录块
 我猜 zip 文件变化是由于压缩打包过程中引入了跟时间相关的变量，于是查询关键词 `time` `date` 还有 `stamp`。
 先把文档下载到本地，然后用 [ag][] 命令来搜索关键词。
 
-![搜索 time.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png)
-![搜索 date 和 stamp.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-24-33.png)
+![搜索 time.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png)
+![搜索 date 和 stamp.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-24-33.png)
 
 整理一下就是 `last mod file time`，`last access time`，`creation time` 这三个线索。
 
@@ -149,7 +149,7 @@ zip b.zip xx
 gstat xx
 ```
 
-![gstat.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2017-30-46.png)
+![gstat.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2017-30-46.png)
 
 你会发现 access time 变了。再回文档找一下查询 `access time` 关键词的句子。找到三处。
 
@@ -228,7 +228,7 @@ vimdiff 是用 vim 来查看两个文件的文本差异，因为 vimdiff 不能�
 
 然后执行 `./s hahahaha`。
 
-![raw-diff.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26.png)
+![raw-diff.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26.png)
 
 左边是 a.zip 文件的十六进制，右边是 b.zip 文件的十六进制。
 你可以看到不同的就只有一个字节 `82` 和 `83`。
@@ -240,9 +240,9 @@ vimdiff 是用 vim 来查看两个文件的文本差异，因为 vimdiff 不能�
 试了很多次，仔细观察和对比其实还是能发现一些共同点和差异。比如同一个文件在不同时间点 zip 多次，以及不同文件 zip 的结果。建议你自己试试，我不多赘述了。
 `hahahaha` 作为文本内容不方便做标记，我换成了 `1234567890`，你可以看到这样。
 
-![another-raw-diff.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07.png)
+![another-raw-diff.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07.png)
 
-![another-explained-raw-diff.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07%202.png)
+![another-explained-raw-diff.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07%202.png)
 
 再回来看标准文档记录的 ZIP 结构，
 
@@ -315,7 +315,7 @@ vimdiff 是用 vim 来查看两个文件的文本差异，因为 vimdiff 不能�
 
 于是可以分析得到这图：
 
-![explained-diff.png](http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26%202.png)
+![explained-diff.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26%202.png)
 
 ## 结论
 

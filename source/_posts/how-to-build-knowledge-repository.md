@@ -266,11 +266,11 @@ iThoughtsX 本身只支持导图内的内容搜索，询问过作者后确定它
 我就公开这个思维导图以作总结吧。
 由于图片太大，只放出链接，请自己下载吧。
 
-[构建知识库的思维导图.png](http://7xniyb.com1.z0.glb.clouddn.com/share/%E6%9E%84%E5%BB%BA%E7%9F%A5%E8%AF%86%E5%BA%93-covered.png) 5.30 MB
+[构建知识库的思维导图.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/%E6%9E%84%E5%BB%BA%E7%9F%A5%E8%AF%86%E5%BA%93-covered.png) 5.30 MB
 
 附赠，《如何使用 iThoughtsX》。
 
-[如何使用 iThoughtsX.png](http://7xniyb.com1.z0.glb.clouddn.com/share/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20iThoughtsX-covered.png) 1.84 MB
+[如何使用 iThoughtsX.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20iThoughtsX-covered.png) 1.84 MB
 
 
 ## 参考 (Bibliographies)

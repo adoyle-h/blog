@@ -73,7 +73,7 @@ script 的耗时分成三部分：下载 + 编译 + 执行
 </html>
 ```
 
-![对应的解析过程.png](http://7xniyb.com1.z0.glb.clouddn.com/share/script_and_html_parse_2018-06-25_13-22-17.png)
+![对应的解析过程.png](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/script_and_html_parse_2018-06-25_13-22-17.png)
 
 实际测试发现 script 的解析加载并没有阻塞住 html 的解析。
 
