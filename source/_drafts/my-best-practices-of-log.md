@@ -45,17 +45,33 @@ Logging objects instead of a format string enables you to more easily index and 
 - 框架层
 
 ## 注意点
+
 ### 不要跨行(\n)，一个日志保持在一行内
+
 ### 不同关注领域写不同的日志文件
 当访问和调用极其频繁，有时候你会发现把你的工程里什么信息都打印到一个日志文件里，会让你看得头昏脑胀。
 最简单的示范就是Apache的访问日志和错误日志是分开的。
 同样，你也可以把更加安静的事件（偶尔出现）与更加喧闹的事件分开存储。
 如，对外的开放平台可以打印三种日志文件：connection log（建立链接和关闭链接，附带接入参数），message log（内部调用链），stacktrace log（异常的堆栈打印）。
+
 ### 将性能数据标准化输出
 
 ### 日志的第一受众是人类还是机器？
 首先要机器可读，一旦机器可读，就能转化为人类可读。
 
+### 不要忽略错误
+
+```
+try {
+  // an exception is thrown
+} catch(error) {
+  // nothing to do with error
+}
+```
+
+要么打印 error 级别，要么打印 warn 级别。并且把 error 相关的 message、stack 信息打印出来。
+
+这是错误处理要讨论的事，请阅读我的另一篇文章，[「」](source/_drafts/my-best-practices-of-error-handling.md) 有介绍。
 
 ## 在哪里打印日志
 - 访问数据库的dao层；
@@ -65,6 +81,8 @@ Logging objects instead of a format string enables you to more easily index and 
 
 ## 错误级别
 - 级别不要设置太多，选择太多就会冗余
+
+## 日志带来的开销
 
 ## Q&A
 ### 为什么容许一条错误日志有多行输出？
@@ -79,6 +97,10 @@ Logging objects instead of a format string enables you to more easily index and 
 
 然而时代在变化，随着解析 json 的命令行工具（如 [jq][0]）诞生，以 json 作为日志格式变得可行。
 
+## Logging Checklist
+
+- [ ]
+
 
 ## 参考(Bibliographies)
 - [Paul's Journal - Write Logs for Machines, use JSON][B1]
@@ -86,6 +108,8 @@ Logging objects instead of a format string enables you to more easily index and 
 - [splunk - Logging best practices][B3]
 - [loggly - JSON: Best Practices for Logging][B4]
 - [Hacker news][B5]
+- [写给开发者：记录日志的 10 个建议](https://juejin.im/entry/58b647438fd9c50061220349)
+- [CODING HORROR - The Problem With Logging](https://blog.codinghorror.com/the-problem-with-logging/)
 
 ## 引用(References)
 [^1]: [][R1]

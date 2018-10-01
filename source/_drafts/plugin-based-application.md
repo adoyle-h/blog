@@ -30,7 +30,7 @@ Miesian 只是给你一种应用开发的设计模式，某种程度上降低你
 
 split monolithic application into modules.
 
-## 要解决的问题
+## 问题的背景
 
 首先提出四个问题和现象，
 
@@ -53,7 +53,34 @@ split monolithic application into modules.
 
 <!-- more -->
 
-## 定义
+## 要解决的问题
+
+- 如何简单的复用代码。
+- 集成模块时如何保证没有副作用（互不影响，不会影响全局）。
+- 如何组织模块、框架、应用代码。
+
+## 应用、框架、插件
+
+插件构成框架、框架构成应用。
+插件构成应用。
+
+他们是同构的，即都有统一的结构。
+
+他们的区别在于实现业务的范围。应用是实现业务需求。框架是实现通用需求。插件实现技术需求。
+
+## 中心化 vs 去中心化
+
+实现模块逻辑应该是去中心化的。
+实现应用应该是中心化的。
+
+## 配置
+
+应用、框架、插件的配置。
+
+配置载入顺序。
+配置覆盖优先级。
+
+## 组成
 
 Miesian 是一个应用架构风格 (Application Architectural Style)。
 
@@ -131,6 +158,10 @@ MMod 和 VMod 只要提供接口来读写数据即可。中间的数据传递交
 
 定义越少，约束就越少，操作的空间就越大，使用者的自由度就越高。
 
+### 依赖
+
+定义依赖=目标名称 + 接口结构（数据结构）
+
 ### 依赖注入
 
 依赖注入这套有点像 Spring。中心化 App 又有点像 Angular 和 Vue 和 DVA。
@@ -158,6 +189,10 @@ spring 虽然设计得最好，但是这种框架会附带很多约束。
 
 专注于分层设计，可扩展，模块化。明确职责划分。
 专注于运行时。
+
+### 限制上下文
+
+可以确保模块、插件不会修改更上层的上下文，每个模块都有明确的操作边界。
 
 ### 不约束
 
@@ -372,10 +407,15 @@ export default const {
 };
 ```
 
+## 生命周期
 
-## 应用的生命周期
+### 应用的生命周期
 
 ![a picture about lifecycle of app]()
+
+### 组件的生命周期
+
+### 状态图
 
 
 ## 意义
@@ -608,6 +648,11 @@ import * as services from './services';
 
 ### 模块间依赖
 
+
+## 其他优点
+
+- 帮助你建立可扩展的插件体系
+
 ## 最后
 
 我根据上文实现了一套 JS 库: [miesian](https://github.com/adoyle-h/miesian)。该库提供了 Mod 和 AppCore 基类，以及一些 Mod。（目前可能还不能运行，可以看下代码实现）
@@ -617,12 +662,12 @@ import * as services from './services';
 
 我期望这套架构风格能够应用到整个开源社区，同时构建起一个 Mod 和 App 生态圈。每个模块都是独立的，专一的。每个人可以根据自己的需求制作应用框架，
 
-
 ## 参考 (Bibliographies)
 
 - https://spring.io/
 - https://angular.io/guide/architecture
 - https://cn.vuejs.org/v2/guide/instance.html
+- https://speakerdeck.com/tastapod/simplicity-the-way-of-the-unusual-architect
 - [][B1]
 
 ## 引用 (References)
