@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://adoyle.me/blog/about/index.html</loc>
+    
+    <lastmod>2018-10-25T15:21:57.928Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/categories/index.html</loc>
+    
+    <lastmod>2018-10-01T02:30:12.286Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/404.html</loc>
+    
+    <lastmod>2018-10-01T02:30:12.268Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/tags/index.html</loc>
+    
+    <lastmod>2018-10-01T02:30:12.258Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://adoyle.me/blog/the-dsl-design-reference.html</loc>
     
     <lastmod>2018-07-02T18:34:39.000Z</lastmod>
@@ -33,34 +61,6 @@
     <loc>http://adoyle.me/blog/how-to-build-knowledge-repository.html</loc>
     
     <lastmod>2018-03-01T14:11:02.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/tags/index.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/categories/index.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/about/index.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/404.html</loc>
-    
-    <lastmod>2018-02-25T16:30:50.000Z</lastmod>
     
   </url>
   

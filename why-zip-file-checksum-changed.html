@@ -99,18 +99,18 @@
 <meta property="og:site_name" content="ADoyle 的博客">
 <meta property="og:description" content="前言 (Intro) 有个朋友提了这样的一个问题：  同样的文件，用 zip 打包两次，打包出来的文件 md5 怎么不一样啊？  我自己做了一遍惊讶地发现真是如此，第一反应是打包混入了时间戳。但 google 却没找到恰当的答案。于是开启了我的探索之旅。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-24-33.png">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2017-30-46.png">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26.png">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07.png">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07%202.png">
-<meta property="og:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26%202.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-24-33.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2017-30-46.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07%202.png">
+<meta property="og:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26%202.png">
 <meta property="og:updated_time" content="2018-06-30T11:45:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="同一文件的两次 zip 内容不一致">
 <meta name="twitter:description" content="前言 (Intro) 有个朋友提了这样的一个问题：  同样的文件，用 zip 打包两次，打包出来的文件 md5 怎么不一样啊？  我自己做了一遍惊讶地发现真是如此，第一反应是打包混入了时间戳。但 google 却没找到恰当的答案。于是开启了我的探索之旅。">
-<meta name="twitter:image" content="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png">
+<meta name="twitter:image" content="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png">
 
 
 
@@ -425,12 +425,12 @@
 <p>&#x7136;&#x800C;&#x9605;&#x8BFB;&#x6807;&#x51C6;&#x6587;&#x6863;&#x662F;&#x6700;&#x67AF;&#x71E5;&#x4E4F;&#x5473;&#x7684;&#xFF0C;&#x6211;&#x61D2;&#x5F97;&#x628A;&#x5168;&#x6587;&#x4ED4;&#x4ED4;&#x7EC6;&#x7EC6;&#x8BFB;&#x4E00;&#x904D;&#x3002;<br>
 &#x6211;&#x731C; zip &#x6587;&#x4EF6;&#x53D8;&#x5316;&#x662F;&#x7531;&#x4E8E;&#x538B;&#x7F29;&#x6253;&#x5305;&#x8FC7;&#x7A0B;&#x4E2D;&#x5F15;&#x5165;&#x4E86;&#x8DDF;&#x65F6;&#x95F4;&#x76F8;&#x5173;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4E8E;&#x662F;&#x67E5;&#x8BE2;&#x5173;&#x952E;&#x8BCD; <code>time</code> <code>date</code> &#x8FD8;&#x6709; <code>stamp</code>&#x3002;<br>
 &#x5148;&#x628A;&#x6587;&#x6863;&#x4E0B;&#x8F7D;&#x5230;&#x672C;&#x5730;&#xFF0C;&#x7136;&#x540E;&#x7528; <a href="https://github.com/ggreer/the_silver_searcher" target="_blank" rel="noopener">ag</a> &#x547D;&#x4EE4;&#x6765;&#x641C;&#x7D22;&#x5173;&#x952E;&#x8BCD;&#x3002;</p>
-<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png" alt="&#x641C;&#x7D22; time.png"><br>
-<img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2015-24-33.png" alt="&#x641C;&#x7D22; date &#x548C; stamp.png"></p>
+<p><img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-23-40.png" alt="&#x641C;&#x7D22; time.png"><br>
+<img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2015-24-33.png" alt="&#x641C;&#x7D22; date &#x548C; stamp.png"></p>
 <p>&#x6574;&#x7406;&#x4E00;&#x4E0B;&#x5C31;&#x662F; <code>last mod file time</code>&#xFF0C;<code>last access time</code>&#xFF0C;<code>creation time</code> &#x8FD9;&#x4E09;&#x4E2A;&#x7EBF;&#x7D22;&#x3002;</p>
 <p>&#x90A3;&#x4E48;&#x6765;&#x770B;&#x4E00;&#x4E0B; zip &#x4F1A;&#x4E0D;&#x4F1A;&#x5BF9;&#x6587;&#x4EF6;&#x65F6;&#x95F4;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;&#x6211;&#x7528;&#x5230;&#x4E86; gstat (GNU stat) &#x547D;&#x4EE4;&#x3002;&#xFF08;&#x5728; Mac &#x4E2D;&#x8C03;&#x7528; GNU &#x547D;&#x4EE4;&#x5DE5;&#x5177;&#xFF0C;&#x9700;&#x8981;&#x88C5; <code>brew install coreutils</code>&#xFF09;</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> hahahaha &gt; xx</span><br><span class="line">gstat xx</span><br><span class="line">rm -f a.zip b.zip</span><br><span class="line">zip a.zip xx</span><br><span class="line">gstat xx</span><br><span class="line">zip b.zip xx</span><br><span class="line">gstat xx</span><br></pre></td></tr></table></figure>
-<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2017-30-46.png" alt="gstat.png"></p>
+<p><img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2017-30-46.png" alt="gstat.png"></p>
 <p>&#x4F60;&#x4F1A;&#x53D1;&#x73B0; access time &#x53D8;&#x4E86;&#x3002;&#x518D;&#x56DE;&#x6587;&#x6863;&#x627E;&#x4E00;&#x4E0B;&#x67E5;&#x8BE2; <code>access time</code> &#x5173;&#x952E;&#x8BCD;&#x7684;&#x53E5;&#x5B50;&#x3002;&#x627E;&#x5230;&#x4E09;&#x5904;&#x3002;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A.2 Field Code  Description</span><br><span class="line"></span><br><span class="line">   400D     IFS Access Time                     4 bytes</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">4.5.5 -NTFS Extra Field (0x000a):</span><br><span class="line"></span><br><span class="line">        Atime      8 bytes    File last access time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">4.5.7 -UNIX Extra Field (0x000d):</span><br><span class="line"></span><br><span class="line">     Atime       4 bytes       File last access time</span><br></pre></td></tr></table></figure>
@@ -450,7 +450,7 @@ ZIP &#x6807;&#x51C6;&#x6587;&#x6863;&#x91CC;&#x6709;&#x5199;&#x54EA;&#x4E9B;&#x5
 P.S. &#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x7528; hexdump &#x547D;&#x4EE4;&#x6765;&#x505A;&#x8FDB;&#x5236;&#x8F6C;&#x6362;&#x3002;</p>
 <p>vimdiff &#x662F;&#x7528; vim &#x6765;&#x67E5;&#x770B;&#x4E24;&#x4E2A;&#x6587;&#x4EF6;&#x7684;&#x6587;&#x672C;&#x5DEE;&#x5F02;&#xFF0C;&#x56E0;&#x4E3A; vimdiff &#x4E0D;&#x80FD;&#x76F4;&#x63A5;&#x7528;&#x6765;&#x6BD4;&#x8F83;&#x4E8C;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#xFF0C;&#x6240;&#x4EE5;&#x5148;&#x7528; xxd &#x8F6C;&#x6210;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x6587;&#x4EF6;&#x3002;</p>
 <p>&#x7136;&#x540E;&#x6267;&#x884C; <code>./s hahahaha</code>&#x3002;</p>
-<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26.png" alt="raw-diff.png"></p>
+<p><img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26.png" alt="raw-diff.png"></p>
 <p>&#x5DE6;&#x8FB9;&#x662F; a.zip &#x6587;&#x4EF6;&#x7684;&#x5341;&#x516D;&#x8FDB;&#x5236;&#xFF0C;&#x53F3;&#x8FB9;&#x662F; b.zip &#x6587;&#x4EF6;&#x7684;&#x5341;&#x516D;&#x8FDB;&#x5236;&#x3002;<br>
 &#x4F60;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5C31;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5B57;&#x8282; <code>82</code> &#x548C; <code>83</code>&#x3002;</p>
 <p>&#x300C;&#x641C;&#x7D22;&#x7EBF;&#x7D22;&#x300D;&#x7AE0;&#x8282;&#x627E;&#x5230;&#x7684;&#x4E09;&#x5904; <code>access time</code> &#x5173;&#x952E;&#x70B9;&#xFF0C;&#x53EA;&#x8981;&#x627E;&#x51FA;&#x5B57;&#x8282;&#x91CC;&#x5BF9;&#x5E94;&#x7684;&#x6807;&#x5FD7;&#x4F4D;&#x5C31;&#x884C;&#x4E86;&#xFF0C;&#x5373; <code>0x000d</code> <code>0x000a</code> <code>400D</code>&#x3002;<br>
@@ -458,8 +458,8 @@ P.S. &#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x7528; hexdump &#x547D;&#x4EE4;&#x6765;&#
 &#x8BD5;&#x4E86;&#x597D;&#x51E0;&#x6B21;&#x90FD;&#x6CA1;&#x6709;&#xFF01;WTF</p>
 <p>&#x8BD5;&#x4E86;&#x5F88;&#x591A;&#x6B21;&#xFF0C;&#x4ED4;&#x7EC6;&#x89C2;&#x5BDF;&#x548C;&#x5BF9;&#x6BD4;&#x5176;&#x5B9E;&#x8FD8;&#x662F;&#x80FD;&#x53D1;&#x73B0;&#x4E00;&#x4E9B;&#x5171;&#x540C;&#x70B9;&#x548C;&#x5DEE;&#x5F02;&#x3002;&#x6BD4;&#x5982;&#x540C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x5728;&#x4E0D;&#x540C;&#x65F6;&#x95F4;&#x70B9; zip &#x591A;&#x6B21;&#xFF0C;&#x4EE5;&#x53CA;&#x4E0D;&#x540C;&#x6587;&#x4EF6; zip &#x7684;&#x7ED3;&#x679C;&#x3002;&#x5EFA;&#x8BAE;&#x4F60;&#x81EA;&#x5DF1;&#x8BD5;&#x8BD5;&#xFF0C;&#x6211;&#x4E0D;&#x591A;&#x8D58;&#x8FF0;&#x4E86;&#x3002;<br>
 <code>hahahaha</code> &#x4F5C;&#x4E3A;&#x6587;&#x672C;&#x5185;&#x5BB9;&#x4E0D;&#x65B9;&#x4FBF;&#x505A;&#x6807;&#x8BB0;&#xFF0C;&#x6211;&#x6362;&#x6210;&#x4E86; <code>1234567890</code>&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#x8FD9;&#x6837;&#x3002;</p>
-<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07.png" alt="another-raw-diff.png"></p>
-<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07%202.png" alt="another-explained-raw-diff.png"></p>
+<p><img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07.png" alt="another-raw-diff.png"></p>
+<p><img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2019-18-07%202.png" alt="another-explained-raw-diff.png"></p>
 <p>&#x518D;&#x56DE;&#x6765;&#x770B;&#x6807;&#x51C6;&#x6587;&#x6863;&#x8BB0;&#x5F55;&#x7684; ZIP &#x7ED3;&#x6784;&#xFF0C;</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[local file header]</span><br><span class="line">[encryption header]</span><br><span class="line">[file data]</span><br><span class="line">[data descriptor]</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">4.3.7  Local file header:</span><br><span class="line"></span><br><span class="line">   local file header signature     4 bytes  (0x04034b50)</span><br><span class="line">   version needed to extract       2 bytes</span><br><span class="line">   general purpose bit flag        2 bytes</span><br><span class="line">   compression method              2 bytes</span><br><span class="line">   last mod file time              2 bytes</span><br><span class="line">   last mod file date              2 bytes</span><br><span class="line">   crc-32                          4 bytes</span><br><span class="line">   compressed size                 4 bytes</span><br><span class="line">   uncompressed size               4 bytes</span><br><span class="line">   file name length                2 bytes</span><br><span class="line">   extra field length              2 bytes</span><br><span class="line"></span><br><span class="line">   file name (variable size)</span><br><span class="line">   extra field (variable size)</span><br></pre></td></tr></table></figure>
@@ -483,7 +483,7 @@ P.S. &#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x7528; hexdump &#x547D;&#x4EE4;&#x6765;&#
 <li>Long-Long 8 &#x5B57;&#x8282;</li>
 </ul>
 <p>&#x4E8E;&#x662F;&#x53EF;&#x4EE5;&#x5206;&#x6790;&#x5F97;&#x5230;&#x8FD9;&#x56FE;&#xFF1A;</p>
-<p><img src="http://7xniyb.com1.z0.glb.clouddn.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26%202.png" alt="explained-diff.png"></p>
+<p><img src="http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/zip-checksum/Hyper%202018-06-30%2018-59-26%202.png" alt="explained-diff.png"></p>
 <h2 id="&#x7ED3;&#x8BBA;">&#x7ED3;&#x8BBA;</h2>
 <p>&#x53D8;&#x91CF;&#x7684;&#x786E;&#x662F; Access Time&#x3002;&#x5B83;&#x5B58;&#x50A8;&#x5728; local file header &#x7684;&#x989D;&#x5916;&#x5B57;&#x6BB5; (extra fields) &#x7684;&#x6269;&#x5C55;&#x65F6;&#x95F4;&#x6233;&#x5B57;&#x6BB5; (Extended Timestamp Extra Field) &#x4E2D;&#x3002;</p>
 <p>&#x63A2;&#x7D22;&#x4E4B;&#x65C5;&#x7EC8;&#x4E8E;&#x8FBE;&#x5230;&#x4E86;&#x7EC8;&#x70B9;&#x3002;</p>
@@ -649,7 +649,7 @@ P.S. &#x4F60;&#x4E5F;&#x53EF;&#x4EE5;&#x7528; hexdump &#x547D;&#x4EE4;&#x6765;&#
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
