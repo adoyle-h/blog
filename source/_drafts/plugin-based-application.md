@@ -1,5 +1,5 @@
 ---
-title: 应用架构风格 Miesian
+title: 软件架构风格 Miesian
 author: ADoyle <adoyle.h@gmail.com>
 tags: ['架构', '架构风格', '框架', '应用']
 categories: ['技术']
@@ -9,12 +9,17 @@ copyright: '未经授权，不得全文转载。转载前请先阅读[本站版�
 ## 概览 (Overview)
 ## 前言 (Intro)
 
-我设计了一套应用架构风格，取名为 Miesian。本文将介绍它的设计思路、技术实现，以及应用场景。
+我设计了一套软件架构风格/设计模式，取名为 Miesian。致敬建筑大师 Ludwig Mies van der Rohe 的思想「先结构、后形式，先空间、后功能」以及「Less is More」。
+本文将介绍它的设计思路、技术实现，以及应用场景。
 
-Miesian 主要做两件事：
+Miesian 主要做下面几件事：
 
-1. 帮助你构建模块化的应用 (Application) 或者应用框架 (Framework)。
-2. 帮助建立一个应用和模块的生态。
+1. 解耦业务逻辑和工程逻辑
+2. 描述业务逻辑的通用语法
+3. 帮助你构建模块化的应用 (Application) 或者应用框架 (Framework)。
+4. 帮助建立一个应用和模块的生态。
+
+它的主要场景是在开发业务应用，而非底层服务。
 
 理论上这套架构风格能应用在任何语言，任何平台（包括前端、服务端、移动端）。
 但是它不能解决跨语言及跨平台的问题，即同一个模块、框架不能跨语言或跨平台使用。这应该是语言实现层面要解决的事（比如 NodeJS 使 JS 能在服务端运行），并不是 Miesian 要解决的。
@@ -28,7 +33,22 @@ Miesian 只是给你一种应用开发的设计模式，某种程度上降低你
 
 非业务层，由应用底层和底层框架构成。
 
+开发业务的人，无须具备工程层的知识，比如函数式编程，响应式编程，面向对象，数据库模型，ORM 框架，系统框架等知识。将知识上下文限定在明确的范围内，只关注业务需求。
+一定将业务内容与工程知识混在一起，知识上下文会爆炸式增长，入门成本会非常高，而且容易出错（若要防止出错，就需要建立完善的防呆措施，错误处理措施）。
+
+阅读与编写的成本。
+多人编写的程序，可能不遵守同一种风格。阅读他人的代码，就会有上下文范围的区别。自然语言描述的需求翻译成程序语言，再翻译成自然语言。
+
 split monolithic application into modules.
+
+## 解决什么问题
+
+- 样板代码太多
+- 工程结构太复杂，学习成本太高
+
+- 如何简单的复用代码。
+- 集成模块时如何保证没有副作用（互不影响，不会影响全局）。
+- 如何组织模块、框架、应用代码。
 
 ## 问题的背景
 
@@ -53,11 +73,136 @@ split monolithic application into modules.
 
 <!-- more -->
 
-## 要解决的问题
+## 业务开发的难点在哪？
 
-- 如何简单的复用代码。
-- 集成模块时如何保证没有副作用（互不影响，不会影响全局）。
-- 如何组织模块、框架、应用代码。
+- 编写的难点
+- 维护的难点
+- 重构的难点
+
+## 软件架构的目的
+
+管理控制项目工程发展过程中的不确定性。
+
+可维护性、可扩展性、易用性、灵活性。
+
+分离业务和工程的复杂度，从而降低整体的复杂度。
+
+## 何时起作用？
+
+当遇到变化，架构才会起关键作用。
+从 0 到 1 的过程，架构起到的作用比较小。
+
+## 解决方法
+
+- 解耦业务逻辑和工程逻辑
+
+## 解决问题的关键思想
+
+- 分离业务层和工程层
+- 声明式编程
+- Dataflow programming
+- 图编程
+- 依赖注入
+- 最小单元是函数
+- 描述业务逻辑的语法
+- 结构化描述
+
+## 业务领域
+
+业务领域 (Business Domain)
+工程领域
+
+Business logic could be anywhere in a program. But should not be anywhere.
+
+## 数据流
+
+什么是 controller？
+controller 是对数据流的控制。
+GPPL 太灵活了，导致你有千百种方法来实现对数据流的控制。然而多反而会带来困扰。格式不统一，增加学习上下文和复杂度。
+
+### 控制流是控制数据流
+
+指示如何与外部系统交互，如何与内部模块交互
+
+### 描述控制流的语法
+
+1. 内嵌的
+2. 结构化的
+
+## 控制流
+
+0. 顺序执行
+1. if-else
+2. if-else-if
+3. while
+4. break
+5. continue
+6. 递归
+
+## 如何界定逻辑属于业务层还是工程层？
+
+业务层只传递数据，转换数据，无须管某个技术栈的 API，业务层只调用工程层插件的 API，这些 API 是架构固定的，不会随技术栈变化而变化。
+
+### 业务逻辑的性质
+
+业务逻辑的生命周期比工程逻辑的长。因为业务逻辑是应用的核心，一直会保留，而工程逻辑会迭代更新。
+
+### 如何描述业务逻辑
+
+> In computer software, **business logic** or **domain logic** is the part of the program that encodes the real-world business rules that determine how data can be created, stored, and changed. It is contrasted with the remainder of the software that might be concerned with lower-level details of managing a database or displaying the user interface, system infrastructure, or generally connecting various parts of the program.
+
+引用维基百科的定义。
+
+业务逻辑=业务流程 + 业务规则
+
+业务逻辑围绕数据
+
+业务类型
+
+业务逻辑的描述 = (名词, 动词, 形容词)
+业务流程 = who do what
+业务规则 = what must be how
+           what must have what
+
+业务逻辑:
+
+- 功能性
+- 非功能性
+  - 访问日志（for PV/UV）
+  - 用户操作日志（for 安全）
+  - 性能
+
+## 与外部系统的交互，与内部模块的交互
+
+## 静态配置 vs 动态配置
+
+静态配置是
+
+动态配置是
+
+## 目录结构与文件内容
+
+文件只是代码的容器，因此 Miesian 不在目录结构和文件命名上做限制，没有固定的目录结构，因此也不要通过文件名来表达代码逻辑。
+你（开发者）想把代码存放在哪种目录结构，是你的自由。
+
+倒是有推荐的目录结构。
+根据类型来平铺。
+
+```
+```
+
+## 角色
+
+由于业务层和工程层的划分，对应开发角色也分成了业务开发角色和工程开发角色。注意角色只是职能的划分，同一个人可以同时担任这两个角色。
+
+## 分级
+
+跨技术栈
+跨语言，即结构化数据
+
+## DSL
+
+如果能做到结构化数据，就能更进一步设计出结构化 DSL，比如用 YAML 来描述业务逻辑
 
 ## 应用、框架、插件
 
@@ -104,7 +249,76 @@ Miesian 定义了一个应用 (Application) 分为几个部分：
 
 Miesian 的组成单元都基于 OOP 设计。因为大部分的程序语言都可以实现 OOP 的编码风格。
 
-## 使用场景
+
+### Mod
+
+Mod 是业务层和工程层交互的唯一桥梁。
+Mod 提供给业务层配置语法和功能。工程层根据 Mod 的设计，提供具体实现。
+
+```js
+check({config}) {
+}
+
+get inputsSchema() {
+    return [];
+}
+
+get outputsSchema() {
+    return [];
+}
+
+async setup({config}) {
+}
+
+async resolve({inputs, config}) {
+}
+```
+
+#### 依赖注入
+
+使用 Mod 时，业务开发需要的所有东西，都通过函数参数来获得，业务开发不需要知道东西从哪里来的，工程负责注入这个依赖。
+业务开发说要有光，于是就有了光。
+
+#### 修饰词
+
+使用 Mod 是声明式的，
+
+### 业务层
+
+业务层应该写配置，代替
+
+在 controller 中来中心化控制数据流的走向。
+
+
+### Controller
+
+Controller 是数据流的中央处理中心。
+让 Controller Mod 来接管数据的跳转。业务开发只需要以片段的形式描述对数据的传递和转换。
+
+与传统编程的不同：命令式编程对于数据的传递是线性的，跳转到哪里。而 Miesian 对数据的传递是离散的。
+业务开发操作的是数据流的概念，Mod 在运行期间才实际对数据进行内部处理。
+
+技术栈的 API 规范对业务开发透明。业务开发只遵循 Miesian Mod 的格式约定和 API。
+这样可以做到技术栈变化，而业务逻辑不变。技术栈变化，只要适配 Miesian Mod 的格式约定和 API 即可。换言之，Miesian Mod 是一个中介层。
+
+### 工程层
+
+## 分层架构
+
+[](https://www.wikiwand.com/en/Multitier_architecture)
+
+与 DDD 的区别。DDD 是递进关系，Miesian 是平行关系。
+
+![](./01Js4jKoEpwx.jpg)
+
+业务层类似贫血模型，只不过更贫血。工程层类似充血模型。
+
+## 视图
+### 逻辑视图
+
+### 开发视图
+
+## 使用场景 (Scenarios)
 
 ### 现状
 
@@ -113,6 +327,7 @@ Miesian 的组成单元都基于 OOP 设计。因为大部分的程序语言都�
 以 NodeJS 为例，相对于社区现有的框架 Express, Koa, Hapi, Micro，为什么要基于 Miesian 开发框架？
 
 Miesian 的使用场景不是代替现有的框架，相反，它是为了集成社区已有成熟的类库和框架的框架。
+它解决的是工程问题。它是一套设计模式，它能兼容所有框架。
 
 以 Koa 为例。Koa 本身只负责 http 服务器，它丰富的插件生态，帮助开发者完成一系列的功能。
 但是这意味着开发者要自己手动将 Koa 和 Koa 插件组装起来，因而会组成和各种各样的工程形态。
@@ -149,6 +364,26 @@ MMod 和 VMod 只要提供接口来读写数据即可。中间的数据传递交
 
 当然也可以把 MVC 当做一个整体，实现一个 MVCMode。
 
+## 声明式编程
+
+关键思想：描述你想要什么，而不是描述你想怎么做。
+
+Miesian 是在业务层将声明式编程发挥到极致。
+Miesian：在业务层描述你想要什么，在工程层描述你想怎么做。
+
+## 程序语言与逻辑语言
+
+## 逻辑从何而来？
+
+通过操作数据流，来表达出业务逻辑。
+应用层的业务逻辑，可以总结为「处理数据」和「与外部设备交互数据」。
+无外乎对数据的处理。
+
+以前端为例。
+比如前段初次渲染页面，从外界设备加载数据，根据数据类型进行不同逻辑的渲染，最后呈现出页面。
+用户通过设备与程序产生交互，按一个按钮，鼠标悬停，移动视窗。程序通过事件监听的方式获得用户的交互数据，对数据进行提取、过滤、转换，从而执行业务功能的逻辑。
+
+以 HTTP 服务端为例。服务器通过 HTTP 请求从客户端接受到数据，对数据进行校验，从数据库查询，鉴权，业务功能的执行，转换数据，存储到数据库，把数据响应给客户端。
 
 ## 核心理念
 
@@ -189,6 +424,23 @@ spring 虽然设计得最好，但是这种框架会附带很多约束。
 
 专注于分层设计，可扩展，模块化。明确职责划分。
 专注于运行时。
+
+### 多层架构
+
+多层架构 (Multitier Architecture)
+现实中我们调用类、模块的接口来操作每个层。
+开发业务时，需要知道每个模块的接口接收什么类型的参数，返回什么类型的参数。
+
+Miesian 架构，业务开发只需要关注有哪些可用的配置项。
+
+业务层与模块定契约，而不是定数据。
+
+### 静态与动态
+
+水与管道。
+
+### 复用逻辑
+
 
 ### 限制上下文
 
@@ -668,7 +920,7 @@ import * as services from './services';
 - https://angular.io/guide/architecture
 - https://cn.vuejs.org/v2/guide/instance.html
 - https://speakerdeck.com/tastapod/simplicity-the-way-of-the-unusual-architect
-- [][B1]
+- [Wikipedia - Business logic][B1]
 
 ## 引用 (References)
 
@@ -679,7 +931,7 @@ import * as services from './services';
 
 [R1]: <url> "备注"
 
-[B1]: <url> "备注"
+[B1]: https://www.wikiwand.com/en/Business_logic
 [Spring]: https://spring.io/
 [Angular]: https://github.com/angular/angular.js
 [Vue]: https://github.com/vuejs/vue
