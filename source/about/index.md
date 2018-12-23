@@ -52,6 +52,6 @@ http://www.douban.com/people/adoyle/
 地址: 地球上
 电话号码: 不约不聊
 
-[Photo]: http://adoyle-me.oss-cn-beijing.aliyuncs.com/head_160.png
+[Photo]: //cdn.adoyle.top/head_160.png
 [Gabriella Denizot]: http://gabrielladenizot.com/
 [0]: http://simpledesktops.com/browse/desktops/2010/aug/19/classy/

@@ -105,7 +105,7 @@ Git 工作流只是一个经验谈，**它不是万能的**。
 
 中心化的工作流。
 
-![Centralized.svg](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/Centralized.svg)
+![Centralized.svg](//cdn.adoyle.top/share/Centralized.svg)
 
 采用 rebase 方式更新 master 分支。
 
@@ -121,9 +121,9 @@ Git 工作流只是一个经验谈，**它不是万能的**。
 <a name="2-feature-branch-workflowgithub-workflow"></a>
 ### 2. Feature Branch Workflow/[Github Workflow](https://guides.github.com/introduction/flow/)
 
-![](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/Feature.svg)
+![](//cdn.adoyle.top/share/Feature.svg)
 
-![Feature 分支](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/07.svg)
+![Feature 分支](//cdn.adoyle.top/share/07.svg)
 
 [详细文章](http://scottchacon.com/2011/08/31/github-flow.html)
 
@@ -137,7 +137,7 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 <a name="3-forking-workflow"></a>
 ### 3. Forking Workflow
 
-![fork-flow.svg](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/fork-flow.svg)
+![fork-flow.svg](//cdn.adoyle.top/share/fork-flow.svg)
 
 开源平台用的多，因为自己不是某个项目的成员，只能 Fork 然后提 PR。
 
@@ -152,7 +152,7 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 
 ![](http://ww3.sinaimg.cn/large/006aQyYMgw1f418mdb132j30vy16cai2.jpg)
 
-![Gitflow.svg](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share%2FGitflow.svg)
+![Gitflow.svg](//cdn.adoyle.top/share%2FGitflow.svg)
 
 最有名，最经典的工作流。
 
@@ -173,8 +173,8 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 <a name="5-gitlab-workflow"></a>
 ### 5. Gitlab Workflow
 
-![](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/environment_branches.png)
-![](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/release_branches.png)
+![](//cdn.adoyle.top/share/environment_branches.png)
+![](//cdn.adoyle.top/share/release_branches.png)
 
 结合 Gitflow 和 Github-flow。
 
@@ -189,7 +189,7 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 <a name="6-one-line-workflow"></a>
 ### 6. One-Line Workflow
 
-![](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/one-line.png)
+![](//cdn.adoyle.top/share/one-line.png)
 
 One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操作有着很高的要求。
 
@@ -288,7 +288,7 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
 2. 对于开发的互相影响
 3. 线的合并问题
 
-![](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share%2Fmix-feature.png)
+![](//cdn.adoyle.top/share%2Fmix-feature.png)
 
 
 *****

@@ -203,11 +203,11 @@ inputs 写法有些啰嗦，以后再优化语法。
 
 画了一些芯片的标准图和管道示例图，便于理解。
 
-![comia-cell-description](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/comia-cell-description.png)
+![comia-cell-description](//cdn.adoyle.top/share/comia-cell-description.png)
 
-![comia-example-1](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/comia-example-1.png)
+![comia-example-1](//cdn.adoyle.top/share/comia-example-1.png)
 
-![comia-example-2](http://adoyle-me.oss-cn-beijing.aliyuncs.com/share/comia-example-2.png)
+![comia-example-2](//cdn.adoyle.top/share/comia-example-2.png)
 
 
 ## 示例

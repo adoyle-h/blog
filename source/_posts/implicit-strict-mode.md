@@ -40,7 +40,7 @@ updated: 2018-02-25 23:09:01
 [node.green](http://node.green/) 提供 node 层面的功能检测。然而它覆盖的版本不够多(4.x 从 4.3.2 开始)。
 所幸它是开源的，我使用 [williamkapke/node-compat-table](https://github.com/williamkapke/node-compat-table) 在本地跑了一遍，结果如下：
 
-![](http://adoyle-me.oss-cn-beijing.aliyuncs.com/blog/Monosnap%202016-09-17%2013-14-50.png)
+![](//cdn.adoyle.top/blog/Monosnap%202016-09-17%2013-14-50.png)
 
 至少从 2.0.0 版本开始就完全实现了 `implicit strict mode`， 1.5.0 还要开启 `harmony flag`，1.0.0 版本还不可用。
 
