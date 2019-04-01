@@ -12,7 +12,7 @@ updated: 2019-04-01 23:17:01
 
 ## 概览 (Overview)
 
-![](//cdn.adoyle.top/share/961554048464.jpg?Expires=1554064896&OSSAccessKeyId=TMP.AQFub6JbVztjKjSQHoLq6mo7npNcXQFG7daoikRQ3ANKVSmYuNgjU_y4pJ4uMC4CFQDHQPHS6PQ-qHeMn5kuZA43ubi4lwIVAILDlPiuIGh2SP3PrbByKaAUqbF7&Signature=SJBd3ePrWLe%2FaZDkVUZhr9RBzLA%3D)
+![](//cdn.adoyle.top/share/961554048464.jpg)
 
 这是一篇访谈文章。上周我收到了[利器](http://liqi.io)的访谈邀请，于是就写下这篇文章。
 
