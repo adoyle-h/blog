@@ -77,26 +77,30 @@ script 的耗时分成三部分：下载 + 编译 + 执行
 
 实际测试发现 script 的解析加载并没有阻塞住 html 的解析。
 
-标准文档错了吗？
+标准文档错了吗？不，没有错。只是有些浏览器进一步做了一个优化，「推测解析」。
 
 ## HTML 推测解析
 
-答案就是 HTML 推测解析（Speculative Parsing），也称作预测解析。也有称为 预加载（Preload）。
+HTML 推测解析（Speculative Parsing），也称作预测解析。
 注意是预加载，而不是预构建或预渲染。
 
-推测解析主要针对
+> 每当解析器遇到一个脚本就暂停意味着每个你加载的脚本都会推迟连接到 HTML 的其他资源的发现。
 
-- 脚本
-- 外部 CSS
-- 来自 img 标签的图片
+> 这个状况在 2008 年左右改变了，当时 IE 引入了一个概念叫做 “先行下载”。 这是一种在同步的脚步执行的时候保持文件的下载的一种方法。Firefox，Chrome 和 Safari 随后效仿，如今大多数的浏览器都使用了这个技术，它们有着不同的名称。Chrome 和 Safari 称它为 “预扫描器” 而 Firefox 称它为预解析器。
 
 > Firefox 也会预加载 video 元素的 poster 属性，而 Chrome 和 Safari 会预加载 @import 规则的内联样式。
 
-
-
 请阅读这篇译文：[《更快地构建DOM: 使用预解析, async, defer 以及 preload》][B1]
 
-https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/#Speculative_parsing
+2008 年 IE 8 预览版引入了 Speculative Download 的概念。从 2009 年开始，IE 8 和 Firefox 3.5 正式支持 Speculative Parsing 特性。
+没考证到 Chrome 和 Safari 是从何时支持的，实测当前的 Chrome 和 Safari 都支持该特性。
+遗憾的是这到目前为止仍是浏览器厂商自己的黑魔法，并没有定在 HTML 标准中。
+因此不能保证所有浏览器都是这么实现的，况且预测解析存在预测失败的情况，那时将付出更多的工作。
+
+https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork/#Speculative_parsing
+
+推测解析主要针对外部 script、css，以及来自 img 标签的图片这些基本类型。其他类型的资源可以使用 `preload` 关键字来显式指定需要提前解析，例如 `<link rel="preload" href="very_important.js" as="script">`。
+
 
 > Both WebKit and Firefox do this optimization. While executing scripts, another thread parses the rest of the document and finds out what other resources need to be loaded from the network and loads them. In this way, resources can be loaded on parallel connections and overall speed is improved. Note: the speculative parser only parses references to external resources like external scripts, style sheets and images: it doesn't modify the DOM tree–that is left to the main parser.
 
@@ -112,11 +116,6 @@ WebKit 内核
 
 
 其他参考资料: http://taligarsiel.com/Projects/howbrowserswork1.htm#Speculative_parsing
-
-2008 年 IE 8 预览版引入了 Speculative Download 的概念。从 2009 年开始，IE 8 和 Firefox 3.5 正式支持 Speculative Parsing 特性。
-没考证到 Chrome 是从何时开始的，实测当前的 Chrome 是支持该特性的。实测 Safari 目前版本（11.1.1 (13605.2.8) ）仍不支持该特性。
-遗憾的是这到目前为止仍是浏览器厂商自己的黑魔法，并没有定在 HTML 标准中。
-因此不能保证所有浏览器都是这么实现的，况且预测解析存在预测失败的情况，那时将付出更多的工作。
 
 推测解析只是把 script 的开始下载时间提前了，但并不改变 script 的执行阻塞 html 解析的行为。
 
@@ -172,8 +171,9 @@ script 有用 `document.write()` 改变 DOM 树的状态，会导致预加载过
 
 ## 参考 (Bibliographies)
 
-- [][B1]，其[原文][B2]
+- [更快地构建 DOM: 使用预解析, async, defer 以及 preload][B1]，以及其[原文][B2]
 - [JavaScript阻塞剖析与改善][B3]
+- [html5rocks - 浏览器的工作原理：新式网络浏览器幕后揭秘](https://www.html5rocks.com/zh/tutorials/internals/howbrowserswork)
 - [How browsers work][B4]
 - [HTTP/2笔记之流和多路复用][B7]
 - [Preload，Prefetch 和它们在 Chrome 之中的优先级][B8]
