@@ -2,30 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://adoyle.me/blog/categories/index.html</loc>
-    
-    <lastmod>2018-12-23T15:29:43.119Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://adoyle.me/blog/404.html</loc>
-    
-    <lastmod>2018-12-23T15:29:43.113Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://adoyle.me/blog/tags/index.html</loc>
     
-    <lastmod>2018-12-23T15:29:43.108Z</lastmod>
+    <lastmod>2019-04-01T15:57:05.201Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/categories/index.html</loc>
+    
+    <lastmod>2019-04-01T15:57:05.200Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://adoyle.me/blog/about/index.html</loc>
     
-    <lastmod>2018-12-23T15:29:42.542Z</lastmod>
+    <lastmod>2019-04-01T15:57:05.199Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/404.html</loc>
+    
+    <lastmod>2019-04-01T15:57:05.089Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://adoyle.me/blog/an-interview-with-liqi.html</loc>
+    
+    <lastmod>2019-04-01T15:17:01.000Z</lastmod>
     
   </url>
   
