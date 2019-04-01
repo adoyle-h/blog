@@ -3,10 +3,10 @@ title: 理解 Gitflow
 author: ADoyle <adoyle.h@gmail.com>
 tags: ['Git', 'Git Flow']
 categories: ['技术']
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/blog/copyright.html)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 ---
 
-*****
+
 <a name="前言-intro"></a>
 ## 前言 (Intro)
 
@@ -22,11 +22,10 @@ Git 工作流的组织，离不开产品开发的组织结构以及团队的协�
 
 所以，论 Gitflow 如何组织，我认为主要取决于三个因素：人、工具、流程。
 
-*****
 <a name="概览-overview"></a>
 ## 概览 (Overview)
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC GFM -->
 
 - [场景](#场景)
 - [现有可供借鉴的工作流](#现有可供借鉴的工作流)
@@ -38,20 +37,19 @@ Git 工作流的组织，离不开产品开发的组织结构以及团队的协�
     - [5. Gitlab Workflow](#5-gitlab-workflow)
     - [6. One-Line Workflow](#6-one-line-workflow)
 - [执行 Gitflow 时要考虑的因素](#执行-gitflow-时要考虑的因素)
-- [问题 \(FAQ\)](#问题-faq)
+- [问题 (FAQ)](#问题-faq)
 - [其他](#其他)
     - [Commit](#commit)
     - [Branch](#branch)
     - [Tag](#tag)
     - [Merge vs Rebase vs Cherry-pick](#merge-vs-rebase-vs-cherry-pick)
     - [Feature Toggle](#feature-toggle)
-    - [物件或流程的组织，脱离不了人的组织](#物件或流程的组织，脱离不了人的组织)
+    - [物件或流程的组织，脱离不了人的组织](#物件或流程的组织脱离不了人的组织)
 
 <!-- /MarkdownTOC -->
 
 <!-- more -->
 
-*****
 <a name="场景"></a>
 ## 场景
 
@@ -77,7 +75,6 @@ Git 工作流只是一个经验谈，**它不是万能的**。
 - 文档 (Document)
 - 图片 (Picture)
 
-*****
 <a name="现有可供借鉴的工作流"></a>
 ## 现有可供借鉴的工作流
 
@@ -90,7 +87,6 @@ Git 工作流只是一个经验谈，**它不是万能的**。
 5. Gitlab Workflow
 6. One-Line Workflow
 
-*****
 <a name="词汇定义"></a>
 ### 词汇定义
 
@@ -99,7 +95,6 @@ Git 工作流只是一个经验谈，**它不是万能的**。
 - 发布/release：代码开发环境发布到线上环境
 - 可部署/deployable：能够通过生产环境的冒烟测试（不能保证没有功能性错误或者其他不明显的 Bug）
 
-*****
 <a name="1-centralized-workflow"></a>
 ### 1. Centralized Workflow
 
@@ -117,7 +112,6 @@ Git 工作流只是一个经验谈，**它不是万能的**。
 
 - 无法多人协作开发大功能
 
-*****
 <a name="2-feature-branch-workflowgithub-workflow"></a>
 ### 2. Feature Branch Workflow/[Github Workflow](https://guides.github.com/introduction/flow/)
 
@@ -133,7 +127,6 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 
 - 无法维护多版本
 
-*****
 <a name="3-forking-workflow"></a>
 ### 3. Forking Workflow
 
@@ -146,7 +139,6 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 - 反馈可能会很慢，进度变慢
 - 无法多人协作开发大功能
 
-*****
 <a name="4-gitflow-workflow"></a>
 ### 4. Gitflow Workflow
 
@@ -169,7 +161,6 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 - 概念多，学习成本相对较高
 - 执行起来略麻烦
 
-*****
 <a name="5-gitlab-workflow"></a>
 ### 5. Gitlab Workflow
 
@@ -185,7 +176,6 @@ Feature Branch Workflow 和 Github Workflow 的主要区别在于主分支上的
 - 活用 merge 和 cherry-pick
 
 
-*****
 <a name="6-one-line-workflow"></a>
 ### 6. One-Line Workflow
 
@@ -206,7 +196,6 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
 - 每个节点需要可发布，实践门槛会非常高
 - 无法维护多版本
 
-*****
 <a name="执行-gitflow-时要考虑的因素"></a>
 ## 执行 Gitflow 时要考虑的因素
 
@@ -219,7 +208,6 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
     - Git 命令操作熟练度
     - 其他工具的使用
 
-*****
 
 **因素：**
 
@@ -265,7 +253,6 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
     - 自动化测试
     - 自动化发布
 
-*****
 
 **要求:**
 
@@ -276,7 +263,6 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
   - 回溯历史清晰
   - commit message 如何撰写
 
-*****
 <a name="问题-faq"></a>
 ## 问题 (FAQ)
 
@@ -291,19 +277,16 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
 ![](//cdn.adoyle.top/share%2Fmix-feature.png)
 
 
-*****
 
 > 何时测试代码？
 
 至少在合并分支前进行一次测试。
 
-*****
 
 > 何时审核代码？
 
 合并分支前审核。如果一个 PR 既包含前端，也包含后端代码，可以通过文件目录来分别审核。
 
-*****
 
 > 多人共同开发一个模块，导致很多冲突，如何解决？
 
@@ -311,7 +294,6 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
 
 其他情况例如同时修改了某一块基础类库的代码，处理一下冲突即可，不会很频繁的发生。
 
-*****
 <a name="其他"></a>
 ## 其他
 
@@ -320,7 +302,6 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
 
 一个 commit 只做一件事。
 
-*****
 <a name="branch"></a>
 ### Branch
 
@@ -336,24 +317,20 @@ One-Line Workflow 表面看起来跟 Centralized Workflow 一样。但实际操�
 当自己在个人分支上开发，rebase 优于 merge。  
 而在公共分支上，则只能使用 merge。
 
-*****
 <a name="tag"></a>
 ### Tag
 
 用来标记版本号，无其他作用。
 
-*****
 <a name="merge-vs-rebase-vs-cherry-pick"></a>
 ### Merge vs Rebase vs Cherry-pick
 
 
-*****
 <a name="feature-toggle"></a>
 ### Feature Toggle
 当开发大功能时，需要很长时间，可能要开很多子分支。  
 为了保证部分完成但总体还不能上线的代码不影响工程，功能“开关”是一种控制方式。类似 AB Test。
 
-*****
 <a name="物件或流程的组织，脱离不了人的组织"></a>
 ### 物件或流程的组织，脱离不了人的组织
 

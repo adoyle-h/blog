@@ -1,7 +1,7 @@
 ---
 title: Think in alternatives
 author: ADoyle <adoyle.h@gmail.com>
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/copyright)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 tags:
   - 程序员
   - 思想

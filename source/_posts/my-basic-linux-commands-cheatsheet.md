@@ -1,7 +1,7 @@
 ---
 title: 我的 Linux 基础命令速查表
 author: 'ADoyle <adoyle.h@gmail.com>'
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/copyright)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 tags: ['Linux', '命令', 'cheatsheet']
 categories: ['技术']
 date: 2015-10-14 14:09:59

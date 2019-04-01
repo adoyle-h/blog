@@ -1,8 +1,9 @@
+---
 title: 如何定义 JS 函数的参数
 author: 'ADoyle <adoyle.h@gmail.com>'
 tags: ['JavaScript', '代码风格']
 categories: ['技术']
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/blog/copyright.html)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 ---
 
 ## 前言(Intro)

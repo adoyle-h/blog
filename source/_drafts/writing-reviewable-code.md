@@ -1,8 +1,9 @@
+---
 title: 书写可审核的代码 & 控制你的版本提交
 author: 'ADoyle <adoyle.h@gmail.com>'
 tags: ['代码审核', '编码风格']
 categories: ['技术']
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/blog/copyright.html)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 ---
 
 ## 概览(Overview)

@@ -3,7 +3,7 @@ title: Async.js 的 eachLimit 与 NodeJS 的异步 IO
 author: 'ADoyle <adoyle.h@gmail.com>'
 tags: ['Async.js', 'NodeJS', 'IO']
 categories: ['技术']
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/blog/copyright.html)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 ---
 
 ## 前言(Intro)

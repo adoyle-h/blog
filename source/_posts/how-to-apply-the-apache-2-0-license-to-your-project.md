@@ -1,7 +1,7 @@
 ---
 title: 如何将 Apache License 2.0 应用到你的项目
 author: 'ADoyle <adoyle.h@gmail.com>'
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/copyright)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 tags:
   - 开源许可证
   - Apache

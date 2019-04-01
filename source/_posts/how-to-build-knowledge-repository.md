@@ -1,7 +1,7 @@
 ---
 title: 构建个人知识库
 author: ADoyle <adoyle.h@gmail.com>
-copyright: '未经授权，不得全文转载。转载前请先阅读[本站版权声明](http://adoyle.me/copyright)'
+copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="license" target="_blank" href="//adoyle.me/blog/copyright.html">本站版权声明</a>'
 tags: ['经验谈', '知识库']
 categories: ['杂谈']
 date: 2018-03-01 22:11:02
