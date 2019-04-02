@@ -14,7 +14,7 @@ updated: 2019-04-01 23:17:01
 
 ![](//cdn.adoyle.top/share/961554048464.jpg)
 
-这是一篇访谈文章。上周我收到了[利器](http://liqi.io)的访谈邀请，于是就写下这篇文章。
+上周收到了[利器](http://liqi.io)的访谈邀请，因此写了这篇访谈文章。向各位介绍我的利器。
 
 <!-- more -->
 
@@ -22,8 +22,7 @@ updated: 2019-04-01 23:17:01
 
 ### 1. 介绍一下你自己和所做的工作。
 
-Hi，我的网名是 ADoyle，真名就不说了，我不喜欢在网上透露个人信息。
-我来自杭州，是一名全栈工程师，目前在某云做前端方面的工作。
+Hi，我的网名是 ADoyle，来自杭州，是一名全栈工程师，目前在某云做前端方面的工作。
 我对前端、服务端、DevOps 都略有心得。对其他领域如设计、产品、运营也挺感兴趣的。
 
 ### 2. 你的职业生涯的转折点是什么？
@@ -75,8 +74,6 @@ Hi，我的网名是 ADoyle，真名就不说了，我不喜欢在网上透露�
 - [TripMode](https://www.tripmode.ch/): 控制应用的网络流量访问
 - [Micro Snitch](https://www.obdev.at/products/microsnitch/index.html): 当 Mac 电脑被窃听时发出提醒
 - [Sip](http://sipapp.io): 取色器
-
-毕竟不是推广软文，我没有耐心详细解释以上这些工具，所以请自行 [RTFM](https://www.wikiwand.com/zh/RTFM)。
 
 以上只是一部分，如果有兴趣，不妨看看[我的开发工具箱](https://github.com/adoyle-h/my-development-tools)，我觉得好的软件和服务都会记录在这里。
 
