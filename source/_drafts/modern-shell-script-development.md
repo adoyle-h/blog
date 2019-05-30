@@ -96,6 +96,8 @@ rc=127
 
 ### set -o errexit 不一定有效
 
+[set -o errexit considered harmful](https://github.com/yaccz/errexit-considered-harmful/blob/master/00.man-page.rst)
+
 运行下面这段代码，
 
 ```sh
@@ -144,6 +146,25 @@ rc=10
 
 答案在 [BashFAQ/105](https://mywiki.wooledge.org/BashFAQ/105) 有解释。
 
+虽然 errexit 不一定有效，但你写命令时还是需要加上这行，因为这能帮助你避免 80% 的错误。
+
+[Safe ways to do things in bash - How to use errexit](https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#how-to-use-errexit)
+
+### echo 的坑
+
+其他不同之处，参考这两篇文章
+
+- https://unix.stackexchange.com/a/77564
+- https://www.in-ulm.de/~mascheck/various/echo+printf/
+
+### alias 无效
+
+在非交互式的命令里运行 alias 是无效的。想在非交互式的命令里使用 alias 必须设置 `shopt -s expand_aliases` 才可以。
+
+具体参考
+https://stackoverflow.com/a/44382678
+https://unix.stackexchange.com/a/158040
+
 ### 其他
 
 更多坑请看 [Bash Pitfalls][B4]。
@@ -162,6 +183,8 @@ rc=10
 关系到你要不要兼容 v3 的写法。
 
 ## 书写风格
+
+参考 Google 的 [Style Guide/Shell](https://google.github.io/styleguide/shell.xml)
 
 ### 不用 function 关键字声明函数
 
@@ -234,6 +257,7 @@ bar() {
 - [Bash Hackers Wiki][B2]: 干货满到溢出来了。
 - https://github.com/dylanaraps/pure-bash-bible
 - [GreyCat's wiki - Bash Pitfalls][B4]
+  - https://guide.bash.academy/ : 同一作者的最新 Bash Guide
 - [Command-line-text-processing](https://github.com/learnbyexample/Command-line-text-processing): 文本处理
 - [Kevin van Zonneveld - Best Practices for Writing Bash Scripts][B1]
   - 其最新实践 http://bash3boilerplate.sh/
