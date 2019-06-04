@@ -154,16 +154,49 @@ rc=10
 
 其他不同之处，参考这两篇文章
 
+[这篇文章](https://github.com/anordal/shellharden/blob/master/how_to_do_things_safely_in_bash.md#echo--printf)里提到 echo 把参数当做选项的问题，但没有具体举例，有点难以理解。
+于是我写了以下几个例子，
+
+```sh
+bash-3.2# echo -n 123
+123bash-3.2# echo '-n 123'
+-n 123
+bash-3.2# echo "-n 123"
+-n 123
+bash-3.2# echo -- -n 123
+-- -n 123
+bash-3.2# a="-n 123"
+bash-3.2# echo "$a"
+-n 123
+bash-3.2# echo $a
+123bash-3.2# b=( -n 123 )
+bash-3.2# echo "${b[@]}"
+123bash-3.2# echo "${b[*]}"
+-n 123
+bash-3.2# echo -- "${b[*]}"
+-- -n 123
+bash-3.2# echo -- "${b[@]}"
+-- -n 123
+```
+
+我在 bash 3 和 bash 4 都试了以上几些例子，你发现 `b=( -n 123 ); echo "${b[@]}"` 这个是不符合直觉的。
+你也可以通过 docker 容器 `docker run --rm -it bash:3` 来快速尝试。
+
 - https://unix.stackexchange.com/a/77564
 - https://www.in-ulm.de/~mascheck/various/echo+printf/
 
 ### alias 无效
 
-在非交互式的命令里运行 alias 是无效的。想在非交互式的命令里使用 alias 必须设置 `shopt -s expand_aliases` 才可以。
+在非交互式的命令里运行 alias 是无效的。想在非交互式的命令里使用 alias 必须设置 `shopt -s expand_aliases` 才可以，记得关闭 `shopt -u expand_aliases`。
 
 具体参考
 https://stackoverflow.com/a/44382678
 https://unix.stackexchange.com/a/158040
+
+### Note that A && B || C is not if-then-else. C may run when A is true.
+
+[SC2015](https://github.com/koalaman/shellcheck/wiki/SC2015)
+
 
 ### 其他
 
@@ -241,6 +274,43 @@ bar() {
 
 断言库。类似的 [ztombol/bats-assert](https://github.com/ztombol/bats-assert) 没人维护，bats-core 的成员 jasonkarns fork 了一份 [jasonkarns/bats-assert](https://github.com/jasonkarns/bats-assert-1)。
 
+### 测试的坑
+
+run 不支持管道操作。见 [issue](https://github.com/sstephenson/bats/issues/69)
+
+比如下面这个例子是会报错的
+
+```
+@test "printf '%s\n\%s\n' a b | wc -l | tr -d ' '" {
+  run printf '%s\n\%s\n' a b | wc -l | tr -d ' '
+  assert_success
+  assert_output 2
+}
+```
+
+但可以有两种变通方法：
+
+```
+@test "printf '%s\n\%s\n' a b | wc -l | tr -d ' '" {
+  test() {
+    printf '%s\n\%s\n' a b | wc -l | tr -d ' '
+  }
+  run test
+  assert_success
+  assert_output 2
+}
+```
+
+或者
+
+```
+@test "printf '%s\n\%s\n' a b | wc -l | tr -d ' '" {
+  local result
+  result=$(printf '%s\n\%s\n' a b | wc -l | tr -d ' ')
+  assert_equal "$result" 2
+}
+```
+
 ## 包管理器
 
 从任意指定仓库安装 bash 脚本
@@ -263,6 +333,11 @@ bar() {
   - 其最新实践 http://bash3boilerplate.sh/
 - [Defensive BASH Programming](http://www.kfirlavi.com/blog/2012/11/14/defensive-bash-programming/)
 - [David Pashley - Writing Robust Bash Shell Scripts](https://www.davidpashley.com/articles/writing-robust-shell-scripts/)
+- [12 Factor CLI Apps][B6]
+
+非必读
+
+- [Linux Shell Scripting Tutorial (LSST) v2.0](https://bash.cyberciti.biz/guide/Main_Page)
 
 ## 引用 (References)
 
@@ -280,3 +355,4 @@ bar() {
 [B3]: https://www.gnu.org/software/bash/manual/
 [0]: https://github.com/adoyle-h?utf8=%E2%9C%93&tab=repositories&q=&type=&language=shell
 [1]: https://www.wikiwand.com/zh/POSIX
+[B6]: https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46
