@@ -18,6 +18,12 @@
     "hexo-renderer-markdown-it": "^3.4.0",
     "hexo-renderer-stylus": "^0.3.0",
     "hexo-server": "^0.1.2",
-    "hexo-toc": "0.0.5"
-  }
+    "hexo-toc": "0.0.5",
+    "snyk": "^1.316.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
