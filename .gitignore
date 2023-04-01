@@ -1,10 +1,10 @@
-themes/*
+/themes/*
+/node_modules
+/public
+/db.json
 .DS_Store
 Thumbs.db
-db.json
 *.log
-node_modules/
-public/
 .deploy*/
 
 !**/.gitkeep

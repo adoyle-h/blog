@@ -1,8 +1,7 @@
 ---
 title: 关于作者
+layout: about
 ---
-
-# 关于作者
 
 <div style="text-align: center;">☟ 大概长这样</div>
 

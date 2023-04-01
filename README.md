@@ -9,8 +9,7 @@
 博客文章使用 markdown 编写，单行换行(`<br/>`)，空行分段。
 
 使用 [hexo][] 渲染。
-
-主题为基于 [iissnan/hexo-theme-next][] 的改烂版。
+主题是 [adoyle-h/hexo-theme-fluid](https://github.com/adoyle-h/hexo-theme-fluid)。
 
 ## 分支
 
@@ -21,6 +20,13 @@
 
 - 未发布文档: source/_drafts
 - 已发布文档: source/_posts
+
+## 本地开发
+
+- `make init` 初始化项目
+- `make serve` 启动 http 服务并动态渲染
+- `./draft name` 创建新的草稿
+- `./post name` 创建新的文档
 
 ## Git commit message
 
@@ -43,4 +49,3 @@ message 遵循以下格式之一:
 <!-- links -->
 
 [hexo]: https://github.com/hexojs/hexo
-[iissnan/hexo-theme-next]: https://github.com/iissnan/hexo-theme-next

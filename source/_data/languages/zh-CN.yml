@@ -1,0 +1,73 @@
+name: '简体中文'
+
+home:
+  menu: '首页'
+  title: '首页'
+
+archive:
+  menu: '归档'
+  title: '归档'
+  subtitle: '归档'
+  post_total: '共计 %d 篇文章'
+
+category:
+  menu: '分类'
+  title: '分类'
+  subtitle: '分类'
+  post_total: '共计 %d 篇文章'
+  more: '[查看更多]'
+
+tag:
+  menu: '标签'
+  title: '标签'
+  subtitle: '标签'
+  post_total: '共计 %d 篇文章'
+
+about:
+  menu: '关于'
+  title: '关于作者'
+  subtitle: '关于作者'
+
+links:
+  menu: '链接'
+  title: '链接'
+  subtitle: '相关链接'
+
+src:
+  menu: '源码'
+
+page404:
+  menu: '未找到该页面'
+  title: '未找到该页面'
+  subtitle: '未找到该页面，8 秒后返回首页'
+
+post:
+  toc: '目录'
+  prev_post: '上一篇'
+  next_post: '下一篇'
+  created: '%s'
+  updated: '%s 更新'
+  meta:
+    wordcount: '%s 字'
+    min2read: '大约 %s 分钟读完'
+    views: '{} 次'
+  copyright:
+    author: '作者'
+    posted: '发布于'
+    updated: '更新于'
+    licensed: '许可协议'
+    CC: 'CC - 知识共享许可协议'
+    BY: 'BY - 署名'
+    SA: 'SA - 相同方式共享'
+    NC: 'NC - 非商业性使用'
+    ND: 'ND - 禁止演绎'
+
+footer:
+  pv: 'PV {} 次'
+  uv: 'UV {} 人'
+
+search:
+  title: '搜索'
+  keyword: '关键词'
+
+noscript_warning: '检测到你的浏览器环境未允许 JavaScript 运行。允许后可正常访问本网站。'

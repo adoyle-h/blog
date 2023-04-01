@@ -3,27 +3,29 @@
   "version": "0.0.1",
   "private": true,
   "hexo": {
-    "version": "3.5.0"
+    "version": "6.3.0"
   },
   "dependencies": {
-    "hexo": "^3.5.0",
-    "hexo-deployer-git": "0.0.4",
-    "hexo-generator-archive": "^0.1.2",
-    "hexo-generator-category": "^0.1.2",
-    "hexo-generator-feed": "^1.0.3",
-    "hexo-generator-index": "^0.1.2",
-    "hexo-generator-sitemap": "^1.0.1",
-    "hexo-generator-tag": "^0.1.1",
-    "hexo-renderer-ejs": "^0.1.0",
-    "hexo-renderer-markdown-it": "^3.4.0",
-    "hexo-renderer-stylus": "^0.3.0",
-    "hexo-server": "^0.1.2",
-    "hexo-toc": "0.0.5",
-    "snyk": "^1.316.1"
+    "hexo": "^6.3.0",
+    "hexo-deployer-git": "^4.0.0",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-feed": "^3.0.0",
+    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-sitemap": "^3.0.1",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-html-minifier": "^1.0.0",
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-markdown-it": "^7.0.0",
+    "hexo-renderer-stylus": "^2.1.0",
+    "hexo-server": "^3.0.0",
+    "hexo-theme-fluid": "file:./themes/hexo-theme-fluid",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-footnote": "^3.0.3",
+    "markdown-it-sub": "^1.0.0",
+    "markdown-it-sup": "^1.0.0"
   },
-  "scripts": {
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
-  },
-  "snyk": true
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
 }
