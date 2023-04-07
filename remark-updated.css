@@ -1,0 +1,44 @@
+@import '/web-orig/remark.css';
+
+.root__copyright {
+  display: none;
+}
+
+.profile-id {
+  white-space: break-spaces;
+  overflow-wrap: break-word;
+  width: 90%;
+}
+
+.comment__body {
+  padding-left: 32px;
+}
+
+.comment-form__field,
+.comment {
+  font-size: 0.9rem;
+}
+
+.comment-form__actions button {
+  font-size: 0.8rem;
+  height: 30px;
+}
+
+.comment-form {
+  border-radius: 6px;
+}
+
+.C_B:before {
+  height: 100%;
+}
+
+:root .dark,
+:root {
+  --color7: rgba(62,75,94,0.2);
+  --color9: #0d61c9;
+  --color15: #0d61c9;
+  --color33: #0082ff;
+  --primary-color: 13,91,201;
+  --primary-brighter-color: 0,130,255;
+  --primary-darker-color: 0,130,255;
+}

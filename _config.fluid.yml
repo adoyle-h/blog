@@ -719,7 +719,8 @@ post:
     enable: true
     # 指定的插件，需要同时设置对应插件的必要参数
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: disqus
+    # type: disqus
+    type: remark42
 
 
 #---------------------------
@@ -833,11 +834,11 @@ livere:
 # Based on self-hosted service
 # See: https://remark42.com
 remark42:
-  host:
-  site_id:
+  host: https://remark-blog.woxiang.fun
+  site_id: blog
   max_shown_comments: 10
   locale: zh
-  components: ['embed']
+  components: ['embed', 'counter']
 
 # Twikoo
 # 基于腾讯云开发
@@ -1026,7 +1027,8 @@ links:
     # 指定的插件，需要同时设置对应插件的必要参数
     # The specified plugin needs to set the necessary parameters at the same time
     # Options: utterances | disqus | gitalk | valine | waline | changyan | livere | remark42 | twikoo | cusdis | giscus
-    type: disqus
+    # type: disqus
+    type: remark42
 
 
 #---------------------------
