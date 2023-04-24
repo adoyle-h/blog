@@ -248,6 +248,7 @@ body {
   border-color: #999;
 }
 
+.post-more-link button:active,
 .post-more-link button:hover {
   border-color: var(--link-hover-color);
   color: var(--link-hover-color);
