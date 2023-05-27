@@ -285,3 +285,7 @@ hr.footnotes-sep {
 [data-user-color-scheme="dark"] .markdown-body a img:hover {
   box-shadow: 0 0px 2px 0px rgb(27 133 221 / 98%), 0 0 15px 2px rgb(35 144 215 / 98%)
 }
+
+#board .post-content .post-prevnext a {
+  text-decoration: none;
+}
