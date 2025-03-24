@@ -238,12 +238,28 @@ custom_css:
 # 网页访问统计
 # Analysis of website visitors
 web_analytics:  # 网页访问统计
-  enable: false
+  enable: true
 
   # 遵循访客浏览器"请勿追踪"的设置，如果开启则不统计其访问
   # Follow the "Do Not Track" setting of the visitor's browser
   # See: https://www.w3.org/TR/tracking-dnt/
-  follow_dnt: true
+  follow_dnt: false
+
+    # Umami Analytics，src 和 data-website-id 是必填项，其他可选
+  # Umami Analytics, src and data-website-id are required, others are optional
+  umami:
+    # umami js 文件地址，需要在 umami 后台创建站点后获取
+    # umami js file url, get after create website in umami
+    src: https://u.han.adoyle.me/script.js
+    # umami 的 website id，需要在 umami 后台创建站点后获取
+    # umami website id, get after create website in umami
+    data_website_id: 8b336723-cee0-4d92-bde9-5028a56bcc40
+    # 如果你只想跟踪器跟踪特定的域名，你可以将它们添加到你的跟踪器脚本中。这是一个逗号分隔的域名列表。
+    # 如果你在一个分阶段、开发的环境中工作，这会很有帮助。避免统计 localhost。
+    # If you want the tracker to only run on specific domains, you can add them to your tracker script. This is a comma delimited list of domain names.
+    # Helps if you are working in a staging/development environment. Avoids tracking localhost.
+    data_domains:
+    # 在 web_analytics 处开启遵循访客浏览器"请勿追踪"的设置，如果开启则不统计其访问
 
   # 百度统计的 Key，值需要获取下方链接中 `hm.js?` 后边的字符串
   # Baidu analytics, get the string behind `hm.js?`
@@ -422,7 +438,7 @@ footer:
   # HTML of the first line of the footer, it is recommended to keep the Fluid link to promote this theme to more people
   content: |
     <div class="copyright">
-      Copyright © 2015-now by ADoyle. All rights reserved. 保留所有权利。
+      Copyright © 2015-Now by ADoyle (adoyle.h@gmail.com). All rights reserved. 保留所有权利。
     </div>
     <div class="theme-info copyright-description">
       文章评论属于其发表者所有，本人概不负责。其余内容版权属于 ADoyle 所有。未经授权，不得全文转载。
@@ -991,6 +1007,10 @@ links:
       link: https://github.com/adoyle-h
       avatar: https://avatars.githubusercontent.com/u/1998490?s=100&v=4
 
+    - title: 我的个人主页
+      link: https://adoyle.me
+      avatar: https://pub-cf.adoyle.me/logo.avif
+
     - title: Tech Talks
       intro: 不闲聊的技术论坛
       link: https://github.com/just-talks/tech-talks
@@ -999,17 +1019,17 @@ links:
     - title: TIL
       intro: 今天我学了什么
       link: https://adoyle.me/Today-I-Learned/
-      avatar: https://media.githubusercontent.com/media/adoyle-h/_imgs/master/assets/logo.png
+      avatar: https://pub-cf.adoyle.me/logo.avif
 
     - title: 开发工具箱
       intro: ADoyle’s Dev Toolbox
       link: https://tools.adoyle.me/
-      avatar: https://media.githubusercontent.com/media/adoyle-h/_imgs/master/assets/logo.png
+      avatar: https://pub-cf.adoyle.me/logo.avif
 
     - title: 开源项目规范
       intro: ADoyle 的开源项目规范
       link: https://gcg.adoyle.me/
-      avatar: https://media.githubusercontent.com/media/adoyle-h/_imgs/master/assets/logo.png
+      avatar: https://pub-cf.adoyle.me/logo.avif
 
   # 当成员头像加载失败时，替换为指定图片
   # When the member avatar fails to load, replace the specified image

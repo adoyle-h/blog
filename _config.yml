@@ -16,9 +16,9 @@ links_title: 友情连接
 links:
 
 social:
-    GitHub: https://github.com/adoyle-h
-    豆瓣: http://www.douban.com/people/adoyle/
-    Email: adoyle.h@gmail.com
+  GitHub: https://github.com/adoyle-h
+  豆瓣: http://www.douban.com/people/adoyle/
+  Email: adoyle.h@gmail.com
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
