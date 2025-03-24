@@ -16,7 +16,8 @@
     max-width: 94%;
   }
 
-  #subtitle, .typed-cursor {
+  #subtitle,
+  .typed-cursor {
     font-size: 1.5rem;
   }
 }
@@ -63,11 +64,11 @@ body {
 .footer-inner {
   margin: 20px auto;
   padding: 0 20px;
-  font-size: 0.5rem;
+  font-size: 0.8rem;
   color: #999;
 }
 
-.footer-inner > div:not(:first-child) {
+.footer-inner>div:not(:first-child) {
   font-size: 0.5rem;
 }
 
@@ -152,7 +153,7 @@ body {
 .post-excerpt img {
   max-width: 90%;
   margin: 1.5rem auto;
-  box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   background-color: transparent;
 }
@@ -177,7 +178,7 @@ body {
   margin-top: 30px;
 }
 
-.markdown-body > h1,
+.markdown-body>h1,
 .markdown-body h2,
 .markdown-body h3,
 .markdown-body h4,
@@ -187,7 +188,8 @@ body {
   margin-bottom: 0.6em;
 }
 
-.post-content, post-custom {
+.post-content,
+post-custom {
   padding-left: 5%;
   padding-right: 5%;
 }
@@ -201,7 +203,7 @@ body {
   font-weight: 800;
 }
 
-.post-meta > *:not(.hover-with-bg) {
+.post-meta>*:not(.hover-with-bg) {
   margin-right: 0;
 }
 
@@ -256,7 +258,7 @@ body {
 }
 
 .footnote-list li:before {
-  content: ""counter(sectioncounter)"." !important
+  content: "" counter(sectioncounter)"." !important
 }
 
 hr.footnotes-sep {
@@ -267,11 +269,11 @@ hr.footnotes-sep {
   margin: 0;
 }
 
-.markdown-body a > img,
-.markdown-body p > img,
-.markdown-body p > a > img,
-.markdown-body figure > img,
-.markdown-body figure > a > img {
+.markdown-body a>img,
+.markdown-body p>img,
+.markdown-body p>a>img,
+.markdown-body figure>img,
+.markdown-body figure>a>img {
   box-shadow: none;
   border-radius: 0;
   transition: 1s;
