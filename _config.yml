@@ -10,20 +10,21 @@ description: 大自然的搬运工
 author: ADoyle
 language: zh-CN
 timezone: Asia/Shanghai
-avatar: https://avatars2.githubusercontent.com/u/1998490?v=3&s=460
+avatar: https://pub-cf.adoyle.me/head/head_440.avif
 
 links_title: 友情连接
 links:
 
 social:
+  Email: adoyle.h@gmail.com
+  个人主页: https://adoyle.me
   GitHub: https://github.com/adoyle-h
   豆瓣: http://www.douban.com/people/adoyle/
-  Email: adoyle.h@gmail.com
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://adoyle.me/blog
-root: /blog/
+url: https://blog.adoyle.me
+root: /
 permalink: :title.html
 permalink_defaults:
     category: unclassified

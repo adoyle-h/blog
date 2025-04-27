@@ -251,15 +251,15 @@ web_analytics:  # 网页访问统计
   umami:
     # umami js 文件地址，需要在 umami 后台创建站点后获取
     # umami js file url, get after create website in umami
-    src: https://u.han.adoyle.me/script.js
+    src: https://pub-cf.adoyle.me/umami.script.js
 
     # umami 的 website id，需要在 umami 后台创建站点后获取
     # umami website id, get after create website in umami
-    website_id: 8b336723-cee0-4d92-bde9-5028a56bcc40
+    website_id: 4944af07-9473-45c0-b3d2-35e88fddcfa6
 
     # 如果你只想统计特定的域名可以填入此字段，多个域名通过逗号分隔，这可以避免统计 localhost。
     # If you only want to tracker to specific domains you can fill in this field, multiple domain names are separated by commas, which can avoid tracker localhost
-    domains:
+    domains: blog.adoyle.me
 
     # 用于统计 PV UV 的开始时间，格式为 "YYYY-MM-DD"
     # statistics on the start time, the format is "YYYY-MM-DD"
@@ -1017,16 +1017,20 @@ links:
     - title: Github
       intro: 我的 Github 主页
       link: https://github.com/adoyle-h
-      avatar: https://avatars.githubusercontent.com/u/1998490?s=100&v=4
+      avatar: https://pub-cf.adoyle.me/head/head_440.avif
 
-    - title: 我的个人主页
+    - title: ADoyle 的个人主页
       link: https://adoyle.me
+      avatar: https://pub-cf.adoyle.me/logo.avif
+
+    - title: ADoyle 的观思言
+      link: https://talks.adoyle.me
       avatar: https://pub-cf.adoyle.me/logo.avif
 
     - title: Tech Talks
       intro: 不闲聊的技术论坛
       link: https://github.com/just-talks/tech-talks
-      avatar: https://avatars.githubusercontent.com/u/126453571?s=100&v=4
+      avatar: https://blog-assets.adoyle.me/126453571.avif
 
     - title: TIL
       intro: 今天我学了什么

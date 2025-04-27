@@ -10,7 +10,7 @@ copyright: '未经授权，不得全文转载。转载前请先阅读<a rel="lic
 
 一张图
 
-![](https://cloud.githubusercontent.com/assets/37303/5728694/f9a3e300-9b20-11e4-9e14-a6938b3327f0.png)
+![](https://blog-assets.adoyle.me/f9a3e300-9b20-11e4-9e14-a6938b3327f0.avif)
 
 <!-- more -->
 
