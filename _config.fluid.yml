@@ -373,7 +373,7 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
-    - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
+    - { key: "about", link: "https://talks.adoyle.me/about", icon: "iconfont icon-user-fill" }
     - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
     - { key: 'RSS', link: "/atom.xml", icon: "iconfont icon-rss"}
     - { key: 'src', link: "https://github.com/adoyle-h/blog", icon: "iconfont icon-code"}
@@ -962,7 +962,7 @@ tag:
 # About Page
 #---------------------------
 about:
-  enable: true
+  enable: false
   banner_img: ""
   banner_img_height: 30
   banner_mask_alpha: 0.3
@@ -1014,17 +1014,19 @@ links:
   banner_img_height: 30
   banner_mask_alpha: 0.3
   items:
+    - title: 个人主页
+      intro: https://adoyle.me
+      link: https://adoyle.me
+      avatar: https://pub-cf.adoyle.me/logo.avif
+
     - title: Github
       intro: 我的 Github 主页
       link: https://github.com/adoyle-h
       avatar: https://pub-cf.adoyle.me/head/head_440.avif
 
-    - title: ADoyle 的个人主页
-      link: https://adoyle.me
-      avatar: https://pub-cf.adoyle.me/logo.avif
-
     - title: ADoyle 的观思言
       link: https://talks.adoyle.me
+      intro: 我的精神角落
       avatar: https://pub-cf.adoyle.me/logo.avif
 
     - title: Tech Talks
